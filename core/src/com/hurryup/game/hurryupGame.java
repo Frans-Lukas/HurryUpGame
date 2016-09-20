@@ -28,8 +28,7 @@ public class hurryupGame extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
-		views.push(new MainMenu());
-
+		views.push(new TestLevel());
 	}
 
 	@Override
@@ -37,9 +36,11 @@ public class hurryupGame extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		views.peek().update(millis() - prevTime);
+		IView viewToDraw = views.peek();
+
+		viewToDraw.update(millis() - prevTime);
 		batch.begin();
-		views.peek().draw(batch);
+		viewToDraw.draw(batch);
 		batch.end();
 
 		prevTime = millis();
@@ -53,6 +54,7 @@ public class hurryupGame extends ApplicationAdapter {
 	}
 
 	public static void pushView(IView viewToSet){
+
 		views.push(viewToSet);
 	}
 	public static IView popView(){

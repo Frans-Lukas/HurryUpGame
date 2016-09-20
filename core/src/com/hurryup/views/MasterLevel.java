@@ -8,8 +8,11 @@ import com.hurryup.objects.MasterClass;
 import com.hurryup.objects.tiles.Button;
 import com.hurryup.objects.tiles.NormalGround;
 import com.hurryup.objects.tiles.Tile;
+import com.sun.deploy.util.ArrayUtil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Created by frasse on 2016-09-20.
@@ -24,28 +27,32 @@ public class MasterLevel implements IView{
 
     public void loadTiles(String fileName){
 
-        int height = 0;
-        int width = 0;
-        int index = 0;
-
         FileHandle file = Gdx.files.internal(fileName);
 
         String lineArray[] = file.readString().split("\\r?\\n");
 
-        for(String line : lineArray){
-            width++;
-            for(String part : line.split(",")){
+        ArrayList<String> lineArray2 = new ArrayList<String>(Arrays.asList(lineArray));
+        Collections.reverse(lineArray2);
+        lineArray = lineArray2.toArray(new String[lineArray2.size()]);
 
+        int height = 0;
+        int index = 0;
+
+        for(String line : lineArray){
+            int width = 0;
+            for(String part : line.split(",")){
                 if(part.equals("1")){
                     tiles.add(index, new NormalGround(new Vector2(width * Tile.width, height * Tile.height)));
                     index++;
                 } else if(part.equals("2")){
                     tiles.add(index, new Button(new Vector2(width * Tile.width, height * Tile.height)));
                     index++;
-                }
 
-                height++;
+                }
+                width++;
+
             }
+            height++;
         }
 
     }

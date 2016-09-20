@@ -13,11 +13,11 @@ public class Button extends Tile {
 
     @Override
     public void draw(SpriteBatch batch) {
-        super.Draw(batch);
+        super.draw(batch);
     }
 
     @Override
     public void update(long deltaTime) {
-        super.Update(deltaTime);
+        super.update(deltaTime);
     }
 }
