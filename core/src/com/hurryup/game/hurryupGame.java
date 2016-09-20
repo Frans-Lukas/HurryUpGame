@@ -23,12 +23,37 @@ public class hurryupGame extends ApplicationAdapter {
 	private static Deque<IView> views = new ArrayDeque<IView>();
 
 	long prevTime = millis();
+	private Thread serverWorker;
+	private Thread clientWorker;
+    private String ip = "127.0.0.1";
+    private int port = 1337;
+    private boolean host = true;
+    private ServerLogic serverLogic;
+    private ClientLogic clientLogic;
 
+    public hurryupGame(boolean host)
+    {
+        this.host = host;
+    }
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 		views.push(new TestLevel());
+        System.out.println(System.getProperty("server"));
+        if(host) {
+
+            serverLogic = new ServerLogic("127.0.0.1",1337);
+            serverWorker = new Thread(serverLogic);
+            serverLogic.setView(views.peek());
+			serverWorker.start();
+
+        }
+        else {
+            clientLogic = new ClientLogic("127.0.0.1", 1337);
+			clientWorker = new Thread(clientLogic);
+			clientWorker.start();
+        }
 	}
 
 	@Override
@@ -60,4 +85,5 @@ public class hurryupGame extends ApplicationAdapter {
 	public static IView popView(){
 		return views.pop();
 	}
+
 }

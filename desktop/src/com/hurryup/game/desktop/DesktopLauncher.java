@@ -7,6 +7,7 @@ import com.hurryup.game.hurryupGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new hurryupGame(), config);
+		boolean d = arg.length > 0;
+		new LwjglApplication(new hurryupGame(d), config);
 	}
 }
