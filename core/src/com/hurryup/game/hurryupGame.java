@@ -17,7 +17,6 @@ import static com.badlogic.gdx.utils.TimeUtils.millis;
 public class hurryupGame extends ApplicationAdapter {
 
 	SpriteBatch batch;
-	Texture img;
 
 	//cameracontrol
 	private OrthographicCamera camera;
@@ -72,7 +71,6 @@ public class hurryupGame extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		batch.dispose();
-		img.dispose();
 	}
 
 	//change view to watch

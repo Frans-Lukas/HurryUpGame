@@ -15,8 +15,7 @@ public class TestLevel extends MasterLevel{
     private ArrayList<MasterClass> entities = new ArrayList<MasterClass>();
 
     public TestLevel() {
-
-        super();
+        super("map1.txt");
         //add player to entity array.
         entities.add(new Player());
     }
