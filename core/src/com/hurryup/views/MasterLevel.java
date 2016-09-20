@@ -21,16 +21,20 @@ public class MasterLevel implements IView{
 
     protected ArrayList<Tile> tiles = new ArrayList<Tile>();
 
-    public MasterLevel(){
-        loadTiles("map1.txt");
+    public MasterLevel(String fileName){
+        loadTiles(fileName);
     }
 
+    //load map from textfile.
     public void loadTiles(String fileName){
 
+        //get textfile with map.
         FileHandle file = Gdx.files.internal(fileName);
 
+        //read entire map and split newlines to array.
         String lineArray[] = file.readString().split("\\r?\\n");
 
+        //reverse map to get floor to get height of 0.
         ArrayList<String> lineArray2 = new ArrayList<String>(Arrays.asList(lineArray));
         Collections.reverse(lineArray2);
         lineArray = lineArray2.toArray(new String[lineArray2.size()]);
@@ -38,13 +42,18 @@ public class MasterLevel implements IView{
         int height = 0;
         int index = 0;
 
+        //read map and insert objects equal to map into tile arraylist.
         for(String line : lineArray){
             int width = 0;
             for(String part : line.split(",")){
+
+                //add normalGround to tiles arraylist.
                 if(part.equals("1")){
                     tiles.add(index, new NormalGround(new Vector2(width * Tile.width, height * Tile.height)));
                     index++;
-                } else if(part.equals("2")){
+                }
+                //add button to arraylist.
+                else if(part.equals("2")){
                     tiles.add(index, new Button(new Vector2(width * Tile.width, height * Tile.height)));
                     index++;
 

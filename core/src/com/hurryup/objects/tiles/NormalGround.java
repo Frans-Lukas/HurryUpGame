@@ -19,11 +19,12 @@ public class NormalGround extends Tile {
 
     @Override
     public void draw(SpriteBatch batch) {
+        //render entire map from tilemap.
         ShapeRenderer renderer = new ShapeRenderer();
 
         renderer.begin(ShapeRenderer.ShapeType.Filled);
 
-        renderer.setColor(Color.WHITE);
+        renderer.setColor(Color.BLACK);
         renderer.rect(position.x, position.y, 32, 32);
         renderer.end();
     }

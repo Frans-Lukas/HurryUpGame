@@ -12,6 +12,7 @@ public class Tile extends MasterClass{
     public static final int width = 32;
     protected Vector2 position;
 
+    //get position for every tile
     public Tile(Vector2 position){
         this.position = position;
     }

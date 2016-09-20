@@ -10,20 +10,16 @@ import com.hurryup.game.hurryupGame;
 public class MainMenu implements IView {
     Texture img = new Texture("badlogic.jpg");
 
-    public MainMenu() {
-        System.out.print("Hello, world1");
-        hurryupGame.pushView(new TestLevel());
-    }
+
+    public MainMenu() {}
 
 
     @Override
     public void draw(SpriteBatch batch) {
-
         batch.draw(img, 0, 0);
     }
 
     @Override
     public void update(long deltaTime) {
-        //hurryupGame.pushView(new TestLevel());
     }
 }
