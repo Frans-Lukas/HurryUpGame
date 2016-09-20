@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class MasterLevel implements IView{
 
-    ArrayList<Tile> tiles = new ArrayList<Tile>();
+    protected ArrayList<Tile> tiles = new ArrayList<Tile>();
 
     public MasterLevel(){
         loadTiles("map1.txt");

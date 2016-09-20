@@ -13,12 +13,12 @@ public class NormalGround extends Tile {
     }
 
     @Override
-    public void Draw(SpriteBatch batch) {
+    public void draw(SpriteBatch batch) {
         super.Draw(batch);
     }
 
     @Override
-    public void Update(long deltaTime) {
+    public void update(long deltaTime) {
         super.Update(deltaTime);
     }
 }

@@ -17,10 +17,10 @@ public class Tile extends MasterClass{
     }
 
     @Override
-    public void Draw(SpriteBatch batch) {
+    public void draw(SpriteBatch batch) {
     }
 
     @Override
-    public void Update(long deltaTime) {
+    public void update(long deltaTime) {
     }
 }
