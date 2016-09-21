@@ -14,9 +14,11 @@ public class Button extends Tile {
 
     Color buttonColor = Color.RED;
     boolean buttonPushed = false;
+    boolean restartButton = false;
 
     public Button(Vector2 position) {
         super(position);
+        height = 32;
     }
 
     @Override
@@ -35,11 +37,27 @@ public class Button extends Tile {
         super.update(deltaTime);
         if(buttonPushed && height > 16){
             height--;
+            restartButton = false;
+        }
+        if(restartButton && height < 32){
+            height++;
+            if(height == 32){
+                restartButton = false;
+            }
         }
 
     }
 
     public void pushButton(){
         buttonPushed = true;
+    }
+
+    public void unPushButton(){
+        buttonPushed = false;
+        restartButton = true;
+    }
+
+    public void setColor(Color color){
+        buttonColor = color;
     }
 }
