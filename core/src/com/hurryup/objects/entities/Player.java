@@ -25,9 +25,12 @@ public class Player extends MasterClass {
     Texture playerTexture = new Texture("badlogic.jpg");
     Rectangle player;
 
-    int playerSpeed = 4;
+    int playerSpeed = 6;
+    int jumpSpeed = 20;
+    int gravity = 1;
     int velocityX = 0;
     int velocityY = 0;
+    boolean jumping = false;
 
     public Player(){
 
@@ -43,7 +46,7 @@ public class Player extends MasterClass {
     public void draw(SpriteBatch batch) {
         //draw player
 
-
+        //render player.
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         renderer.setProjectionMatrix(camera.combined);
         renderer.setColor(Color.BLUE);
@@ -78,41 +81,87 @@ public class Player extends MasterClass {
     }
 
     public void handleInput(ArrayList<Tile> tiles){
+
         boolean left = Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A);
         boolean right = Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D);
         boolean up = Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W);
         boolean down = Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S);
 
-        if(left){
-            player.x -= playerSpeed;
-        }
-        if(right){
-            player.x += playerSpeed;
-        }
-        if(up){
-            player.y += playerSpeed;
-        }
-        if(down){
-            player.y -= playerSpeed;
-        }
-
-        /*for(Tile tile : tiles){
-            if(player.x < tile.getRight()){
-                player.x = tile.getRight();
+        //move player
+        if(left || right){
+            if(left) {
+                velocityX -= playerSpeed;
             }
-            /*if(player.x + width > tile.getLeft() && player.x < tile.getLeft()){
-                player.x = tile.getLeft();
+            if(right){
+                velocityX += playerSpeed;
             }
-            if(player.y < tile.getTop() && player.y + height > tile.getTop()){
-                player.y = tile.getTop();
-            }
+        } else{
+            velocityX = 0;
+        }
+        //can't double jump
+        if(up && !jumping){
+            velocityY += jumpSpeed;
+            jumping = true;
+        }
+        /*if(down){
+            velocityY -= playerSpeed;
         }*/
 
+        //max velocity
+        if(velocityX >= 7){
+            velocityX = 7;
+        } else if(velocityX <= -7){
+            velocityX = -7;
+        }
+        if(velocityY >= 16){
+            velocityY = 16;
+        }
 
+        //gravity
+        velocityY -= gravity;
 
+        //collision check!
+        for(Tile tile : tiles){
+            if(checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y)){
+                //keep player 0 distance from wall if collision is detected.
+                if(velocityX < 0){
+                    while(checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y)){
+                        velocityX++;
+                    }
+                } else if(velocityX > 0){
+                    while(checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y)){
+                        velocityX--;
+                    }
 
+                }
 
+            }
+            //check vertical collision;
+            if(checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y)){
+                //keep the player at 0 above ground.
+                while(checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y)){
+                    velocityY++;
+                }
+                jumping = false;
+            }
+        }
 
+        //move player
+        player.x += velocityX;
+        player.y += velocityY;
+    }
+
+    //checks collision with blocks of the same size only.
+    boolean checkCollision(float x1, float x2, float y1, float y2){
+        boolean collision = false;
+        if(x1 < x2 + width &&
+                x1 + width > x2 &&
+                y1 < y2 + height &&
+                y1 + height > y2){
+            collision = true;
+        }
+
+        return collision;
     }
 
 }
