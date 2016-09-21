@@ -73,6 +73,7 @@ public class hurryupGame extends ApplicationAdapter {
                 vv = 0;
                 gameClient.sendMessage("Second passed");
             }
+            gameClient.update();
         }
         viewToDraw.update(millis() - prevTime);
 		batch.begin();
