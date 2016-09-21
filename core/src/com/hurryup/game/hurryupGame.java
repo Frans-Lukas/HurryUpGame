@@ -55,7 +55,7 @@ public class hurryupGame extends ApplicationAdapter {
 
 
 	}
-
+    private float vv = 0;
 	@Override
 	public void render(){
 		Gdx.gl.glClearColor(1, 0, 0, 1);
@@ -65,7 +65,15 @@ public class hurryupGame extends ApplicationAdapter {
 
         if(gameServer != null)
             gameServer.Update();
-
+        if(gameClient != null)
+        {
+            vv += millis() - prevTime;
+            if(vv > 1000)
+            {
+                vv = 0;
+                gameClient.sendMessage("Second passed");
+            }
+        }
         viewToDraw.update(millis() - prevTime);
 		batch.begin();
 		viewToDraw.draw(batch);

@@ -24,4 +24,8 @@ public class GameClient {
         else
             return null;
     }
+
+    public void sendMessage(String msg){
+        clientLogic.sendMessage(msg);
+    }
 }

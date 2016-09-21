@@ -21,6 +21,7 @@ public class Server {
         String msg;
         while((msg = Client.getMessage()) != null){
             serverLogic.broadcast(msg);
+            System.out.println("Got message " + msg);
         }
     }
 
