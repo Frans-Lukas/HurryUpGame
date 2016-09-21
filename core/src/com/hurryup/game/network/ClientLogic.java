@@ -6,13 +6,14 @@ import com.badlogic.gdx.net.Socket;
 import com.badlogic.gdx.net.SocketHints;
 
 import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by Klas on 2016-09-20.
  */
-public class ClientLogic implements Runnable {
+class ClientLogic implements Runnable {
     private int port;
     private String ip;
     private static ArrayList<String> messages = new ArrayList<String>();
@@ -20,9 +21,13 @@ public class ClientLogic implements Runnable {
     private static ReentrantLock incomingMessageLock = new ReentrantLock();
     private static ArrayList<String> incomingMessages = new ArrayList<String>();
 
+    private ClientMessageReader clientMessageReader;
+    private Thread clientReaderWorker;
+    private boolean exit = false;
     public ClientLogic(String ip, int port){
         this.ip = ip;
         this.port = port;
+
     }
 
     @Override
@@ -31,7 +36,11 @@ public class ClientLogic implements Runnable {
         socketHints.connectTimeout = 0;
 
         Socket clientSocket = Gdx.net.newClientSocket(Net.Protocol.TCP,ip,port,socketHints);
-        while(true){
+        clientMessageReader = new ClientMessageReader(new BufferedReader(new InputStreamReader(clientSocket.getInputStream())));
+        clientReaderWorker = new Thread(clientMessageReader);
+        clientReaderWorker.start();
+
+        while(!exit){
             messageLock.lock();
             for (String msg: messages) {
                 try{
@@ -102,7 +111,7 @@ public class ClientLogic implements Runnable {
 class ClientMessageReader implements Runnable{
 
     private BufferedReader reader;
-    boolean exit = false;
+    private boolean exit = false;
 
     public ClientMessageReader(BufferedReader reader){
         this.reader = reader;

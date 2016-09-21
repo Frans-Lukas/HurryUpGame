@@ -9,7 +9,7 @@ import com.badlogic.gdx.net.Socket;
 /**
  * Created by Klas on 2016-09-21.
  */
-public class Client {
+class Client {
     private Socket socket;
     private BufferedReader reader;
     private Thread worker;
@@ -28,7 +28,7 @@ public class Client {
 
     public void sendMessage(String msg){
         try {
-            socket.getOutputStream().write(msg.getBytes());
+            socket.getOutputStream().write((msg + "\n").getBytes());
         }
         catch(Exception e){
             System.out.println("Error writing " + msg + " to client");
@@ -78,7 +78,7 @@ class MessageReader implements Runnable{
                 Client.addMessage(msg);
             }
             catch(Exception e) {
-
+                System.out.println("Error reading message from client");
             }
         }
     }

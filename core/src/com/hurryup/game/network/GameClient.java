@@ -25,7 +25,13 @@ public class GameClient {
             return null;
     }
 
+    public void update(){
+        String d = ClientLogic.getMessage();
+        if(d != null)
+            System.out.println("Message: " + d);
+    }
+
     public void sendMessage(String msg){
-        clientLogic.sendMessage(msg);
+        ClientLogic.sendMessage(msg);
     }
 }
