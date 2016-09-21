@@ -2,9 +2,11 @@ package com.hurryup.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hurryup.views.TestLevel;
 import com.hurryup.views.IView;
@@ -19,28 +21,31 @@ public class hurryupGame extends ApplicationAdapter {
 	SpriteBatch batch;
 
 	//cameracontrol
-	private OrthographicCamera camera;
+	static public OrthographicCamera camera;
 
 	//stack for view handling
 	private static Deque<IView> views = new ArrayDeque<IView>();
 
 	//height and width of game screen.
-	public static final int WIDTH = 800;
-	public static final int HEIGHT = 400;
+	public static final int WIDTH = 1280;
+	public static final int HEIGHT = 720;
 
 	//keep track of time
 	long prevTime = millis();
 
+	BitmapFont font;
+
 	@Override
 	public void create () {
-
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, WIDTH, HEIGHT);
 
 		batch = new SpriteBatch();
-
+		font = new BitmapFont();
+		font.setColor(Color.BLACK);
 		//start with testlevel.
 		views.push(new TestLevel());
+
 	}
 
 	@Override
@@ -50,7 +55,6 @@ public class hurryupGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		camera.update();
-
 		//create variable to make viewhandling easier.
 		IView viewToDraw = views.peek();
 
@@ -58,10 +62,13 @@ public class hurryupGame extends ApplicationAdapter {
 		viewToDraw.update(millis() - prevTime);
 
 		//draw current view.
-		batch.setProjectionMatrix(camera.combined);
+
 		batch.begin();
-		viewToDraw.draw(batch);
+		batch.setProjectionMatrix(camera.combined);
+		viewToDraw.draw(batch, millis() - prevTime);
+		font.draw(batch, "hello", 200, 200);
 		batch.end();
+
 
 		//keep track of current time.
 		prevTime = millis();

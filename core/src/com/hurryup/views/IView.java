@@ -11,8 +11,10 @@ import java.util.ArrayList;
  */
 public interface IView {
 
-    void draw(SpriteBatch batch);
+    void draw(SpriteBatch batch, long deltaTime);
 
     void update(long deltaTime);
+
+    void dispose();
 
 }

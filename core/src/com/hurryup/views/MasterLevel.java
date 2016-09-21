@@ -25,6 +25,11 @@ public class MasterLevel implements IView{
         loadTiles(fileName);
     }
 
+    @Override
+    public void dispose() {
+
+    }
+
     //load map from textfile.
     public void loadTiles(String fileName){
 
@@ -67,7 +72,7 @@ public class MasterLevel implements IView{
     }
 
     @Override
-    public void draw(SpriteBatch batch) {
+    public void draw(SpriteBatch batch, long deltaTime) {
 
     }
     @Override

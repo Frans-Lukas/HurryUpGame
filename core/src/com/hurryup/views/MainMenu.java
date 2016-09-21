@@ -15,7 +15,12 @@ public class MainMenu implements IView {
 
 
     @Override
-    public void draw(SpriteBatch batch) {
+    public void dispose() {
+
+    }
+
+    @Override
+    public void draw(SpriteBatch batch, long deltaTime) {
         batch.draw(img, 0, 0);
     }
 
