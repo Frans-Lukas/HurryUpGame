@@ -66,7 +66,7 @@ public class hurryupGame extends ApplicationAdapter {
 		batch.begin();
 		batch.setProjectionMatrix(camera.combined);
 		viewToDraw.draw(batch, millis() - prevTime);
-		font.draw(batch, "hello", 200, 200);
+		//font.draw(batch, "hello", 200, 200);
 		batch.end();
 
 

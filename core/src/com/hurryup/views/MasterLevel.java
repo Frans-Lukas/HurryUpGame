@@ -54,12 +54,12 @@ public class MasterLevel implements IView{
 
                 //add normalGround to tiles arraylist.
                 if(part.equals("1")){
-                    tiles.add(index, new NormalGround(new Vector2(width * Tile.width, height * Tile.height)));
+                    tiles.add(index, new NormalGround(new Vector2(width * 64, height * 64)));
                     index++;
                 }
                 //add button to arraylist.
                 else if(part.equals("2")){
-                    tiles.add(index, new Button(new Vector2(width * Tile.width, height * Tile.height)));
+                    tiles.add(index, new Button(new Vector2(width * 64, height * 64)));
                     index++;
 
                 }

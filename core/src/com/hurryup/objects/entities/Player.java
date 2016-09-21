@@ -8,13 +8,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.hurryup.objects.MasterClass;
+import com.hurryup.objects.tiles.Button;
 import com.hurryup.objects.tiles.Tile;
-import com.sun.deploy.util.ArrayUtil;
 
 import java.util.ArrayList;
 
-import static com.hurryup.game.hurryupGame.HEIGHT;
-import static com.hurryup.game.hurryupGame.WIDTH;
 import static com.hurryup.game.hurryupGame.camera;
 
 
@@ -26,7 +24,7 @@ public class Player extends MasterClass {
     Rectangle player;
 
     int playerSpeed = 6;
-    int jumpSpeed = 20;
+    int jumpSpeed = 50;
     int gravity = 1;
     int velocityX = 0;
     int velocityY = 0;
@@ -122,14 +120,15 @@ public class Player extends MasterClass {
 
         //collision check!
         for(Tile tile : tiles){
-            if(checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y)){
+            if(checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y, tile.getWidth(), tile.getHeight())){
                 //keep player 0 distance from wall if collision is detected.
+
                 if(velocityX < 0){
-                    while(checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y)){
+                    while(checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y, tile.getWidth(), tile.getHeight())){
                         velocityX++;
                     }
                 } else if(velocityX > 0){
-                    while(checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y)){
+                    while(checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y, tile.getWidth(), tile.getHeight())){
                         velocityX--;
                     }
 
@@ -137,9 +136,12 @@ public class Player extends MasterClass {
 
             }
             //check vertical collision;
-            if(checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y)){
+            if(checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, tile.getWidth(), tile.getHeight())){
                 //keep the player at 0 above ground.
-                while(checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y)){
+                if(tile instanceof Button){
+                    ((Button) tile).pushButton();
+                }
+                while(checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, tile.getWidth(), tile.getHeight())){
                     velocityY++;
                 }
                 jumping = false;
@@ -152,7 +154,7 @@ public class Player extends MasterClass {
     }
 
     //checks collision with blocks of the same size only.
-    boolean checkCollision(float x1, float x2, float y1, float y2){
+    boolean checkCollision(float x1, float x2, float y1, float y2, int width, int height){
         boolean collision = false;
         if(x1 < x2 + width &&
                 x1 + width > x2 &&
@@ -160,13 +162,7 @@ public class Player extends MasterClass {
                 y1 + height > y2){
             collision = true;
         }
-
         return collision;
     }
 
 }
-
-
-
-
-
