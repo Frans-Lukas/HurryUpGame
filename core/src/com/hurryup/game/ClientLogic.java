@@ -28,7 +28,7 @@ public class ClientLogic implements Runnable {
             System.out.println("wrotemsg");
         }
         catch(Exception e){
-
+            System.out.println(e.getMessage());
         }
     }
 }

@@ -31,6 +31,7 @@ public class ServerLogic implements Runnable{
 
         while(true){
             Socket cSocket = serverSocket.accept(null);
+            System.out.println("Got connection");
             BufferedReader buffer = new BufferedReader(new InputStreamReader(cSocket.getInputStream()));
             try{
                 System.out.println("Read stuff");
@@ -43,6 +44,7 @@ public class ServerLogic implements Runnable{
                 }
             }
             catch(Exception e) {
+                System.out.println(e.getMessage());
             }
         }
     }
