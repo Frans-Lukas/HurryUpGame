@@ -1,28 +1,29 @@
-package com.hurryup.game;
+package com.hurryup.game.network;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.net.ServerSocket;
 import com.badlogic.gdx.net.ServerSocketHints;
 import com.badlogic.gdx.net.Socket;
-import com.badlogic.gdx.net.SocketHints;
-import com.hurryup.views.IView;
+import com.hurryup.game.network.Client;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by Klas on 2016-09-20.
  */
 public class ServerLogic implements Runnable{
-    private String ip;
-    private int port;
-    private ArrayList<Socket> clients = new ArrayList<Socket>();
 
-    public ServerLogic(String ip, int port){
+    private int port;
+    private ReentrantLock clientLock = new ReentrantLock();
+
+    private ArrayList<Client> clients = new ArrayList<Client>();
+
+    public ServerLogic(int port){
         this.port = port;
-        this.ip = ip;
     }
 
     @Override
@@ -34,29 +35,23 @@ public class ServerLogic implements Runnable{
 
         while(true){
             Socket cSocket = serverSocket.accept(null);
-            System.out.println("Got connection");
+
+            System.out.println("Client connected!");
+
             BufferedReader buffer = new BufferedReader(new InputStreamReader(cSocket.getInputStream()));
-            try{
-                System.out.println("Read stuff");
-                if(buffer.readLine().equals("hej")){
-                    System.out.println("WOLOLO");
-                    throw(new Exception("hej"));
-                }
-                else {
-                    System.out.println("Got other");
-                }
-            }
-            catch(Exception e) {
-                System.out.println(e.getMessage());
-            }
+            clientLock.lock();
+            clients.add(new Client(cSocket,buffer));
+            clientLock.unlock();
         }
     }
 
-    public void setView(IView view){
-
+    public void broadcast(String msg){
+        clientLock.lock();
+        for (Client c: clients) {
+            c.sendMessage(msg);
+        }
+        clientLock.unlock();
     }
 
-    private void sendMessage(int id,int state) {
-
-    }
 }
+

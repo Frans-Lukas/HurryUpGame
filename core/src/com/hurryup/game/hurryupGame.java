@@ -5,13 +5,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.hurryup.objects.MasterClass;
-import com.hurryup.views.MainMenu;
+import com.hurryup.game.network.ClientLogic;
+import com.hurryup.game.network.GameClient;
+import com.hurryup.game.network.Server;
+import com.hurryup.game.network.ServerLogic;
 import com.hurryup.views.TestLevel;
 import com.hurryup.views.IView;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
 
 import static com.badlogic.gdx.utils.TimeUtils.millis;
@@ -28,13 +29,16 @@ public class hurryupGame extends ApplicationAdapter {
     private String ip = "127.0.0.1";
     private int port = 1337;
     private boolean host = true;
-    private ServerLogic serverLogic;
-    private ClientLogic clientLogic;
+    private Server gameServer;
+    private GameClient gameClient;
 
     public hurryupGame(boolean host)
     {
         this.host = host;
     }
+    public hurryupGame(){
+
+	}
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -42,18 +46,14 @@ public class hurryupGame extends ApplicationAdapter {
 		views.push(new TestLevel());
         System.out.println(System.getProperty("server"));
         if(host) {
-
-            serverLogic = new ServerLogic("127.0.0.1",1337);
-            serverWorker = new Thread(serverLogic);
-            serverLogic.setView(views.peek());
-			serverWorker.start();
-
+            gameServer = new Server(1337);
+            System.out.println("Hej");
         }
-        else {
-            clientLogic = new ClientLogic("127.0.0.1", 1337);
-			clientWorker = new Thread(clientLogic);
-			clientWorker.start();
+        else{
+            gameClient = new GameClient("127.0.0.1", 1337);
         }
+
+
 	}
 
 	@Override
@@ -63,7 +63,10 @@ public class hurryupGame extends ApplicationAdapter {
 
 		IView viewToDraw = views.peek();
 
-		viewToDraw.update(millis() - prevTime);
+        if(gameServer != null)
+            gameServer.Update();
+
+        viewToDraw.update(millis() - prevTime);
 		batch.begin();
 		viewToDraw.draw(batch);
 		batch.end();
@@ -79,7 +82,6 @@ public class hurryupGame extends ApplicationAdapter {
 	}
 
 	public static void pushView(IView viewToSet){
-
 		views.push(viewToSet);
 	}
 	public static IView popView(){

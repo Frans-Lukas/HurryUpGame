@@ -9,6 +9,9 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = 1280;
 		config.height = 720;
-		new LwjglApplication(new hurryupGame((arg[0].equals("server"))), config);
+		boolean b = false;
+		if(arg.length > 0)
+			b = (arg[0].equals("server"));
+		new LwjglApplication(new hurryupGame(b), config);
 	}
 }
