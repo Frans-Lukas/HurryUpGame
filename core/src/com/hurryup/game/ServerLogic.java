@@ -10,12 +10,15 @@ import com.hurryup.views.IView;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+
 /**
  * Created by Klas on 2016-09-20.
  */
 public class ServerLogic implements Runnable{
     private String ip;
     private int port;
+    private ArrayList<Socket> clients = new ArrayList<Socket>();
 
     public ServerLogic(String ip, int port){
         this.port = port;
@@ -50,6 +53,10 @@ public class ServerLogic implements Runnable{
     }
 
     public void setView(IView view){
+
+    }
+
+    private void sendMessage(int id,int state) {
 
     }
 }
