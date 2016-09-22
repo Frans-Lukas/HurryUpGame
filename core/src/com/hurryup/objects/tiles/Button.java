@@ -45,7 +45,6 @@ public class Button extends Tile {
                 restartButton = false;
             }
         }
-
     }
 
     public void pushButton(){
