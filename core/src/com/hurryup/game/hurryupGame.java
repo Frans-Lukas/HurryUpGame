@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hurryup.game.network.GameClient;
 import com.hurryup.game.network.Server;
-import com.hurryup.objects.MessageHandler;
 import com.hurryup.views.TestLevel;
 import com.hurryup.views.IView;
 
@@ -29,7 +28,7 @@ public class hurryupGame extends ApplicationAdapter {
 
 	//cameracontrol
 	static public OrthographicCamera camera;
-
+	private IView viewToDraw;
 	//stack for view handling
 	private static Deque<IView> views = new ArrayDeque<IView>();
 
@@ -88,20 +87,20 @@ public class hurryupGame extends ApplicationAdapter {
 
 		//client messages
 		/*
-		if(MessageHandler.doorOpen){
-			client.sendMessage("door:red, button:blue, lever:green");
+		if(MessageManager.doorOpen){
+			client.sendMessage("doorOpened");
 		}
 		String message = client.getMessage();
 
 		if(message != null) {
 			if (message.equals("doorOpened")) {
-				MessageHandler.doorOpen = true;
+				MessageManager.doorOpen = true;
 			}
-		}*/
+		}
+		*/
 
-
-		//create variable to make viewhandling easier.
-		IView viewToDraw = views.peek();
+		//create variable to make view management easier.
+		viewToDraw = views.peek();
 
 		//update current view
 		viewToDraw.update(millis() - prevTime);
