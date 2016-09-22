@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.hurryup.objects.MessageHandler;
+import com.hurryup.objects.MessageManager;
 
 import static com.hurryup.game.hurryupGame.camera;
 
@@ -33,9 +33,9 @@ public class Door extends Tile {
     @Override
     public void update(long deltaTime) {
         super.update(deltaTime);
-        if(MessageHandler.doorOpen && height > 0){
-            height--;
-        }
+        //if(MessageManager.doorOpen && height > 0){
+           // height--;
+        //}
     }
 
     @Override
