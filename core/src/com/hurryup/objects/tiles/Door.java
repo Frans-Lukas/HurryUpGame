@@ -4,19 +4,19 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.hurryup.objects.MessageManager;
+import com.hurryup.objects.logic.LogicColor;
 
 import static com.hurryup.game.hurryupGame.camera;
 
 /**
  * Created by frasse on 2016-09-21.
  */
-public class Door extends Tile {
+public class Door extends LogicTile {
     private boolean open = false;
 
 
     public Door(Vector2 position) {
-        super(position);
+        super(position, LogicColor.Blue,1,0);
     }
 
     @Override

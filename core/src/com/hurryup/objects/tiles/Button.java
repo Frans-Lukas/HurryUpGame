@@ -4,21 +4,21 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.hurryup.objects.MessageManager;
+import com.hurryup.objects.logic.LogicColor;
 
 import static com.hurryup.game.hurryupGame.camera;
 
 /**
  * Created by frasse on 2016-09-20.
  */
-public class Button extends Tile {
+public class Button extends LogicTile {
 
     Color buttonColor = Color.RED;
     boolean buttonPushed = false;
     boolean restartButton = false;
 
     public Button(Vector2 position) {
-        super(position);
+        super(position, LogicColor.Blue,2,0);
         height = 32;
     }
 
