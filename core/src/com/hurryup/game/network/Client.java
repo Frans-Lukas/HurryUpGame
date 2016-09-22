@@ -17,12 +17,15 @@ class Client {
     private static ArrayList<String> messages = new ArrayList<String>();
     private static ReentrantLock messageLock = new ReentrantLock();
 
+    private volatile boolean dead;
+    private volatile int errorCount;
+
     public Client(Socket s, BufferedReader reader)
     {
         socket = s;
         this.reader = reader;
 
-        worker = new Thread(new MessageReader(this.reader));
+        worker = new Thread(new MessageReader(this.reader,this));
         worker.start();
     }
 
@@ -55,15 +58,26 @@ class Client {
         messageLock.unlock();
     }
 
+    public boolean isDead() {
+        return dead;
+    }
+
+    public void error()
+    {
+        errorCount++;
+        if(errorCount > 3)
+            dead = true;
+    }
 }
 
 class MessageReader implements Runnable{
 
     private BufferedReader reader;
     private boolean stop = false;
-
-    public MessageReader(BufferedReader reader){
+    private Client host;
+    public MessageReader(BufferedReader reader, Client host) {
         this.reader = reader;
+        this.host = host;
     }
 
     public void stop(){
@@ -79,6 +93,9 @@ class MessageReader implements Runnable{
             }
             catch(Exception e) {
                 System.out.println("Error reading message from client");
+                host.error();
+                if(host.isDead())
+                    stop = true;
             }
         }
     }

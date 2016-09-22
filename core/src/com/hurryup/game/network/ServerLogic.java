@@ -10,6 +10,7 @@ import com.hurryup.game.network.Client;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -25,7 +26,8 @@ public class ServerLogic implements Runnable{
     public ServerLogic(int port){
         this.port = port;
     }
-
+    private Client localClient;
+    private Iterator<Client> iterator;
     @Override
     public void run() {
         ServerSocketHints ssh = new ServerSocketHints();
@@ -45,10 +47,25 @@ public class ServerLogic implements Runnable{
         }
     }
 
+    public void removeClient(Client client){
+        clientLock.lock();
+        clients.remove(client);
+        clientLock.unlock();
+    }
+
+    //Broadcasts a message to all clients and removes any disconnected clients
     public void broadcast(String msg){
         clientLock.lock();
-        for (Client c: clients) {
-            c.sendMessage(msg);
+        iterator = clients.iterator();
+
+        while(iterator.hasNext()){
+            localClient = iterator.next();
+            if(localClient.isDead()) {
+                iterator.remove(); //Client disconnected (removed)
+                System.out.println("Removed client");
+            }
+            else
+                localClient.sendMessage(msg);
         }
         clientLock.unlock();
     }
