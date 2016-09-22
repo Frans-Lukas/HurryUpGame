@@ -12,18 +12,30 @@ public class GameClient {
     private ClientLogic clientLogic;
     private Thread clientThread;
 
+    private String ip;
+    private int port;
     public GameClient(String ip, int port){
+        this.ip = ip;
+        this.port = port;
+    }
+    public void connect(){
         clientLogic = new ClientLogic(ip,port);
         clientThread = new Thread(clientLogic);
         clientThread.start();
     }
-
+    public boolean connected(){
+        return clientLogic.connected();
+    }
     public ArrayList<String> getMessages(){
         if(ClientLogic.messageCount() > 0)
             return ClientLogic.getMessages();
         else
             return null;
     }
+    public static String getMessage(){
+        return ClientLogic.getMessage();
+    }
+
 
     public void update(){
         String d = ClientLogic.getMessage();

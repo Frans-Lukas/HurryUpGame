@@ -5,9 +5,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.hurryup.game.network.GameClient;
+import com.hurryup.game.network.Server;
+import com.hurryup.objects.MessageHandler;
 import com.hurryup.views.TestLevel;
 import com.hurryup.views.IView;
 
@@ -19,6 +21,11 @@ import static com.badlogic.gdx.utils.TimeUtils.millis;
 public class hurryupGame extends ApplicationAdapter {
 
 	SpriteBatch batch;
+
+	private Server server;
+	private GameClient client;
+
+	private boolean hosting;
 
 	//cameracontrol
 	static public OrthographicCamera camera;
@@ -37,6 +44,24 @@ public class hurryupGame extends ApplicationAdapter {
 
 	@Override
 	public void create () {
+		client = new GameClient("127.0.0.1", 1234);
+		client.connect();
+		try {
+			Thread.sleep(50);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		if(!client.connected()){
+			server = new Server(1234);
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			client.connect();
+		}
+
+
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, WIDTH, HEIGHT);
 
@@ -55,6 +80,26 @@ public class hurryupGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		camera.update();
+		client.update();
+		if(server != null) {
+			server.update();
+		}
+
+
+		//client messages
+		/*
+		if(MessageHandler.doorOpen){
+			client.sendMessage("door:red, button:blue, lever:green");
+		}
+		String message = client.getMessage();
+
+		if(message != null) {
+			if (message.equals("doorOpened")) {
+				MessageHandler.doorOpen = true;
+			}
+		}*/
+
+
 		//create variable to make viewhandling easier.
 		IView viewToDraw = views.peek();
 

@@ -24,22 +24,37 @@ class ClientLogic implements Runnable {
     private ClientMessageReader clientMessageReader;
     private Thread clientReaderWorker;
     private boolean exit = false;
+
+    private boolean connected = false;
+
+
     public ClientLogic(String ip, int port){
         this.ip = ip;
         this.port = port;
 
     }
 
+
+    public boolean connected(){
+        return connected;
+    }
+
     @Override
     public void run() {
         SocketHints socketHints = new SocketHints();
         socketHints.connectTimeout = 0;
+        Socket clientSocket;
 
-        Socket clientSocket = Gdx.net.newClientSocket(Net.Protocol.TCP,ip,port,socketHints);
-        clientMessageReader = new ClientMessageReader(new BufferedReader(new InputStreamReader(clientSocket.getInputStream())));
-        clientReaderWorker = new Thread(clientMessageReader);
-        clientReaderWorker.start();
+        try {
 
+            clientSocket = Gdx.net.newClientSocket(Net.Protocol.TCP, ip, port, socketHints);
+            clientMessageReader = new ClientMessageReader(new BufferedReader(new InputStreamReader(clientSocket.getInputStream())));
+            clientReaderWorker = new Thread(clientMessageReader);
+            clientReaderWorker.start();
+        } catch(Exception e){
+            return;
+        }
+        connected = true;
         while(!exit){
             messageLock.lock();
             for (String msg: messages) {

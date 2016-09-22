@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.hurryup.objects.MasterClass;
 import com.hurryup.objects.tiles.Button;
+import com.hurryup.objects.tiles.Door;
 import com.hurryup.objects.tiles.NormalGround;
 import com.hurryup.objects.tiles.Tile;
 import com.sun.deploy.util.ArrayUtil;
@@ -62,6 +63,10 @@ public class MasterLevel implements IView{
                     tiles.add(index, new Button(new Vector2(width * 64, height * 64)));
                     index++;
 
+                }
+                //add door to arraylist
+                else if(part.equals("3")){
+                    tiles.add(index, new Door(new Vector2(width * 64, height * 64)));
                 }
                 width++;
 

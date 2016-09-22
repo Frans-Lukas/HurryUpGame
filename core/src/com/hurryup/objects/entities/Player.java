@@ -149,6 +149,7 @@ public class Player extends MasterClass {
                 if(tile instanceof Button){
                     ((Button) tile).pushButton();
                 }
+
                 while(checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, tile.getWidth(), tile.getHeight())){
                     velocityY++;
                 }

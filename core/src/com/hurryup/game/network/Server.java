@@ -17,7 +17,7 @@ public class Server {
         serverThread.start();
     }
 
-    public void Update(){
+    public void update(){
         String msg;
         while((msg = Client.getMessage()) != null){
             serverLogic.broadcast(msg);

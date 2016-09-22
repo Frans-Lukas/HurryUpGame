@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.hurryup.objects.MessageHandler;
 
 import static com.hurryup.game.hurryupGame.camera;
 
@@ -44,6 +45,9 @@ public class Button extends Tile {
             if(height == 32){
                 restartButton = false;
             }
+        }
+        if(height <= 16){
+            MessageHandler.doorOpen = true;
         }
     }
 
