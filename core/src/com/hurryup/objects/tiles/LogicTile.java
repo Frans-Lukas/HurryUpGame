@@ -46,9 +46,11 @@ public class LogicTile extends Tile implements IInteractive{
     }
 
     public void connect(IInteractive cn){
-        if(connection[0] != null) {
+        if(connection[0] == null) {
+            connection[0] = new Connection();
             connection[0].connect(cn);
         } else{
+            connection[1] = new Connection();
             connection[1].connect(cn);
         }
     }

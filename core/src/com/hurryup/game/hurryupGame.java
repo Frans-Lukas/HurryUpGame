@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hurryup.game.network.GameClient;
 import com.hurryup.game.network.Server;
+import com.hurryup.objects.tiles.LogicTile;
 import com.hurryup.views.MasterLevel;
 import com.hurryup.views.TestLevel;
 import com.hurryup.views.IView;
@@ -69,8 +70,13 @@ public class hurryupGame extends ApplicationAdapter {
 		views.push(new TestLevel());
 
 		XMLReader.readMap("level1.xml", "player1");
-        ((MasterLevel)views.peek()).getTileById(1).connect(((MasterLevel)views.peek()).getTileById(3));
-
+		LogicTile d = ((MasterLevel)views.peek()).getTileById(3);
+		LogicTile p = ((MasterLevel)views.peek()).getTileById(1);
+		if(p != null)
+			System.out.println("HEYO " + d.getId());
+		if(d != null)
+			System.out.println("HEYO " + p.getId());
+		p.connect(d);
 	}
 
 	@Override
