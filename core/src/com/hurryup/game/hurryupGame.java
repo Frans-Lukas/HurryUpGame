@@ -21,9 +21,6 @@ public class hurryupGame extends ApplicationAdapter {
 
 	SpriteBatch batch;
 
-	private Server server;
-	private GameClient client;
-
 	private boolean hosting;
 
 	//cameracontrol
@@ -43,21 +40,21 @@ public class hurryupGame extends ApplicationAdapter {
 
 	@Override
 	public void create () {
-		client = new GameClient("127.0.0.1", 1234);
-		client.connect();
+		GameClient.configure("127.0.0.1", 1234);
+		GameClient.connect();
 		try {
 			Thread.sleep(50);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		if(!client.connected()){
-			server = new Server(1234);
+		if(!GameClient.connected()){
+			Server.start(1234);
 			try {
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			client.connect();
+			GameClient.connect();
 		}
 
 
@@ -79,11 +76,10 @@ public class hurryupGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		camera.update();
-		client.update();
-		if(server != null) {
-			server.update();
+		GameClient.update();
+		if(Server.isStarted()) {
+			Server.update();
 		}
-
 
 		//client messages
 		/*
