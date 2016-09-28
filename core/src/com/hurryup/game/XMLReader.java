@@ -1,10 +1,9 @@
 package com.hurryup.game;
 
 import com.badlogic.gdx.math.Vector2;
-import com.hurryup.objects.tiles.Button;
-import com.hurryup.objects.tiles.Door;
-import com.hurryup.objects.tiles.NormalGround;
-import com.hurryup.objects.tiles.Tile;
+import com.hurryup.objects.MasterClass;
+import com.hurryup.objects.tiles.*;
+import com.hurryup.views.MasterLevel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -28,8 +27,9 @@ public final class XMLReader {
         return map;
     }
 
-    static public void readMap(String fileName, String level){
+    static public void readMap(String fileName){
         try{
+            //init xml reader.
             File fxmlFile = new File(fileName);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -37,9 +37,11 @@ public final class XMLReader {
 
             doc.getDocumentElement().normalize();
 
+            //get map tag.
             Node maps = doc.getElementsByTagName("map").item(0);
             System.out.println();
 
+            //read map
             if(maps.getNodeType() == Node.ELEMENT_NODE){
                 Element eMaps = (Element) maps;
                 stringmapToListmap(eMaps.getTextContent());
@@ -47,6 +49,31 @@ public final class XMLReader {
                 System.out.println("map is not an element.");
             }
 
+            //get connection tags
+            NodeList nlConnections = doc.getElementsByTagName("connection");
+            for(int i = 0; i < nlConnections.getLength(); i++){
+                if(nlConnections.item(i).getNodeType() == Node.ELEMENT_NODE){
+                    Element eConnection = (Element) nlConnections.item(i);
+
+                    //find tiles to connect.
+                    int fromId = Integer.parseInt(eConnection.getAttribute("from"));
+                    int toId = Integer.parseInt(eConnection.getAttribute("to"));
+
+                    //get connection value if found, else set it to 0
+                    int connectionValue = 0;
+                    if(eConnection.hasAttribute("connectionvalue")) {
+                        connectionValue = Integer.parseInt(eConnection.getAttribute("connectionvalue"));
+                    }
+
+                    //find tiles to connect
+                    LogicTile fromTile = ((MasterLevel)hurryupGame.peekView()).getTileById(fromId);
+                    LogicTile toTile = (((MasterLevel)hurryupGame.peekView()).getTileById(toId));
+
+                    //connect tile
+                    fromTile.setConnectionValue(connectionValue);
+                    fromTile.connect(toTile);
+                }
+            }
 
 
         } catch(Exception e){
@@ -97,10 +124,6 @@ public final class XMLReader {
             }
             height++;
         }
-
-    }
-
-    private void addLogic(){
 
     }
 

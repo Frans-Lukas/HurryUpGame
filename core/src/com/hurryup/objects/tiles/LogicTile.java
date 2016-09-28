@@ -23,7 +23,6 @@ public class LogicTile extends Tile implements IInteractive{
         this.connectionValue = connectionValue;
     }
 
-
     public int getNextState() {
         return nextState;
     }
