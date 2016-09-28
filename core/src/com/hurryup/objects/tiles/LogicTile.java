@@ -78,4 +78,8 @@ public class LogicTile extends Tile implements IInteractive{
         if(connection[connectionValue] != null)
             connection[connectionValue].activate(connectionValue);
     }
+
+    @Override
+    public void deactivate(int whichToDeactivate) {}
+
 }

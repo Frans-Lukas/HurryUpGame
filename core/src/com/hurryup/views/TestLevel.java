@@ -3,6 +3,7 @@ package com.hurryup.views;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.hurryup.objects.MasterClass;
 import com.hurryup.objects.entities.Player;
 import com.hurryup.objects.tiles.Tile;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 
 import static com.hurryup.game.hurryupGame.HEIGHT;
 import static com.hurryup.game.hurryupGame.WIDTH;
+import static com.hurryup.objects.tiles.Tile.renderer;
 
 /**
  * Created by frasse on 2016-09-20.
@@ -31,13 +33,13 @@ public class TestLevel extends MasterLevel{
     //Draw Level
     @Override
     public void draw(SpriteBatch batch, long deltaTime) {
-
         for(MasterClass entity : entities){
             entity.draw(batch);
         }
         for(Tile tile : tiles){
             tile.draw(batch);
         }
+
 
     }
 

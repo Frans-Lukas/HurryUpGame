@@ -24,11 +24,8 @@ public class NormalGround extends Tile {
     @Override
     public void draw(SpriteBatch batch) {
         //render entire map from tilemap.
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-        renderer.setProjectionMatrix(camera.combined);
         renderer.setColor(Color.BLACK);
         renderer.rect(position.x, position.y, 64, 64);
-        renderer.end();
     }
     @Override
     public void update(long deltaTime) {

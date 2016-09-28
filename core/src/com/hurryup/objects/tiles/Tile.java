@@ -9,7 +9,7 @@ import com.hurryup.objects.MasterClass;
  * Created by frasse on 2016-09-20.
  */
 public class Tile{
-    Vector2 position;
+    protected Vector2 position;
     public float width = 64;
     public float height = 64;
     public static ShapeRenderer renderer = new ShapeRenderer();
@@ -18,6 +18,7 @@ public class Tile{
     //get position for every tile
     public Tile(Vector2 position){
         this.position = position;
+        //renderer.setAutoShapeType(true);
     }
 
     public void draw(SpriteBatch batch) {

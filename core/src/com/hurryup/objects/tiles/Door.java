@@ -23,11 +23,8 @@ public class Door extends LogicTile {
     public void draw(SpriteBatch batch) {
         super.draw(batch);
 
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-        renderer.setProjectionMatrix(camera.combined);
         renderer.setColor(Color.GREEN);
         renderer.rect(position.x, position.y, width, height);
-        renderer.end();
     }
 
     @Override
@@ -35,13 +32,25 @@ public class Door extends LogicTile {
         super.update(deltaTime);
         if(state == 2 && height > 0){
             height--;
+        } else if(state == 0 && height < 64){
+            height++;
         }
+    }
+
+    @Override
+    public void deactivate(int whichToDeactivate) {
+        //close door
+        nextState = 0;
+        GameClient.sendMessage(serialize());
+
     }
 
     @Override
     public void activate(int whichToActivate){
         if(state != 1 && state != 2){
+            //door activated
             state = 1;
+            //door opens for both players.
             nextState = 2;
             GameClient.sendMessage(serialize());
         }

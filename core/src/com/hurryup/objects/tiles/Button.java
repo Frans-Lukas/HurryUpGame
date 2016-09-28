@@ -25,11 +25,8 @@ public class Button extends LogicTile {
     public void draw(SpriteBatch batch) {
         super.draw(batch);
 
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-        renderer.setProjectionMatrix(camera.combined);
         renderer.setColor(buttonColor);
         renderer.rect(position.x, position.y, width, height);
-        renderer.end();
     }
 
     @Override
@@ -37,13 +34,22 @@ public class Button extends LogicTile {
         super.update(deltaTime);
         if(state == 2 && height > 16){
             height -= 0.5;
+        } else if(state == 0 && height < 32){
+            height += 0.5;
         }
     }
 
-    public void pushButton(){
+    @Override
+    public void activate(int whichToActivate) {
         state = 1;
         nextState = 2;
         activate(connectionValue);
+        GameClient.sendMessage(serialize());
+    }
+
+    @Override
+    public void deactivate(int whichToDeactivate) {
+        nextState = 0;
         GameClient.sendMessage(serialize());
     }
 

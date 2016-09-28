@@ -5,4 +5,5 @@ package com.hurryup.objects.logic;
  */
 public interface IInteractive {
     void activate(int whichToActivate);
+    void deactivate(int whichToDeactivate);
 }

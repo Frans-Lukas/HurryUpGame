@@ -14,6 +14,7 @@ import com.hurryup.objects.tiles.Tile;
 import java.util.ArrayList;
 
 import static com.hurryup.game.hurryupGame.camera;
+import static com.hurryup.objects.tiles.Tile.renderer;
 
 
 /**
@@ -42,8 +43,6 @@ public class Player extends MasterClass {
 
     @Override
     public void draw(SpriteBatch batch) {
-        //draw player
-
         //render player.
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         renderer.setProjectionMatrix(camera.combined);
@@ -101,9 +100,6 @@ public class Player extends MasterClass {
             velocityY += jumpSpeed;
             jumping = true;
         }
-        /*if(down){
-            velocityY -= playerSpeed;
-        }*/
 
         //max velocity
         if(velocityX >= 7){
@@ -139,7 +135,7 @@ public class Player extends MasterClass {
             if(checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, (int)tile.getWidth(), (int)tile.getHeight())){
                 //keep the player at 0 above ground.
                 if(tile instanceof Button){
-                    ((Button) tile).pushButton();
+                    ((Button) tile).activate(0);
                 }
 
                 while(checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, (int)tile.getWidth(), (int)tile.getHeight())){

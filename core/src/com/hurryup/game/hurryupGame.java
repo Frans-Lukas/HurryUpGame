@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.hurryup.game.network.GameClient;
 import com.hurryup.game.network.Server;
 import com.hurryup.objects.tiles.LogicTile;
@@ -18,6 +19,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 import static com.badlogic.gdx.utils.TimeUtils.millis;
+import static com.hurryup.objects.tiles.Tile.renderer;
 
 public class hurryupGame extends ApplicationAdapter {
 
@@ -84,8 +86,6 @@ public class hurryupGame extends ApplicationAdapter {
 			Server.update();
 		}
 
-
-
 		//create variable to make view management easier.
 		viewToDraw = views.peek();
 
@@ -96,14 +96,16 @@ public class hurryupGame extends ApplicationAdapter {
 
 		batch.begin();
 		batch.setProjectionMatrix(camera.combined);
+		renderer.begin(ShapeRenderer.ShapeType.Filled);
+		renderer.setProjectionMatrix(camera.combined);
 		viewToDraw.draw(batch, millis() - prevTime);
-		//font.draw(batch, "hello", 200, 200);
+		renderer.end();
 		batch.end();
 
 
-		//keep track of current time.
+		//keep track of current
+		// renderer.end();time.
 		prevTime = millis();
-
 	}
 
 	@Override
