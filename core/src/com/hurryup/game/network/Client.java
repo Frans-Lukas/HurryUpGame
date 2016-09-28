@@ -8,6 +8,7 @@ import com.badlogic.gdx.net.Socket;
 
 /**
  * Created by Klas on 2016-09-21.
+ * Represents the read/write part of a servers client
  */
 class Client {
     private Socket socket;
@@ -20,6 +21,7 @@ class Client {
     private volatile boolean dead;
     private volatile int errorCount;
 
+    //Create a new Client, with socket s and messageReader reader
     public Client(Socket s, BufferedReader reader)
     {
         socket = s;
@@ -29,6 +31,7 @@ class Client {
         worker.start();
     }
 
+    //Send message to (this) client
     public void sendMessage(String msg){
         try {
             socket.getOutputStream().write((msg + "\n").getBytes());
@@ -38,6 +41,7 @@ class Client {
         }
     }
 
+    //Gets the latest inbound message if any
     public static String getMessage(){
         messageLock.lock();
         if(messages.size() > 0) {
@@ -52,6 +56,7 @@ class Client {
         }
     }
 
+    //Adds a message to the inbound message queue
     public static void addMessage(String msg){
         messageLock.lock();
         messages.add(msg);
@@ -70,11 +75,14 @@ class Client {
     }
 }
 
+//Reads inbound messages from the server
 class MessageReader implements Runnable{
 
     private BufferedReader reader;
     private boolean stop = false;
     private Client host;
+
+    //Creates a new MessageReader with the specified BufferedReader and Client to which the messages are added
     public MessageReader(BufferedReader reader, Client host) {
         this.reader = reader;
         this.host = host;
@@ -88,6 +96,7 @@ class MessageReader implements Runnable{
     public void run() {
         while(!stop){
             try{
+                //Read message and add it to host Clients message queue
                 String msg = reader.readLine();
                 Client.addMessage(msg);
             }
