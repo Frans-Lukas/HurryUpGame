@@ -67,6 +67,8 @@ public class hurryupGame extends ApplicationAdapter {
 		//start with testlevel.
 		views.push(new TestLevel());
 
+		XMLReader.readMap("level1.xml");
+
 	}
 
 	@Override
