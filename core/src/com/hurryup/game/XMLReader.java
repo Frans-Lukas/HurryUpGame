@@ -42,7 +42,7 @@ public final class XMLReader {
 
             if(maps.getNodeType() == Node.ELEMENT_NODE){
                 Element eMaps = (Element) maps;
-                stringToList(eMaps.getElementsByTagName(level).item(0).getTextContent());
+                stringmapToListmap(eMaps.getTextContent());
             } else {
                 System.out.println("map is not an element.");
             }
@@ -53,7 +53,7 @@ public final class XMLReader {
 
         }
     }
-    static private void stringToList(String sMap){
+    static private void stringmapToListmap(String sMap){
         //split map into rows
         String lineArray[] = sMap.split("\\r?\\n");
 

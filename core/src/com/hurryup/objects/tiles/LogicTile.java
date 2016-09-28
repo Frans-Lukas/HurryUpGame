@@ -12,7 +12,7 @@ public class LogicTile extends Tile implements IInteractive{
     protected LogicColor logicColor;
     protected int id;
     protected int state;
-    protected Connection connection;
+    protected Connection connection[] = new Connection[2];
 
     public LogicTile(Vector2 position, LogicColor logicColor, int id, int state) {
         super(position);
@@ -26,8 +26,11 @@ public class LogicTile extends Tile implements IInteractive{
     }
 
     public void connect(IInteractive cn){
-        connection = new Connection();
-        connection.connect(cn);
+        if(connection[0] != null) {
+            connection[0].connect(cn);
+        } else{
+            connection[1].connect(cn);
+        }
     }
 
     public void setState(int state) {
@@ -50,8 +53,8 @@ public class LogicTile extends Tile implements IInteractive{
     }
 
     @Override
-    public void activate() {
-        if(connection != null)
-            connection.activate();
+    public void activate(int whichToActivate) {
+        if(connection[whichToActivate] != null)
+            connection[whichToActivate].activate();
     }
 }
