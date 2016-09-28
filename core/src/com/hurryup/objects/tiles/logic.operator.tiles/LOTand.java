@@ -49,7 +49,7 @@ public class LOTand extends LogicTile{
 
     @Override
     public void activate(int whichToActivate) {
-        super.activate(whichToActivate);
+        super.activate(connectionValue);
     }
 
 

@@ -53,7 +53,7 @@ public class Button extends LogicTile {
 
     public void pushButton(){
         buttonPushed = true;
-        activate();
+        activate(connectionValue);
     }
 
     public void unPushButton(){

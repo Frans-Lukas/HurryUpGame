@@ -13,6 +13,7 @@ public class LogicTile extends Tile implements IInteractive{
     protected int id;
     protected int state;
     protected int nextState;
+    protected int connectionValue = 0;
 
     public int getConnectionValue() {
         return connectionValue;
@@ -22,7 +23,6 @@ public class LogicTile extends Tile implements IInteractive{
         this.connectionValue = connectionValue;
     }
 
-    protected int connectionValue = 0;
 
     public int getNextState() {
         return nextState;
@@ -74,7 +74,7 @@ public class LogicTile extends Tile implements IInteractive{
 
     @Override
     public void activate(int whichToActivate) {
-        if(connection[whichToActivate] != null)
-            connection[whichToActivate].activate(whichToActivate);
+        if(connection[connectionValue] != null)
+            connection[connectionValue].activate(connectionValue);
     }
 }
