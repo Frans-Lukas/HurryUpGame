@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.hurryup.game.network.GameClient;
 import com.hurryup.objects.logic.LogicColor;
 
 import static com.hurryup.game.hurryupGame.camera;
@@ -12,11 +13,10 @@ import static com.hurryup.game.hurryupGame.camera;
  * Created by frasse on 2016-09-21.
  */
 public class Door extends LogicTile {
-    private boolean open = false;
-
 
     public Door(Vector2 position) {
         super(position, LogicColor.Blue,1,0);
+        state = 0;
     }
 
     @Override
@@ -33,9 +33,15 @@ public class Door extends LogicTile {
     @Override
     public void update(long deltaTime) {
         super.update(deltaTime);
-        //if(MessageManager.doorOpen && height > 0){
-           // height--;
-        //}
+        if(state == 2 && height > 0){
+            height--;
+        }
+    }
+
+    @Override
+    public void activate(){
+        state = 1;
+        GameClient.sendMessage(serialize());
     }
 
     @Override

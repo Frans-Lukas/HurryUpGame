@@ -9,9 +9,9 @@ import com.hurryup.objects.logic.LogicColor;
  * Created by Klas on 2016-09-23.
  */
 public class LogicTile extends Tile implements IInteractive{
-    private LogicColor logicColor;
-    private int id;
-    private int state;
+    protected LogicColor logicColor;
+    protected int id;
+    protected int state;
     protected Connection connection;
 
     public LogicTile(Vector2 position, LogicColor logicColor, int id, int state) {
