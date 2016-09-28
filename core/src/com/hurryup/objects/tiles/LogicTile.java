@@ -14,6 +14,16 @@ public class LogicTile extends Tile implements IInteractive{
     protected int state;
     protected int nextState;
 
+    public int getConnectionValue() {
+        return connectionValue;
+    }
+
+    public void setConnectionValue(int connectionValue) {
+        this.connectionValue = connectionValue;
+    }
+
+    protected int connectionValue = 0;
+
     public int getNextState() {
         return nextState;
     }
