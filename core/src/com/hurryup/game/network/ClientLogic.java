@@ -12,8 +12,10 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by Klas on 2016-09-20.
+ * Represents the logic required to fetch and send messages to and from a server
  */
 class ClientLogic implements Runnable {
+
     private static int port;
     private static String ip;
     private static ArrayList<String> messages = new ArrayList<String>();
@@ -27,11 +29,9 @@ class ClientLogic implements Runnable {
 
     private static boolean connected = false;
 
-
     public ClientLogic(String ip, int port){
         this.ip = ip;
         this.port = port;
-
     }
 
 
@@ -41,6 +41,7 @@ class ClientLogic implements Runnable {
 
     @Override
     public void run() {
+        //Create socket hints, no connection timeout
         SocketHints socketHints = new SocketHints();
         socketHints.connectTimeout = 0;
         Socket clientSocket;
@@ -54,8 +55,10 @@ class ClientLogic implements Runnable {
         } catch(Exception e){
             return;
         }
+        //While the client is connected
         connected = true;
         while(!exit){
+            //send all queued messages to the server
             messageLock.lock();
             for (String msg: messages) {
                 try{
@@ -69,7 +72,7 @@ class ClientLogic implements Runnable {
             messageLock.unlock();
         }
     }
-
+    //Add incoming messsage to the incoming message queue
     public static void addMessage(String msg) {
         incomingMessageLock.lock();
         incomingMessages.add(msg);
@@ -77,6 +80,7 @@ class ClientLogic implements Runnable {
 
     }
 
+    //Add messsage to the outgoing message queue
     public static void sendMessage(String msg){
         messageLock.lock();
         messages.add(msg);
@@ -99,6 +103,7 @@ class ClientLogic implements Runnable {
 
     }
 
+    //Returns the count of inbound messages
     public static int messageCount(){
         incomingMessageLock.lock();
         int size = incomingMessages.size();
@@ -106,6 +111,7 @@ class ClientLogic implements Runnable {
         return size;
     }
 
+    //Returns all the inbound messages if any
     public static ArrayList<String> getMessages(){
         incomingMessageLock.lock();
         if(incomingMessages.size() > 0) {
@@ -123,6 +129,8 @@ class ClientLogic implements Runnable {
     }
 
 }
+
+//Reads inbound messages from the server and adds them to the inbound message list
 class ClientMessageReader implements Runnable{
 
     private BufferedReader reader;
@@ -141,6 +149,7 @@ class ClientMessageReader implements Runnable{
         while(!exit){
             String msg;
             try{
+                //Read message
                 msg = reader.readLine();
                 ClientLogic.addMessage(msg);
             }
