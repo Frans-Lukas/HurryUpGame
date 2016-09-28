@@ -40,9 +40,11 @@ public class Door extends LogicTile {
 
     @Override
     public void activate(int whichToActivate){
-        state = 1;
-        nextState = 2;
-        GameClient.sendMessage(serialize());
+        if(state != 1 && state != 2){
+            state = 1;
+            nextState = 2;
+            GameClient.sendMessage(serialize());
+        }
     }
 
     @Override

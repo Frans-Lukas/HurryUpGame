@@ -84,7 +84,6 @@ public class Player extends MasterClass {
         boolean right = Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D);
         boolean up = Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W);
         boolean down = Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S);
-        boolean restart = Gdx.input.isKeyPressed(Input.Keys.ESCAPE);
 
         //move player
         if(left || right){
@@ -105,13 +104,6 @@ public class Player extends MasterClass {
         /*if(down){
             velocityY -= playerSpeed;
         }*/
-        if(restart){
-            for(Tile tile : tiles){
-                if(tile instanceof Button){
-                    ((Button) tile).unPushButton();
-                }
-            }
-        }
 
         //max velocity
         if(velocityX >= 7){
