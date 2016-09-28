@@ -64,12 +64,12 @@ public class Door extends LogicTile {
     }
 
     @Override
-    public int getHeight() {
+    public float getHeight() {
         return super.getHeight();
     }
 
     @Override
-    public int getWidth() {
+    public float getWidth() {
         return super.getWidth();
     }
 

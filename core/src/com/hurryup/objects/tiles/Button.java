@@ -37,11 +37,11 @@ public class Button extends LogicTile {
     public void update(long deltaTime) {
         super.update(deltaTime);
         if(buttonPushed && height > 16){
-            height--;
+            height -= 0.5;
             restartButton = false;
         }
         if(restartButton && height < 32){
-            height++;
+            height += 0.5;
             if(height == 32){
                 restartButton = false;
             }
