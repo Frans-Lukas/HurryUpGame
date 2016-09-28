@@ -14,8 +14,8 @@ public class MasterClass {
 
     protected static ShapeRenderer renderer = new ShapeRenderer();
     public Vector2 position = new Vector2(0,0);
-    public static final int width = 64;
-    public static final int height = 64;
+    public static final float width = 64;
+    public static final float height = 64;
 
     public void draw(SpriteBatch batch){
 

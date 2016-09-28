@@ -128,15 +128,15 @@ public class Player extends MasterClass {
 
         //collision check!
         for(Tile tile : tiles){
-            if(checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y, tile.getWidth(), tile.getHeight())){
+            if(checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y, (int)tile.getWidth(), (int)tile.getHeight())){
                 //keep player 0 distance from wall if collision is detected.
 
                 if(velocityX < 0){
-                    while(checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y, tile.getWidth(), tile.getHeight())){
+                    while(checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y, (int)tile.getWidth(), (int)tile.getHeight())){
                         velocityX++;
                     }
                 } else if(velocityX > 0){
-                    while(checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y, tile.getWidth(), tile.getHeight())){
+                    while(checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y, (int)tile.getWidth(), (int)tile.getHeight())){
                         velocityX--;
                     }
 
@@ -144,13 +144,13 @@ public class Player extends MasterClass {
 
             }
             //check vertical collision;
-            if(checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, tile.getWidth(), tile.getHeight())){
+            if(checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, (int)tile.getWidth(), (int)tile.getHeight())){
                 //keep the player at 0 above ground.
                 if(tile instanceof Button){
                     ((Button) tile).pushButton();
                 }
 
-                while(checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, tile.getWidth(), tile.getHeight())){
+                while(checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, (int)tile.getWidth(), (int)tile.getHeight())){
                     velocityY++;
                 }
                 jumping = false;

@@ -10,8 +10,8 @@ import com.hurryup.objects.MasterClass;
  */
 public class Tile{
     Vector2 position;
-    public int width = 64;
-    public int height = 64;
+    public float width = 64;
+    public float height = 64;
     public static ShapeRenderer renderer = new ShapeRenderer();
 
 
@@ -46,11 +46,11 @@ public class Tile{
 
         return position.y + height;
     }
-    public int getHeight(){
+    public float getHeight(){
         return height;
     }
 
-    public int getWidth(){
+    public float getWidth(){
         return width;
     }
 

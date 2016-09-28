@@ -80,8 +80,13 @@ public class MasterLevel implements IView{
     public void draw(SpriteBatch batch, long deltaTime) {
 
     }
+
     @Override
     public void update(long deltaTime) {
+
+    }
+
+    public void connectLogic(){
 
     }
 }
