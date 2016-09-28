@@ -6,10 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.hurryup.game.XMLReader;
 import com.hurryup.objects.MasterClass;
-import com.hurryup.objects.tiles.Button;
-import com.hurryup.objects.tiles.Door;
-import com.hurryup.objects.tiles.NormalGround;
-import com.hurryup.objects.tiles.Tile;
+import com.hurryup.objects.tiles.*;
 import com.sun.deploy.util.ArrayUtil;
 
 import java.util.ArrayList;
@@ -47,7 +44,13 @@ public class MasterLevel implements IView{
 
     }
 
-    public void connectLogic(){
-
+    public LogicTile getTileById(int id){
+        for (Tile tile: tiles) {
+            if(tile instanceof LogicTile)
+                if(((LogicTile)tile).getId() == id)
+                    return (LogicTile)tile;
+        }
+        return null;
     }
+
 }
