@@ -128,4 +128,5 @@ public class hurryupGame extends ApplicationAdapter {
 	public static IView popView(){
 		return views.pop();
 	}
+	public static IView peekView() { return views.peek(); }
 }
