@@ -41,14 +41,17 @@ public class Button extends LogicTile {
 
     @Override
     public void activate(int whichToActivate) {
-        state = 1;
-        nextState = 2;
-        activate(connectionValue);
-        GameClient.sendMessage(serialize());
+        if(state != 1 && state != 2) {
+            state = 1;
+            nextState = 2;
+            connection[0].activate(connectionValue);
+            GameClient.sendMessage(serialize());
+        }
     }
 
     @Override
     public void deactivate(int whichToDeactivate) {
+        connection[0].deactivate(whichToDeactivate);
         nextState = 0;
         GameClient.sendMessage(serialize());
     }

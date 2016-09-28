@@ -2,6 +2,8 @@ package com.hurryup.game;
 
 import com.badlogic.gdx.math.Vector2;
 import com.hurryup.objects.MasterClass;
+import com.hurryup.objects.tiles.logicoperatortiles.LOTand;
+import com.hurryup.objects.logic.LogicColor;
 import com.hurryup.objects.tiles.*;
 import com.hurryup.views.MasterLevel;
 import org.w3c.dom.Document;
@@ -62,6 +64,7 @@ public final class XMLReader {
                     //get connection value if found, else set it to 0
                     int connectionValue = 0;
                     if(eConnection.hasAttribute("connectionvalue")) {
+                        System.out.println("");
                         connectionValue = Integer.parseInt(eConnection.getAttribute("connectionvalue"));
                     }
 
@@ -117,6 +120,11 @@ public final class XMLReader {
                     Door tmpDoor = new Door(new Vector2(width * 64, height * 64));
                     tmpDoor.setId(Integer.parseInt(id[1]));
                     map.add(index, tmpDoor);
+                    index++;
+                }
+                else if(id[0].equals("4")){
+                    LOTand tmpLOTand = new LOTand(new Vector2(width * 64, height * 64), LogicColor.None, Integer.parseInt(id[1]), 0);
+                    map.add(index, tmpLOTand);
                     index++;
                 }
 

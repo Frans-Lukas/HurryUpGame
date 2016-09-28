@@ -8,8 +8,8 @@
 1,1,0,0,1,1,1,0,0,0,0,2:1,0,2:2,0,0,0,0,0,3:3
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</map>
 	<logic id="0002">
-		<connection connectiovalue="0" from="1" to="4"/>
-		<connection connectiovalue="1" from="2" to="4"/>
-		<connection connectiovalue="0" from="4" to="3"/>
+		<connection connectionvalue="0" from="1" to="4"/>
+		<connection connectionvalue="1" from="2" to="4"/>
+		<connection connectionvalue="0" from="4" to="3"/>
 	</logic>
 </hurryupgame>

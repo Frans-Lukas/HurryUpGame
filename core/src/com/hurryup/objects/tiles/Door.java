@@ -42,7 +42,6 @@ public class Door extends LogicTile {
         //close door
         nextState = 0;
         GameClient.sendMessage(serialize());
-
     }
 
     @Override
