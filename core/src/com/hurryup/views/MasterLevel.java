@@ -23,6 +23,7 @@ public class MasterLevel implements IView{
     public MasterLevel(String fileName){
         loadTiles(fileName);
     }
+    protected ArrayList<MasterClass> entities = new ArrayList<MasterClass>();
 
     @Override
     public void dispose() {
