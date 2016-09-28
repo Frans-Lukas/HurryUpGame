@@ -20,19 +20,15 @@ import javax.xml.parsers.*;
  * Created by frasse on 2016-09-28.
  */
 public final class XMLReader {
-    static private ArrayList<Tile> map = new ArrayList<Tile>();;
-    static final String outputEncoding = "UTF-8";
+    static private ArrayList<Tile> map = new ArrayList<Tile>();
 
-    private XMLReader(){
-        readMap("level1.xml");
-        System.out.println("STARTED");
+    private XMLReader(){}
 
-    }
     static public ArrayList getMap(){
         return map;
     }
 
-    static public void readMap(String fileName){
+    static public void readMap(String fileName, String level){
         try{
             File fxmlFile = new File(fileName);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -41,16 +37,12 @@ public final class XMLReader {
 
             doc.getDocumentElement().normalize();
 
-            //System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
-            //System.out.println("--------------------------");
-
             Node maps = doc.getElementsByTagName("map").item(0);
             System.out.println();
 
             if(maps.getNodeType() == Node.ELEMENT_NODE){
                 Element eMaps = (Element) maps;
-                //System.out.println("map: " + eMaps.getElementsByTagName("level1").item(0).getTextContent());
-                stringToList(eMaps.getElementsByTagName("level1").item(0).getTextContent());
+                stringToList(eMaps.getElementsByTagName(level).item(0).getTextContent());
             } else {
                 System.out.println("map is not an element.");
             }
@@ -62,7 +54,10 @@ public final class XMLReader {
         }
     }
     static private void stringToList(String sMap){
+        //split map into rows
         String lineArray[] = sMap.split("\\r?\\n");
+
+        //reverse map
         ArrayList<String> lineArray2 = new ArrayList<String>(Arrays.asList(lineArray));
         Collections.reverse(lineArray2);
         lineArray = lineArray2.toArray(new String[lineArray2.size()]);
@@ -75,24 +70,30 @@ public final class XMLReader {
             int width = 0;
             for(String part : line.split(",")){
 
-                //add normalGround to tiles arraylist.
-                if(part.equals("1")){
+                String id[] = part.split(":");
 
+                //add normalGround to tiles arraylist.
+                if(id[0].equals("1")){
                     map.add(index, new NormalGround(new Vector2(width * 64, height * 64)));
                     index++;
                 }
                 //add button to arraylist.
-                else if(part.equals("2")){
-                    map.add(index, new Button(new Vector2(width * 64, height * 64)));
+                else if(id[0].equals("2")){
+                    Button tmpButton = new Button(new Vector2(width * 64, height * 64));
+                    tmpButton.setId(Integer.parseInt(id[1]));
+                    map.add(index, tmpButton);
                     index++;
 
                 }
                 //add door to arraylist
-                else if(part.equals("3")){
-                    map.add(index, new Door(new Vector2(width * 64, height * 64)));
+                else if(id[0].equals("3")){
+                    Door tmpDoor = new Door(new Vector2(width * 64, height * 64));
+                    tmpDoor.setId(Integer.parseInt(id[1]));
+                    map.add(index, tmpDoor);
+                    index++;
                 }
-                width++;
 
+                width++;
             }
             height++;
         }
