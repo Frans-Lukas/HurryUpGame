@@ -55,6 +55,6 @@ public class LogicTile extends Tile implements IInteractive{
     @Override
     public void activate(int whichToActivate) {
         if(connection[whichToActivate] != null)
-            connection[whichToActivate].activate();
+            connection[whichToActivate].activate(whichToActivate);
     }
 }

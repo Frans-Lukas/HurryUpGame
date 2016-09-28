@@ -10,7 +10,7 @@ public class Connection {
         connection = iInteractive;
     }
 
-    public void activate(){
-        connection.activate();
+    public void activate(int whichToActivate){
+        connection.activate(whichToActivate);
     }
 }
