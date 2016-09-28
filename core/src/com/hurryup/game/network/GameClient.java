@@ -7,26 +7,32 @@ import java.util.ArrayList;
 /**
  * Created by Klas on 2016-09-21.
  */
-public class GameClient {
+public final class GameClient {
 
-    private ClientLogic clientLogic;
-    private Thread clientThread;
+    private static ClientLogic clientLogic;
+    private static Thread clientThread;
 
-    private String ip;
-    private int port;
-    public GameClient(String ip, int port){
-        this.ip = ip;
-        this.port = port;
+    private static String ip;
+    private static int port;
+    private GameClient(){
+
     }
-    public void connect(){
+
+    public static void configure(String i, int p){
+        ip = i;
+        port = p;
+    }
+
+    public static void connect(){
         clientLogic = new ClientLogic(ip,port);
         clientThread = new Thread(clientLogic);
         clientThread.start();
     }
-    public boolean connected(){
-        return clientLogic.connected();
+    public static boolean connected(){
+        return ClientLogic.connected();
     }
-    public ArrayList<String> getMessages(){
+
+    public static ArrayList<String> getMessages(){
         if(ClientLogic.messageCount() > 0)
             return ClientLogic.getMessages();
         else
@@ -37,13 +43,13 @@ public class GameClient {
     }
 
 
-    public void update(){
+    public static void update(){
         String d = ClientLogic.getMessage();
         if(d != null)
             System.out.println("Message: " + d);
     }
 
-    public void sendMessage(String msg){
+    public static void sendMessage(String msg){
         ClientLogic.sendMessage(msg);
     }
 }

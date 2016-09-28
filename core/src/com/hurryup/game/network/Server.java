@@ -5,19 +5,24 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * Created by Klas on 2016-09-21.
  */
-public class Server {
+public final class Server {
 
-    private Thread serverThread;
+    private static Thread serverThread;
     public static ReentrantLock serverLock = new ReentrantLock();
-    private ServerLogic serverLogic;
-    public Server(int port){
+    private static ServerLogic serverLogic;
+    private static boolean started = false;
+    private Server(){
 
+    }
+
+    public static void start(int port){
         serverLogic = new ServerLogic(port);
         serverThread = new Thread(serverLogic);
         serverThread.start();
+        started = true;
     }
 
-    public void update(){
+    public static void update(){
         String msg;
         while((msg = Client.getMessage()) != null){
             serverLogic.broadcast(msg);
@@ -25,4 +30,7 @@ public class Server {
         }
     }
 
+    public static boolean isStarted(){
+        return started;
+    }
 }

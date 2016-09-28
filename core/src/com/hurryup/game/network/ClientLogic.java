@@ -14,8 +14,8 @@ import java.util.concurrent.locks.ReentrantLock;
  * Created by Klas on 2016-09-20.
  */
 class ClientLogic implements Runnable {
-    private int port;
-    private String ip;
+    private static int port;
+    private static String ip;
     private static ArrayList<String> messages = new ArrayList<String>();
     private static ReentrantLock messageLock = new ReentrantLock();
     private static ReentrantLock incomingMessageLock = new ReentrantLock();
@@ -25,7 +25,7 @@ class ClientLogic implements Runnable {
     private Thread clientReaderWorker;
     private boolean exit = false;
 
-    private boolean connected = false;
+    private static boolean connected = false;
 
 
     public ClientLogic(String ip, int port){
@@ -35,7 +35,7 @@ class ClientLogic implements Runnable {
     }
 
 
-    public boolean connected(){
+    public static boolean connected(){
         return connected;
     }
 
