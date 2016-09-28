@@ -10,6 +10,6 @@
 	<logic id="0002">
 		<connection connectiovalue="0" from="1" to="4"/>
 		<connection connectiovalue="1" from="2" to="4"/>
-		<connection from="4" to="3"/>
+		<connection connectiovalue="0" from="4" to="3"/>
 	</logic>
 </hurryupgame>

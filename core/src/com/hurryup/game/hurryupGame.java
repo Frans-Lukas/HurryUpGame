@@ -69,14 +69,7 @@ public class hurryupGame extends ApplicationAdapter {
 		//start with testlevel.
 		views.push(new TestLevel());
 
-		XMLReader.readMap("level1.xml", "player1");
-		LogicTile d = ((MasterLevel)views.peek()).getTileById(3);
-		LogicTile p = ((MasterLevel)views.peek()).getTileById(1);
-		if(p != null)
-			System.out.println("HEYO " + d.getId());
-		if(d != null)
-			System.out.println("HEYO " + p.getId());
-		p.connect(d);
+		XMLReader.readMap("level1.xml");
 	}
 
 	@Override
@@ -91,19 +84,7 @@ public class hurryupGame extends ApplicationAdapter {
 			Server.update();
 		}
 
-		//client messages
-		/*
-		if(MessageManager.doorOpen){
-			client.sendMessage("doorOpened");
-		}
-		String message = client.getMessage();
 
-		if(message != null) {
-			if (message.equals("doorOpened")) {
-				MessageManager.doorOpen = true;
-			}
-		}
-		*/
 
 		//create variable to make view management easier.
 		viewToDraw = views.peek();

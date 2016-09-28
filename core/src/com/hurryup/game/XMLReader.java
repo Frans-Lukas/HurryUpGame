@@ -27,7 +27,7 @@ public final class XMLReader {
         return map;
     }
 
-    static public void readMap(String fileName, String level){
+    static public void readMap(String fileName){
         try{
             //init xml reader.
             File fxmlFile = new File(fileName);
