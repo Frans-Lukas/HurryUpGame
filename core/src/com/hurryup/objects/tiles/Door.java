@@ -41,6 +41,7 @@ public class Door extends LogicTile {
     @Override
     public void activate(){
         state = 1;
+        nextState = 2;
         GameClient.sendMessage(serialize());
     }
 

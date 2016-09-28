@@ -12,6 +12,16 @@ public class LogicTile extends Tile implements IInteractive{
     protected LogicColor logicColor;
     protected int id;
     protected int state;
+    protected int nextState;
+
+    public int getNextState() {
+        return nextState;
+    }
+
+    public void setNextState(int nextState) {
+        this.nextState = nextState;
+    }
+
     protected Connection connection;
 
     public LogicTile(Vector2 position, LogicColor logicColor, int id, int state) {
@@ -46,7 +56,7 @@ public class LogicTile extends Tile implements IInteractive{
 
     //id|logicColor|state
     public String serialize(){
-        return Integer.toString(id) + "|" + Integer.toString(logicColor.getId()) + "|" + Integer.toString(state);
+        return Integer.toString(id) + "," + Integer.toString(logicColor.getId()) + "," + Integer.toString(state) + "," + Integer.toString(nextState);
     }
 
     @Override

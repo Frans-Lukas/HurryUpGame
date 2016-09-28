@@ -50,13 +50,13 @@ public final class GameClient {
         String d = ClientLogic.getMessage();
         if(d != null){
             System.out.println("Message: " + d);
-            String[] s = d.split("|");
-            if(s.length < 3)
+            String[] s = d.split(",");
+            if(s.length < 4)
                 return;
 
             MasterLevel level = (MasterLevel)hurryupGame.peekView();
             LogicTile tile = level.getTileById(Integer.parseInt(s[0]));
-            tile.setState(Integer.parseInt(s[2]));
+            tile.setState(Integer.parseInt(s[3]));
         }
     }
 

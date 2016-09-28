@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hurryup.game.network.GameClient;
 import com.hurryup.game.network.Server;
+import com.hurryup.views.MasterLevel;
 import com.hurryup.views.TestLevel;
 import com.hurryup.views.IView;
 
@@ -68,6 +69,7 @@ public class hurryupGame extends ApplicationAdapter {
 		views.push(new TestLevel());
 
 		XMLReader.readMap("level1.xml", "player1");
+        ((MasterLevel)views.peek()).getTileById(1).connect(((MasterLevel)views.peek()).getTileById(3));
 
 	}
 
