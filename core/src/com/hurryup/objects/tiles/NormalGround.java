@@ -14,7 +14,6 @@ import static com.hurryup.game.hurryupGame.camera;
  */
 public class NormalGround extends Tile {
 
-
     Texture img = new Texture("badlogic.jpg");
     BitmapFont font = new BitmapFont();
 
@@ -22,7 +21,6 @@ public class NormalGround extends Tile {
         super(position);
         font.setColor(Color.RED);
     }
-
     @Override
     public void draw(SpriteBatch batch) {
         //render entire map from tilemap.
@@ -31,9 +29,7 @@ public class NormalGround extends Tile {
         renderer.setColor(Color.BLACK);
         renderer.rect(position.x, position.y, 64, 64);
         renderer.end();
-
     }
-
     @Override
     public void update(long deltaTime) {
         super.update(deltaTime);
