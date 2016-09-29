@@ -70,7 +70,7 @@ public class LogicTile extends Tile implements IInteractive{
 
     //id|logicColor|state
     public String serialize(){
-        return Integer.toString(id) + "," + Integer.toString(logicColor.getId()) + "," + Integer.toString(state) + "," + Integer.toString(nextState);
+        return 1 + "," + Integer.toString(id) + "," + Integer.toString(logicColor.getId()) + "," + Integer.toString(state) + "," + Integer.toString(nextState);
     }
 
     @Override

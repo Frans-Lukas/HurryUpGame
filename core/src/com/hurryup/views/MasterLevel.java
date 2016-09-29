@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.hurryup.game.XMLReader;
 import com.hurryup.objects.MasterClass;
+import com.hurryup.objects.entities.Player;
 import com.hurryup.objects.tiles.*;
 import com.sun.deploy.util.ArrayUtil;
 
@@ -24,6 +25,9 @@ public class MasterLevel implements IView{
         loadTiles(fileName);
     }
     protected ArrayList<MasterClass> entities = new ArrayList<MasterClass>();
+
+    protected Player localPlayer;
+    protected Player remotePlayer;
 
     @Override
     public void dispose() {
@@ -54,4 +58,19 @@ public class MasterLevel implements IView{
         return null;
     }
 
+    public Player getLocalPlayer() {
+        return localPlayer;
+    }
+
+    public void setLocalPlayer(Player localPlayer) {
+        this.localPlayer = localPlayer;
+    }
+
+    public Player getRemotePlayer() {
+        return remotePlayer;
+    }
+
+    public void setRemotePlayer(Player remotePlayer) {
+        this.remotePlayer = remotePlayer;
+    }
 }
