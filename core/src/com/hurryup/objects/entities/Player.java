@@ -62,7 +62,11 @@ public class Player extends MasterClass {
         //render player.
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         renderer.setProjectionMatrix(camera.combined);
-        renderer.setColor(Color.BLUE);
+        if(!noUpdate)
+            renderer.setColor(Color.BLUE);
+        else
+            renderer.setColor(Color.FIREBRICK);
+
         renderer.rect(player.x, player.y, width, height);
         renderer.end();
     }
