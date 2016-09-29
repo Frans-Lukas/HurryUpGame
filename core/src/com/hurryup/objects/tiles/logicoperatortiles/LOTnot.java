@@ -60,6 +60,12 @@ public class LOTnot extends LogicTile{
         super.draw(batch);
         renderer.setColor(Color.BROWN);
         renderer.rect(position.x, position.y, 64, 64);
+        if(state == 0){
+            renderer.setColor(Color.RED);
+        } else if(state == 2){
+            renderer.setColor(Color.GREEN);
+        }
+        renderer.rect(position.x + width / 2 - 8, position.y + height / 2 - 8, 16, 16);
     }
 
     @Override
