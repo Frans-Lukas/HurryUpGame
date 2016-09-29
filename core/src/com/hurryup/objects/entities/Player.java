@@ -73,16 +73,16 @@ public class Player extends MasterClass {
 
     @Override
     public void update(long deltaTime, ArrayList<Tile> tiles) {
-        super.update(deltaTime, tiles);
-        if(noUpdate) {
+        if(!noUpdate) {
+            super.update(deltaTime, tiles);
             handleInput(tiles);
-        }
-        timeCounter += deltaTime;
-        if(timeCounter >= 33 && (abs(prevX - player.x) > 1 || abs(prevY - player.y) > 1)){
-           GameClient.sendMessage(serializePosition());
-           prevX = player.x;
-           prevY = player.y;
-           timeCounter = 0;
+            timeCounter += deltaTime;
+            if (timeCounter >= 33 && (abs(prevX - player.x) > 1 || abs(prevY - player.y) > 1)) {
+                GameClient.sendMessage(serializePosition());
+                prevX = player.x;
+                prevY = player.y;
+                timeCounter = 0;
+            }
         }
 
     }
