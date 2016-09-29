@@ -1,5 +1,7 @@
 package com.hurryup.objects.logic;
 
+import com.badlogic.gdx.math.Vector2;
+
 /**
  * Created by Administrator on 2016-09-23.
  */
@@ -16,5 +18,9 @@ public class Connection implements IInteractive{
 
     public void deactivate(int whichToActivate){
         connection.deactivate(whichToActivate);
+    }
+
+    public Vector2 getVector2(){
+        return connection.getVector2();
     }
 }

@@ -22,7 +22,6 @@ public class Door extends LogicTile {
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
-
         renderer.setColor(Color.GREEN);
         renderer.rect(position.x, position.y, width, height);
     }

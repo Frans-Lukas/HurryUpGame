@@ -35,6 +35,11 @@ public class LOTand extends LogicTile{
             renderer.setColor(Color.GREEN);
         }
         renderer.rect(position.x + width / 2 - 8, position.y + height / 2 - 8, 16, 16);
+        if(connection[0] != null) {
+            Vector2 tmpVector = new Vector2(vector.x + width / 2, vector.y + height / 2);
+            renderer.setColor(Color.DARK_GRAY);
+            renderer.line(tmpVector, connection[0].getVector2());
+        }
     }
 
     @Override
@@ -100,6 +105,9 @@ public class LOTand extends LogicTile{
             firstActivate = false;
         } else if(whichToDeactivate == 1){
             secondActivate = false;
+        }
+        if(!firstActivate || !secondActivate){
+            connection[0].deactivate(connectionValue);
         }
         nextState = 0;
         GameClient.sendMessage(serialize());

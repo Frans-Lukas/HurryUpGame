@@ -119,7 +119,6 @@ public final class XMLReader {
                     tmpButton.setId(Integer.parseInt(id[1]));
                     map.add(index, tmpButton);
                     index++;
-
                 }
                 //add door to arraylist
                 else if(id[0].equals("3")){

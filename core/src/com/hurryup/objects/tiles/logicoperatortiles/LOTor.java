@@ -13,6 +13,7 @@ import com.hurryup.objects.tiles.LogicTile;
 public class LOTor extends LogicTile{
     boolean firstActivate = false;
     boolean secondActivate = false;
+
     public LOTor(Vector2 position, LogicColor logicColor, int id, int state) {
         super(position, logicColor, id, state);
         setCollidable(false);
@@ -61,65 +62,10 @@ public class LOTor extends LogicTile{
             renderer.setColor(Color.GREEN);
         }
         renderer.rect(position.x + width / 2 - 8, position.y + height / 2 - 8, 16, 16);
-    }
-
-    @Override
-    public void update(long deltaTime) {
-        super.update(deltaTime);
-    }
-
-    @Override
-    public Vector2 getPosition() {
-        return super.getPosition();
-    }
-
-    @Override
-    public float getLeft() {
-        return super.getLeft();
-    }
-
-    @Override
-    public float getRight() {
-        return super.getRight();
-    }
-
-    @Override
-    public float getTop() {
-        return super.getTop();
-    }
-
-    @Override
-    public float getBot() {
-        return super.getBot();
-    }
-
-    @Override
-    public float getHeight() {
-        return super.getHeight();
-    }
-
-    @Override
-    public float getWidth() {
-        return super.getWidth();
-    }
-
-    @Override
-    public void setDrawable(boolean drawable) {
-        super.setDrawable(drawable);
-    }
-
-    @Override
-    public boolean isDrawable() {
-        return super.isDrawable();
-    }
-
-    @Override
-    public void setCollidable(boolean isCollidable) {
-        super.setCollidable(isCollidable);
-    }
-
-    @Override
-    public boolean isCollidable() {
-        return super.isCollidable();
+        if(connection[0] != null) {
+            Vector2 tmpVector = new Vector2(vector.x + width / 2, vector.y + height / 2);
+            renderer.setColor(Color.DARK_GRAY);
+            renderer.line(tmpVector, connection[0].getVector2());
+        }
     }
 }

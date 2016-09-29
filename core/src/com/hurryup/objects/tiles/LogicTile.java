@@ -14,7 +14,7 @@ public class LogicTile extends Tile implements IInteractive{
     protected int state;
     protected int nextState;
     protected int connectionValue = 0;
-
+    protected Vector2 vector;
 
 
     public int getConnectionValue() {
@@ -40,9 +40,8 @@ public class LogicTile extends Tile implements IInteractive{
         this.logicColor = logicColor;
         this.id = id;
         this.state = state;
+        vector = position;
     }
-
-    //TODO: Draw lines between connections.
 
     public int getState() {
         return state;
@@ -85,5 +84,10 @@ public class LogicTile extends Tile implements IInteractive{
 
     @Override
     public void deactivate(int whichToDeactivate) {}
+
+    public Vector2 getVector2(){
+        Vector2 tmpVector = new Vector2(vector.x + width / 2, vector.y + height / 2);
+        return tmpVector;
+    }
 
 }
