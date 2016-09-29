@@ -26,6 +26,11 @@ public class LOTxnor extends LogicTile {
         super.draw(batch);
         renderer.setColor(Color.TEAL);
         renderer.rect(position.x, position.y, 64, 64);
+        if(connection[0] != null) {
+            Vector2 tmpVector = new Vector2(vector.x + width / 2, vector.y + height / 2);
+            renderer.setColor(Color.DARK_GRAY);
+            renderer.line(tmpVector, connection[0].getVector2());
+        }
     }
 
     @Override
@@ -38,7 +43,6 @@ public class LOTxnor extends LogicTile {
         }
 
         if(state != 3 && state != 4){
-
             if((firstActivate && secondActivate)) {
                 connection[0].activate(connectionValue);
                 //gate is activated.
