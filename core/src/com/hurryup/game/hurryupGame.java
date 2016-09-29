@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.hurryup.game.network.GameClient;
 import com.hurryup.game.network.Server;
 import com.hurryup.objects.tiles.LogicTile;
@@ -25,7 +26,11 @@ public class hurryupGame extends ApplicationAdapter {
 
 	SpriteBatch batch;
 
-	private boolean hosting;
+	private static boolean hosting;
+
+	public static boolean isHosting() {
+		return hosting;
+	}
 
 	//cameracontrol
 	static public OrthographicCamera camera;
@@ -119,4 +124,7 @@ public class hurryupGame extends ApplicationAdapter {
 		return views.pop();
 	}
 	public static IView peekView() { return views.peek(); }
+	public static void updateRemotePostition(Vector2 newPos){
+
+	}
 }

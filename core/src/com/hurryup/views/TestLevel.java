@@ -19,7 +19,7 @@ import static com.hurryup.objects.tiles.Tile.renderer;
  */
 public class TestLevel extends MasterLevel{
     //arraylist for all entites in level.
-    private ArrayList<MasterClass> entities = new ArrayList<MasterClass>();
+
     BitmapFont font = new BitmapFont();
 
 
