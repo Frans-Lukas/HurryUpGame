@@ -23,7 +23,6 @@ public class MasterClass {
     public void update(long deltaTime, ArrayList<Tile> tiles){
 
     }
-
     public float getLeft(){
 
         return position.x;

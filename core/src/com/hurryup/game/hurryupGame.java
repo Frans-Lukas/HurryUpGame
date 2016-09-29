@@ -93,7 +93,6 @@ public class hurryupGame extends ApplicationAdapter {
 		viewToDraw.update(millis() - prevTime);
 
 		//draw current view.
-
 		batch.begin();
 		batch.setProjectionMatrix(camera.combined);
 		renderer.begin(ShapeRenderer.ShapeType.Filled);
