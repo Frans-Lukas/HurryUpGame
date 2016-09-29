@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.hurryup.game.network.GameClient;
 import com.hurryup.game.network.Server;
+import com.hurryup.objects.MasterClass;
 import com.hurryup.objects.tiles.LogicTile;
 import com.hurryup.views.MasterLevel;
 import com.hurryup.views.TestLevel;
@@ -26,7 +27,7 @@ public class hurryupGame extends ApplicationAdapter {
 
 	SpriteBatch batch;
 
-	private static boolean hosting;
+	private static boolean hosting = false;
 
 	public static boolean isHosting() {
 		return hosting;
@@ -64,6 +65,7 @@ public class hurryupGame extends ApplicationAdapter {
 				e.printStackTrace();
 			}
 			GameClient.connect();
+			hosting = true;
 		}
 
 
@@ -96,7 +98,6 @@ public class hurryupGame extends ApplicationAdapter {
 
 		//update current view
 		viewToDraw.update(millis() - prevTime);
-
 		//draw current view.
 		batch.begin();
 		batch.setProjectionMatrix(camera.combined);
@@ -125,6 +126,7 @@ public class hurryupGame extends ApplicationAdapter {
 	}
 	public static IView peekView() { return views.peek(); }
 	public static void updateRemotePostition(Vector2 newPos){
-
+		((MasterLevel)peekView()).getRemotePlayer().setX((int)newPos.x);
+		((MasterLevel)peekView()).getRemotePlayer().setY((int)newPos.y);
 	}
 }

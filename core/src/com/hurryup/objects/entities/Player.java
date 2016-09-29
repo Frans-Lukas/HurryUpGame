@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector;
+import com.hurryup.game.hurryupGame;
+import com.hurryup.game.network.GameClient;
 import com.hurryup.objects.MasterClass;
 import com.hurryup.objects.tiles.Button;
 import com.hurryup.objects.tiles.Tile;
@@ -15,6 +18,7 @@ import java.util.ArrayList;
 
 import static com.hurryup.game.hurryupGame.camera;
 import static com.hurryup.objects.tiles.Tile.renderer;
+import static java.lang.Math.abs;
 
 
 /**
@@ -29,8 +33,12 @@ public class Player extends MasterClass {
     int gravity = 1;
     int velocityX = 0;
     int velocityY = 0;
+    float prevX = 0;
+    float prevY = 0;
     boolean jumping = false;
     boolean noUpdate = false;
+    float timeCounter = 0;
+
 
     public Player(){
         //init player variables.
@@ -65,6 +73,14 @@ public class Player extends MasterClass {
         if(noUpdate) {
             handleInput(tiles);
         }
+        timeCounter += deltaTime;
+        if(timeCounter >= 33 && (abs(prevX - player.x) > 1 || abs(prevY - player.y) > 1)){
+           GameClient.sendMessage(serializePosition());
+           prevX = player.x;
+           prevY = player.y;
+           timeCounter = 0;
+        }
+
     }
 
     @Override
@@ -137,9 +153,7 @@ public class Player extends MasterClass {
                     while(checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y, (int)tile.getWidth(), (int)tile.getHeight())){
                         velocityX--;
                     }
-
                 }
-
             }
             //check vertical collision;
             if(checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, (int)tile.getWidth(), (int)tile.getHeight())){
@@ -170,6 +184,11 @@ public class Player extends MasterClass {
             collision = true;
         }
         return collision;
+    }
+
+    public String serializePosition(){
+        return "2," + (hurryupGame.isHosting() ? "1" : "0") + ","
+                + Integer.toString((int)player.x) + "," + Integer.toString((int)player.y);
     }
 
     public void setX(int x){

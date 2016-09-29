@@ -62,7 +62,12 @@ public final class GameClient {
             /*
                         *Message Syntax*
                 [TYPE],[ID],[LogicColor],[State],[NewState]
+                [TYPE],[ID],[X],[Y]
             */
+
+            /*if(!hurryupGame.isHosting()){
+                System.out.println(d);
+            }*/
             switch(Integer.parseInt(s[0])){
                 //Serialized change
                 case 1:
@@ -74,8 +79,9 @@ public final class GameClient {
                 //Client position
                 case 2:
                     //1 = host client
-                    if(s[1] == "0" && hurryupGame.isHosting() || s[1] == "1" && !hurryupGame.isHosting()) {
-                        hurryupGame.updateRemotePostition(new Vector2(0,0));
+                    //0 = not hosting
+                    if(s[1].equals("0") && hurryupGame.isHosting() || s[1].equals("1") && !hurryupGame.isHosting()) {
+                        hurryupGame.updateRemotePostition(new Vector2(Integer.parseInt(s[2]),Integer.parseInt(s[3])));
                     }
                     break;
             }

@@ -29,7 +29,7 @@ public final class Server {
         //While the client has new unread messages
         while((msg = Client.getMessage()) != null){
             serverLogic.broadcast(msg);
-            System.out.println("Got message " + msg);
+            //System.out.println("Got message " + msg);
         }
     }
 

@@ -134,7 +134,6 @@ public final class XMLReader {
                 }
                 //set position of player1
                 else if(id[0].equals("21")){
-                    System.out.println("it works");
                     if(hurryupGame.isHosting()){
                         localPlayer.setX(width * 64);
                         localPlayer.setY(height * 64);
