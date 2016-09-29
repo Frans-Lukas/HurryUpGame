@@ -15,6 +15,8 @@ public class LogicTile extends Tile implements IInteractive{
     protected int nextState;
     protected int connectionValue = 0;
 
+
+
     public int getConnectionValue() {
         return connectionValue;
     }
@@ -39,6 +41,8 @@ public class LogicTile extends Tile implements IInteractive{
         this.id = id;
         this.state = state;
     }
+
+    //TODO: Draw lines between connections.
 
     public int getState() {
         return state;

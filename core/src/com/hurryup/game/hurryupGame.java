@@ -92,6 +92,7 @@ public class hurryupGame extends ApplicationAdapter {
 		if(Server.isStarted()) {
 			Server.update();
 		}
+		//TODO: camera that follows seperate players
 
 		//create variable to make view management easier.
 		viewToDraw = views.peek();
