@@ -17,6 +17,7 @@ import com.hurryup.objects.tiles.Tile;
 import java.util.ArrayList;
 
 import static com.hurryup.game.hurryupGame.camera;
+import static com.hurryup.game.hurryupGame.isHosting;
 import static com.hurryup.objects.tiles.Tile.renderer;
 import static java.lang.Math.abs;
 
@@ -38,6 +39,7 @@ public class Player extends MasterClass {
     boolean jumping = false;
     boolean noUpdate = false;
     float timeCounter = 0;
+    public boolean player1 = false;
 
 
     public Player(){
@@ -62,7 +64,7 @@ public class Player extends MasterClass {
         //render player.
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         renderer.setProjectionMatrix(camera.combined);
-        if(!noUpdate)
+        if(player1)
             renderer.setColor(Color.BLUE);
         else
             renderer.setColor(Color.FIREBRICK);
@@ -77,7 +79,7 @@ public class Player extends MasterClass {
             super.update(deltaTime, tiles);
             handleInput(tiles);
             timeCounter += deltaTime;
-            if (timeCounter >= 33 && (abs(prevX - player.x) > 1 || abs(prevY - player.y) > 1)) {
+            if (timeCounter >= 10 && (abs(prevX - player.x) > 0 || abs(prevY - player.y) > 0)) {
                 GameClient.sendMessage(serializePosition());
                 prevX = player.x;
                 prevY = player.y;

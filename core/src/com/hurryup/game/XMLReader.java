@@ -137,9 +137,11 @@ public final class XMLReader {
                     if(hurryupGame.isHosting()){
                         localPlayer.setX(width * 64);
                         localPlayer.setY(height * 64);
+                        localPlayer.player1 = true;
                     } else{
                         remotePlayer.setX(width * 64);
                         remotePlayer.setY(height * 64);
+                        remotePlayer.player1 = true;
                     }
                 }
                 else if(id[0].equals("22")){
