@@ -37,6 +37,10 @@ public class MasterLevel implements IView{
     //load map from textfile.
     private void loadTiles(String fileName){
         tiles = XMLReader.getMap();
+        localPlayer = XMLReader.getLocalPlayer();
+        remotePlayer = XMLReader.getRemotePlayer();
+        entities.add(localPlayer);
+        entities.add(remotePlayer);
     }
 
     @Override

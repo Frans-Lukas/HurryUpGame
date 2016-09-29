@@ -51,11 +51,9 @@ public final class GameClient {
     }
 
     public static void update(){
-
         //While client has new messages
         String d = ClientLogic.getMessage();
         if(d != null){
-
 
             String[] s = d.split(",");
             //Check if message is of (serialized) type

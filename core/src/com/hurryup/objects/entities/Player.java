@@ -30,10 +30,18 @@ public class Player extends MasterClass {
     int velocityX = 0;
     int velocityY = 0;
     boolean jumping = false;
+    boolean noUpdate = false;
 
     public Player(){
-
         //init player variables.
+        player = new Rectangle();
+        player.x = 200;
+        player.y = 200;
+        player.width = width;
+        player.height = height;
+    }
+    public Player(boolean noUpdate){
+        this.noUpdate = noUpdate;
         player = new Rectangle();
         player.x = 200;
         player.y = 200;
@@ -54,7 +62,9 @@ public class Player extends MasterClass {
     @Override
     public void update(long deltaTime, ArrayList<Tile> tiles) {
         super.update(deltaTime, tiles);
-        handleInput(tiles);
+        if(noUpdate) {
+            handleInput(tiles);
+        }
     }
 
     @Override
@@ -160,6 +170,13 @@ public class Player extends MasterClass {
             collision = true;
         }
         return collision;
+    }
+
+    public void setX(int x){
+        player.x = x;
+    }
+    public void setY(int y){
+        player.y = y;
     }
 
 }

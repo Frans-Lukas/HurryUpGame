@@ -2,6 +2,7 @@ package com.hurryup.game;
 
 import com.badlogic.gdx.math.Vector2;
 import com.hurryup.objects.MasterClass;
+import com.hurryup.objects.entities.Player;
 import com.hurryup.objects.tiles.logicoperatortiles.LOTand;
 import com.hurryup.objects.logic.LogicColor;
 import com.hurryup.objects.tiles.*;
@@ -22,14 +23,17 @@ import javax.xml.parsers.*;
  */
 public final class XMLReader {
     static private ArrayList<Tile> map = new ArrayList<Tile>();
+    static private Player localPlayer = new Player();
+    static private Player remotePlayer = new Player(true);
 
     private XMLReader(){}
 
-    static public ArrayList getMap(){
+    public static ArrayList getMap(){
         return map;
     }
 
-    static public void readMap(String fileName){
+    public static void readMap(String fileName){
+        //init players on map and dont update input on remoteplayer.
         try{
             //init xml reader.
             File fxmlFile = new File(fileName);
@@ -83,7 +87,7 @@ public final class XMLReader {
 
         }
     }
-    static private void stringmapToListmap(String sMap){
+    private static void stringmapToListmap(String sMap){
         //split map into rows
         String lineArray[] = sMap.split("\\r?\\n");
 
@@ -122,18 +126,44 @@ public final class XMLReader {
                     map.add(index, tmpDoor);
                     index++;
                 }
+                //add LOTand to arraylist
                 else if(id[0].equals("4")){
                     LOTand tmpLOTand = new LOTand(new Vector2(width * 64, height * 64), LogicColor.None, Integer.parseInt(id[1]), 0);
                     map.add(index, tmpLOTand);
                     index++;
                 }
-
+                //set position of player1
+                else if(id[0].equals("21")){
+                    System.out.println("it works");
+                    if(hurryupGame.isHosting()){
+                        localPlayer.setX(width * 64);
+                        localPlayer.setY(height * 64);
+                    } else{
+                        remotePlayer.setX(width * 64);
+                        remotePlayer.setY(height * 64);
+                    }
+                }
+                else if(id[0].equals("22")){
+                    if(hurryupGame.isHosting()){
+                        remotePlayer.setX(width * 64);
+                        remotePlayer.setY(height * 64);
+                    } else{
+                        localPlayer.setX(width * 64);
+                        localPlayer.setY(height * 64);
+                    }
+                }
                 width++;
             }
             height++;
         }
-
     }
-
+    public static Player getLocalPlayer(){
+        System.out.println("local pos: " + localPlayer.position.x);
+        return localPlayer;
+    }
+    public static Player getRemotePlayer(){
+        System.out.println("remote pos: " + remotePlayer.position.x);
+        return remotePlayer;
+    }
 
 }
