@@ -1,5 +1,6 @@
 package com.hurryup.game.network;
 
+import com.badlogic.gdx.math.Vector2;
 import com.hurryup.game.hurryupGame;
 import com.hurryup.objects.tiles.LogicTile;
 import com.hurryup.views.IView;
@@ -74,7 +75,10 @@ public final class GameClient {
                     break;
                 //Client position
                 case 2:
-
+                    //1 = host client
+                    if(s[1] == "0" && hurryupGame.isHosting() || s[1] == "1" && !hurryupGame.isHosting()) {
+                        hurryupGame.updateRemotePostition(new Vector2(0,0));
+                    }
                     break;
             }
 
