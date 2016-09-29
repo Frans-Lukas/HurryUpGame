@@ -6,6 +6,8 @@ import com.hurryup.objects.entities.Player;
 import com.hurryup.objects.tiles.logicoperatortiles.LOTand;
 import com.hurryup.objects.logic.LogicColor;
 import com.hurryup.objects.tiles.*;
+import com.hurryup.objects.tiles.logicoperatortiles.LOTnot;
+import com.hurryup.objects.tiles.logicoperatortiles.LOTor;
 import com.hurryup.views.MasterLevel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -132,6 +134,18 @@ public final class XMLReader {
                     map.add(index, tmpLOTand);
                     index++;
                 }
+                //add LOTnot to arraylist
+                else if(id[0].equals("5")){
+                    LOTnot tmpLOTnot = new LOTnot(new Vector2(width * 64, height * 64), LogicColor.None, Integer.parseInt(id[1]), 0);
+                    map.add(index, tmpLOTnot);
+                    index++;
+                }
+                //add LOTor to arraylist
+                else if(id[0].equals("6")){
+                    LOTor tmpLOTor = new LOTor(new Vector2(width * 64, height * 64), LogicColor.None, Integer.parseInt(id[1]), 0);
+                    map.add(index, tmpLOTor);
+                    index++;
+                }
                 //set position of player1
                 else if(id[0].equals("21")){
                     if(hurryupGame.isHosting()){
@@ -144,6 +158,7 @@ public final class XMLReader {
                         remotePlayer.player1 = true;
                     }
                 }
+                //set position of player 2.
                 else if(id[0].equals("22")){
                     if(hurryupGame.isHosting()){
                         remotePlayer.setX(width * 64);
