@@ -13,6 +13,8 @@ public class Tile{
     public float width = 64;
     public float height = 64;
     public static ShapeRenderer renderer = new ShapeRenderer();
+    private boolean collidable = true;
+    private boolean drawable = true;
 
 
     //get position for every tile
@@ -53,6 +55,20 @@ public class Tile{
 
     public float getWidth(){
         return width;
+    }
+
+    public void setDrawable(boolean drawable) {
+        this.drawable = drawable;
+    }
+    public boolean isDrawable(){
+        return drawable;
+    }
+
+    public void setCollidable(boolean isCollidable){
+        collidable = isCollidable;
+    }
+    public boolean isCollidable(){
+        return collidable;
     }
 
 }

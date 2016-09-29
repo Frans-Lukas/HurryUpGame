@@ -20,7 +20,8 @@ public class LOTand extends LogicTile{
 
     public LOTand(Vector2 position, LogicColor logicColor, int id, int state) {
         super(position, logicColor, id, state);
-        //not activated
+        //logic operators are not collidable
+        setCollidable(false);
     }
 
     @Override

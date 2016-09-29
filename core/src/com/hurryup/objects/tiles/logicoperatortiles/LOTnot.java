@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.hurryup.game.network.GameClient;
+import com.hurryup.objects.logic.Connection;
+import com.hurryup.objects.logic.IInteractive;
 import com.hurryup.objects.logic.LogicColor;
 import com.hurryup.objects.tiles.LogicTile;
 
@@ -13,13 +15,28 @@ import com.hurryup.objects.tiles.LogicTile;
 public class LOTnot extends LogicTile{
     public LOTnot(Vector2 position, LogicColor logicColor, int id, int state) {
         super(position, logicColor, id, state);
+        setCollidable(false);
+    }
+
+    @Override
+    public void connect(IInteractive cn) {
+        if(connection[0] == null) {
+            connection[0] = new Connection();
+            connection[0].connect(cn);
+            connection[0].activate(0);
+        } else{
+            connection[1] = new Connection();
+            connection[1].connect(cn);
+            connection[1].activate(0);
+        }
+
     }
 
     @Override
     public void activate(int whichToActivate) {
         super.activate(whichToActivate);
         if(state != 1 && state != 2){
-            connection[0].activate(connectionValue);
+            connection[0].deactivate(connectionValue);
             //gate is activated.
             state = 1;
             //draw that the gate is activated.
@@ -31,6 +48,11 @@ public class LOTnot extends LogicTile{
     @Override
     public void deactivate(int whichToDeactivate) {
         super.deactivate(whichToDeactivate);
+        if(state != 0){
+            connection[0].activate(connectionValue);
+            nextState = 0;
+            GameClient.sendMessage(serialize());
+        }
     }
 
     @Override

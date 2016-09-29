@@ -58,7 +58,6 @@ public class Player extends MasterClass {
         player.width = width;
         player.height = height;
     }
-
     @Override
     public void draw(SpriteBatch batch) {
         //render player.
@@ -68,7 +67,6 @@ public class Player extends MasterClass {
             renderer.setColor(Color.BLUE);
         else
             renderer.setColor(Color.FIREBRICK);
-
         renderer.rect(player.x, player.y, width, height);
         renderer.end();
     }
@@ -148,30 +146,32 @@ public class Player extends MasterClass {
 
         //collision check!
         for(Tile tile : tiles){
-            if(checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y, (int)tile.getWidth(), (int)tile.getHeight())){
-                //keep player 0 distance from wall if collision is detected.
+            if(tile.isCollidable()) {
+                if (checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y, (int) tile.getWidth(), (int) tile.getHeight())) {
+                    //keep player 0 distance from wall if collision is detected.
 
-                if(velocityX < 0){
-                    while(checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y, (int)tile.getWidth(), (int)tile.getHeight())){
-                        velocityX++;
-                    }
-                } else if(velocityX > 0){
-                    while(checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y, (int)tile.getWidth(), (int)tile.getHeight())){
-                        velocityX--;
+                    if (velocityX < 0) {
+                        while (checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y, (int) tile.getWidth(), (int) tile.getHeight())) {
+                            velocityX++;
+                        }
+                    } else if (velocityX > 0) {
+                        while (checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y, (int) tile.getWidth(), (int) tile.getHeight())) {
+                            velocityX--;
+                        }
                     }
                 }
-            }
-            //check vertical collision;
-            if(checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, (int)tile.getWidth(), (int)tile.getHeight())){
-                //keep the player at 0 above ground.
-                if(tile instanceof Button){
-                    ((Button) tile).activate(0);
-                }
+                //check vertical collision;
+                if (checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, (int) tile.getWidth(), (int) tile.getHeight())) {
+                    //keep the player at 0 above ground.
+                    if (tile instanceof Button) {
+                        ((Button) tile).activate(0);
+                    }
 
-                while(checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, (int)tile.getWidth(), (int)tile.getHeight())){
-                    velocityY++;
+                    while (checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, (int) tile.getWidth(), (int) tile.getHeight())) {
+                        velocityY++;
+                    }
+                    jumping = false;
                 }
-                jumping = false;
             }
         }
 

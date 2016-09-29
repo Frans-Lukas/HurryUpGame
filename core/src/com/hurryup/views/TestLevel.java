@@ -32,14 +32,12 @@ public class TestLevel extends MasterLevel{
     //Draw Level
     @Override
     public void draw(SpriteBatch batch, long deltaTime) {
-        for(MasterClass entity : entities){
-            entity.draw(batch);
-        }
         for(Tile tile : tiles){
             tile.draw(batch);
         }
-
-
+        for(MasterClass entity : entities){
+            entity.draw(batch);
+        }
     }
 
     @Override
@@ -48,11 +46,11 @@ public class TestLevel extends MasterLevel{
 
     @Override
     public void update(long deltaTime) {
-        for(MasterClass entity : entities){
-            entity.update(deltaTime, tiles);
-        }
         for(Tile tile: tiles){
             tile.update(deltaTime);
+        }
+        for(MasterClass entity : entities){
+            entity.update(deltaTime, tiles);
         }
 
     }
