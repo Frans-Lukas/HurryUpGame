@@ -1,0 +1,95 @@
+package com.hurryup.objects.tiles.logicoperatortiles;
+
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.hurryup.game.network.GameClient;
+import com.hurryup.objects.logic.LogicColor;
+import com.hurryup.objects.tiles.LogicTile;
+
+/**
+ * Created by Klas on 2016-09-29.
+ */
+public class LOTxnor extends LogicTile {
+
+    private boolean firstActivate = false;
+    private boolean secondActivate = false;
+
+    public LOTxnor(Vector2 position, LogicColor logicColor, int id, int state) {
+        super(position, logicColor, id, state);
+        //logic operators are not collidable
+        setCollidable(false);
+    }
+
+    @Override
+    public void draw(SpriteBatch batch) {
+        super.draw(batch);
+        renderer.setColor(Color.TEAL);
+        renderer.rect(position.x, position.y, 64, 64);
+    }
+
+    @Override
+    public void activate(int whichToActivate) {
+
+        if(whichToActivate == 0){
+            firstActivate = true;
+        } else if(whichToActivate == 1){
+            secondActivate = true;
+        }
+
+        if(state != 3 && state != 4){
+
+            if((firstActivate && secondActivate)) {
+                connection[0].activate(connectionValue);
+                //gate is activated.
+                state = 3;
+                //draw that the gate is activated.
+                nextState = 4;
+            }
+            else if((!firstActivate && !secondActivate)){
+                connection[0].activate(connectionValue);
+                state = 3;
+                nextState = 4;
+            }
+            else{
+                connection[0].deactivate(connectionValue);
+                state = 3;
+                nextState = 0;
+            }
+            GameClient.sendMessage(serialize());
+        }
+    }
+
+    @Override
+    public void deactivate(int whichToDeactivate) {
+        super.deactivate(whichToDeactivate);
+
+        if(whichToDeactivate == 0){
+            firstActivate = false;
+        } else if(whichToDeactivate == 1){
+            secondActivate = false;
+        }
+
+        if(state != 3 && state != 4){
+
+            if((firstActivate && secondActivate)) {
+                connection[0].activate(connectionValue);
+                //gate is activated.
+                state = 3;
+                //draw that the gate is activated.
+                nextState = 4;
+            }
+            else if((!firstActivate && !secondActivate)){
+                connection[0].activate(connectionValue);
+                state = 3;
+                nextState = 4;
+            }
+            else{
+                connection[0].deactivate(connectionValue);
+                state = 3;
+                nextState = 0;
+            }
+            GameClient.sendMessage(serialize());
+        }
+    }
+}
