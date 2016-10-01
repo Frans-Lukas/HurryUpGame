@@ -2,7 +2,6 @@ package com.hurryup.objects.tiles.logicoperatortiles;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.hurryup.game.network.GameClient;
 import com.hurryup.objects.logic.IInteractive;
@@ -18,6 +17,12 @@ public class LOTand extends LogicTile{
     private boolean firstActivate = false;
     private boolean secondActivate = false;
 
+    //dark purple
+    private Color lotColorOff = Color.valueOf("2E0854FF");
+
+    //light purple
+    private Color lotColorOn = Color.valueOf("7F00FFFF");
+
     public LOTand(Vector2 position, LogicColor logicColor, int id, int state) {
         super(position, logicColor, id, state);
         //logic operators are not collidable
@@ -27,14 +32,12 @@ public class LOTand extends LogicTile{
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
-        renderer.setColor(Color.PURPLE);
-        renderer.rect(position.x, position.y, 64, 64);
-        if(state == 0){
-            renderer.setColor(Color.RED);
+        if(state == 0) {
+            renderer.setColor(lotColorOff);
         } else if(state == 2){
-            renderer.setColor(Color.GREEN);
+            renderer.setColor(lotColorOn);
         }
-        renderer.rect(position.x + width / 2 - 8, position.y + height / 2 - 8, 16, 16);
+        renderer.rect(position.x, position.y, 64, 64);
         if(connection[0] != null) {
             Vector2 tmpVector = new Vector2(vector.x + width / 2, vector.y + height / 2);
             renderer.setColor(Color.DARK_GRAY);

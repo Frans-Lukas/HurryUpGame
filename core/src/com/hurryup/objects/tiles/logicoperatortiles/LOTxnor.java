@@ -15,6 +15,11 @@ public class LOTxnor extends LogicTile {
     private boolean firstActivate = false;
     private boolean secondActivate = false;
 
+    //Dark Brown color
+    private Color lotColorOff = Color.valueOf("000099FF");
+    //light brown color
+    private Color lotColorOn = Color.valueOf("0000b2FF");
+
     public LOTxnor(Vector2 position, LogicColor logicColor, int id, int state) {
         super(position, logicColor, id, state);
         //logic operators are not collidable
@@ -24,7 +29,11 @@ public class LOTxnor extends LogicTile {
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
-        renderer.setColor(Color.TEAL);
+        if(state == 0){
+            renderer.setColor(lotColorOff);
+        } else if(state == 2){
+            renderer.setColor(lotColorOn);
+        }
         renderer.rect(position.x, position.y, 64, 64);
         if(connection[0] != null) {
             Vector2 tmpVector = new Vector2(vector.x + width / 2, vector.y + height / 2);

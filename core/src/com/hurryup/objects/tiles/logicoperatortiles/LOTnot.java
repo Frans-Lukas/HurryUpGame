@@ -13,6 +13,11 @@ import com.hurryup.objects.tiles.LogicTile;
  * Created by frasse on 2016-09-28.
  */
 public class LOTnot extends LogicTile{
+    //Dark Brown color
+    private Color lotColorOff = Color.valueOf("802A2AFF");
+    //light brown color
+    private Color lotColorOn = Color.valueOf("CD5C5CFF");
+
     public LOTnot(Vector2 position, LogicColor logicColor, int id, int state) {
         super(position, logicColor, id, state);
         setCollidable(false);
@@ -58,14 +63,12 @@ public class LOTnot extends LogicTile{
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
-        renderer.setColor(Color.BROWN);
-        renderer.rect(position.x, position.y, 64, 64);
         if(state == 0){
-            renderer.setColor(Color.RED);
+            renderer.setColor(lotColorOff);
         } else if(state == 2){
-            renderer.setColor(Color.GREEN);
+            renderer.setColor(lotColorOn);
         }
-        renderer.rect(position.x + width / 2 - 8, position.y + height / 2 - 8, 16, 16);
+        renderer.rect(position.x, position.y, 64, 64);
         if(connection[0] != null) {
             Vector2 tmpVector = new Vector2(vector.x + width / 2, vector.y + height / 2);
             renderer.setColor(Color.DARK_GRAY);
