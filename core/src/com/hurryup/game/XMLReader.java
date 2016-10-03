@@ -135,7 +135,7 @@ public final class XMLReader {
                 }
                 //add LOTnot to arraylist
                 else if(id[0].equals("5")){
-                    LOTnot tmpLOTnot = new LOTnot(new Vector2(width * 64, height * 64), LogicColor.None, Integer.parseInt(id[1]), 0);
+                    LOTnot tmpLOTnot = new LOTnot(new Vector2(width * 64, height * 64), LogicColor.None, Integer.parseInt(id[1]), 2);
                     map.add(index, tmpLOTnot);
                     index++;
                 }

@@ -29,9 +29,9 @@ public class LOTxnor extends LogicTile {
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
-        if(state == 0){
+        if(state != 5) {
             renderer.setColor(lotColorOff);
-        } else if(state == 2){
+        } else{
             renderer.setColor(lotColorOn);
         }
         renderer.rect(position.x, position.y, 64, 64);
@@ -39,6 +39,19 @@ public class LOTxnor extends LogicTile {
             Vector2 tmpVector = new Vector2(vector.x + width / 2, vector.y + height / 2);
             renderer.setColor(Color.DARK_GRAY);
             renderer.line(tmpVector, connection[0].getVector2());
+        }
+    }
+
+    @Override
+    public void update(long deltaTime) {
+        super.update(deltaTime);
+        if(state == 4){
+            connection[0].activate(connectionValue);
+            state = 5;
+        }
+        else if(state == 6){
+            connection[0].deactivate(connectionValue);
+            state = 5;
         }
     }
 

@@ -63,6 +63,7 @@ public class LOTand extends LogicTile{
         else if(state == 6){
             connection[0].deactivate(connectionValue);
             state = 5;
+            System.out.println(state);
         }
     }
 
@@ -113,8 +114,9 @@ public class LOTand extends LogicTile{
         else if(whichToActivate == 1){
             if(state == 1)
                 nextState = 3;
-            else
+            else {
                 nextState = 2;
+            }
         }
 
         if(state != 5 && state != 4){
@@ -133,8 +135,9 @@ public class LOTand extends LogicTile{
         int locState = state;
 
         if(whichToDeactivate == 0){
-            if(state == 3 || state == 2)
+            if(state == 3 || state == 2) {
                 nextState = 2;
+            }
             else
                 nextState = 0;
 
@@ -144,7 +147,7 @@ public class LOTand extends LogicTile{
             else
                 nextState = 0;
         }
-        if(locState != state && state != 5 && state != 6){
+        if(state != nextState && state != 5 && state != 6){
             state = 5;
             nextState = 6;
             GameClient.sendMessage(serialize());

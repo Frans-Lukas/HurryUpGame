@@ -22,6 +22,7 @@ public class LOTor extends LogicTile{
     public LOTor(Vector2 position, LogicColor logicColor, int id, int state) {
         super(position, logicColor, id, state);
         setCollidable(false);
+
     }
 
     @Override
@@ -57,12 +58,25 @@ public class LOTor extends LogicTile{
     }
 
     @Override
+    public void update(long deltaTime) {
+        super.update(deltaTime);
+        if(state == 4){
+            connection[0].activate(connectionValue);
+            state = 5;
+        }
+        else if(state == 6){
+            connection[0].deactivate(connectionValue);
+            state = 5;
+        }
+    }
+
+    @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
         renderer.setColor(Color.FOREST);
-        if(state == 0){
+        if(state != 5) {
             renderer.setColor(lotColorOff);
-        } else if(state == 2){
+        } else{
             renderer.setColor(lotColorOn);
         }
         renderer.rect(position.x, position.y, 64, 64);

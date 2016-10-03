@@ -9,8 +9,16 @@ import com.hurryup.objects.logic.IInteractive;
 import com.hurryup.objects.logic.LogicColor;
 import com.hurryup.objects.tiles.LogicTile;
 
+
+
 /**
  * Created by frasse on 2016-09-28.
+ * STATES:
+ * 0: INACTIVE
+ * 1: ACTIVE
+ * 2: ACTIVATE
+ * 3: SENT
+ * 4: DEACTIVATE
  */
 public class LOTnot extends LogicTile{
     //Dark Brown color
@@ -39,23 +47,25 @@ public class LOTnot extends LogicTile{
 
     @Override
     public void activate(int whichToActivate) {
-        super.activate(whichToActivate);
-        if(state != 1 && state != 2){
-            connection[0].deactivate(connectionValue);
-            //gate is activated.
-            state = 1;
-            //draw that the gate is activated.
-            nextState = 2;
+        //if active, deactivate
+        if(state == 1){
+            nextState = 4;
+        }
+        //send deactivate gate if not already
+        if(state != 3){
+            state = 3;
             GameClient.sendMessage(serialize());
         }
     }
 
     @Override
     public void deactivate(int whichToDeactivate) {
-        super.deactivate(whichToDeactivate);
-        if(state != 0){
-            connection[0].activate(connectionValue);
-            nextState = 0;
+        //if inactive, set to activate
+        if(state == 0){
+            nextState = 2;
+        }
+        if(state != 3){
+            state = 3;
             GameClient.sendMessage(serialize());
         }
     }
@@ -63,9 +73,9 @@ public class LOTnot extends LogicTile{
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
-        if(state == 0){
+        if(state == 0) {
             renderer.setColor(lotColorOff);
-        } else if(state == 2){
+        } else{
             renderer.setColor(lotColorOn);
         }
         renderer.rect(position.x, position.y, 64, 64);
@@ -79,6 +89,14 @@ public class LOTnot extends LogicTile{
     @Override
     public void update(long deltaTime) {
         super.update(deltaTime);
+        if(state == 4){
+            state = 0;
+            connection[0].deactivate(connectionValue);
+        }
+        else if(state == 2){
+            state = 1;
+            connection[0].activate(connectionValue);
+        }
     }
 
     @Override
