@@ -38,7 +38,7 @@ public class Button extends LogicTile {
     @Override
     public void update(long deltaTime) {
         super.update(deltaTime);
-        if(state == 2 && height > 16){
+        if((state == 3 || state == 2) && height > 16){
             height -= 0.5;
         } else if(state == 0 && height < 32){
             height += 0.5;

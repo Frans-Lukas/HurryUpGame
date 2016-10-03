@@ -83,7 +83,11 @@ public class LogicTile extends Tile implements IInteractive{
     }
 
     @Override
-    public void deactivate(int whichToDeactivate) {}
+    public void deactivate(int whichToDeactivate) {
+        if(connection[connectionValue] != null){
+            connection[connectionValue].deactivate(connectionValue);
+        }
+    }
 
     public Vector2 getVector2(){
         Vector2 tmpVector = new Vector2(vector.x + width / 2, vector.y + height / 2);
