@@ -103,14 +103,11 @@ public class LOTand extends LogicTile{
     public void deactivate(int whichToDeactivate) {
 
         if(whichToDeactivate == 0){
-
+            firstActivate = false;
 
         } else if(whichToDeactivate == 1){
-
+            secondActivate = false;
         }
-        if(state != nextState && state != 5 && state != 6){
-            state = 5;
-            nextState = 6;
-        }
+        connection[0].deactivate(connectionValue);
     }
 }
