@@ -29,7 +29,7 @@ public class Door extends LogicTile {
     @Override
     public void update(long deltaTime) {
         super.update(deltaTime);
-        if(state == 2 && height > 0){
+        if(state == 1 && height > 0){
             height--;
         } else if(state == 0 && height < 64){
             height++;
@@ -39,19 +39,12 @@ public class Door extends LogicTile {
     @Override
     public void deactivate(int whichToDeactivate) {
         //close door
-        nextState = 0;
-        GameClient.sendMessage(serialize());
+        state = 0;
     }
 
     @Override
     public void activate(int whichToActivate){
-        if(state != 1 && state != 2){
-            //door activated
-            state = 1;
-            //door opens for both players.
-            nextState = 2;
-            GameClient.sendMessage(serialize());
-        }
+        state = 1;
     }
 
     @Override
