@@ -47,9 +47,8 @@ public class Button extends LogicTile {
 
     @Override
     public void activate(int whichToActivate) {
-        if(state != 1 && state != 2 && state != 3) {
-            state = 1;
-            nextState = 2;
+        if(state != 1 && state != 3) {
+            nextState = 1;
 
             GameClient.sendMessage(serialize());
         }
