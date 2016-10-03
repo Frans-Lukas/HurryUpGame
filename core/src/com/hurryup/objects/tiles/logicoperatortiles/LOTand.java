@@ -12,6 +12,14 @@ import static com.hurryup.game.hurryupGame.camera;
 
 /**
  * Created by frasse on 2016-09-28.
+ * STATES:
+ * 0: NONE
+ * 1: 1 T 2 F
+ * 2: 1 F 2 T
+ * 3: 1 T 2 T
+ * 4: ACTIVE
+ * 5: SENT
+ * 6: DEACTIVATE
  */
 public class LOTand extends LogicTile{
     private boolean firstActivate = false;
@@ -32,9 +40,9 @@ public class LOTand extends LogicTile{
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
-        if(state == 0) {
+        if(state != 5) {
             renderer.setColor(lotColorOff);
-        } else if(state == 2){
+        } else{
             renderer.setColor(lotColorOn);
         }
         renderer.rect(position.x, position.y, 64, 64);
@@ -48,6 +56,14 @@ public class LOTand extends LogicTile{
     @Override
     public void update(long deltaTime) {
         super.update(deltaTime);
+        if(state == 4){
+            connection[0].activate(connectionValue);
+            state = 5;
+        }
+        else if(state == 6){
+            connection[0].deactivate(connectionValue);
+            state = 5;
+        }
     }
 
     @Override
@@ -87,32 +103,51 @@ public class LOTand extends LogicTile{
 
     @Override
     public void activate(int whichToActivate) {
+
         if(whichToActivate == 0){
-            firstActivate = true;
-        } else if(whichToActivate == 1){
-            secondActivate = true;
+            if(state == 2)
+                nextState = 3;
+            else
+                nextState = 1;
         }
-        if(state != 1 && state != 2 && firstActivate && secondActivate){
-            connection[0].activate(connectionValue);
-            //gate is activated.
-            state = 1;
-            //draw that the gate is activated.
-            nextState = 2;
+        else if(whichToActivate == 1){
+            if(state == 1)
+                nextState = 3;
+            else
+                nextState = 2;
+        }
+
+        if(state != 5 && state != 4){
+
+            //Both active
+            if(nextState == 3) {
+                state = 5;
+                nextState = 4;
+            }
             GameClient.sendMessage(serialize());
         }
     }
 
     @Override
     public void deactivate(int whichToDeactivate) {
+        int locState = state;
+
         if(whichToDeactivate == 0){
-            firstActivate = false;
+            if(state == 3 || state == 2)
+                nextState = 2;
+            else
+                nextState = 0;
+
         } else if(whichToDeactivate == 1){
-            secondActivate = false;
+            if(state == 3 || state == 1)
+                nextState = 1;
+            else
+                nextState = 0;
         }
-        if(!firstActivate || !secondActivate){
-            connection[0].deactivate(connectionValue);
+        if(locState != state && state != 5 && state != 6){
+            state = 5;
+            nextState = 6;
+            GameClient.sendMessage(serialize());
         }
-        nextState = 0;
-        GameClient.sendMessage(serialize());
     }
 }
