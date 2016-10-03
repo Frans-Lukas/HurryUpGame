@@ -93,15 +93,6 @@ public class hurryupGame extends ApplicationAdapter {
 			Server.update();
 		}
 		//TODO: camera that follows seperate players
-		//TODO: BUG!!!!!!!!
-		/* DESCRIPTION OF BUG:
-		 * if the hosting player pushes the left button
-		 * and the client player pushes the right button, the LOTand object does not activate
-		 * but if one player pushes both buttons, the LOTand object activates and opens the door
-		 * This might mean that the LOTand object does not recieve data about the activated
-		 *  button from the other client?
-		 */
-		//create variable to make view management easier.
 		viewToDraw = views.peek();
 
 		//update current view
@@ -114,7 +105,6 @@ public class hurryupGame extends ApplicationAdapter {
 		viewToDraw.draw(batch, millis() - prevTime);
 		renderer.end();
 		batch.end();
-
 
 		//keep track of current
 		// renderer.end();time.

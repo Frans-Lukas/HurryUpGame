@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import static com.hurryup.game.hurryupGame.HEIGHT;
 import static com.hurryup.game.hurryupGame.WIDTH;
+import static com.hurryup.game.hurryupGame.camera;
 import static com.hurryup.objects.tiles.Tile.renderer;
 
 /**
@@ -37,6 +38,11 @@ public class TestLevel extends MasterLevel{
         }
         for(MasterClass entity : entities){
             entity.draw(batch);
+
+            //if you want camera to follow player, put camerafollows to true.
+            if(getLocalPlayer().cameraFollows){
+                camera.position.set(getLocalPlayer().getX(), getLocalPlayer().getY(), 0);
+            }
         }
     }
 

@@ -173,11 +173,9 @@ public final class XMLReader {
         }
     }
     public static Player getLocalPlayer(){
-        System.out.println("local pos: " + localPlayer.position.x);
         return localPlayer;
     }
     public static Player getRemotePlayer(){
-        System.out.println("remote pos: " + remotePlayer.position.x);
         return remotePlayer;
     }
 

@@ -40,6 +40,7 @@ public class Player extends MasterClass {
     boolean noUpdate = false;
     float timeCounter = 0;
     public boolean player1 = false;
+    public boolean cameraFollows = false;
 
 
     public Player(){
@@ -202,6 +203,13 @@ public class Player extends MasterClass {
     }
     public void setY(int y){
         player.y = y;
+    }
+
+    public float getX(){
+        return player.x;
+    }
+    public float getY(){
+        return player.y;
     }
 
 }
