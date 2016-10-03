@@ -13,12 +13,6 @@ import com.hurryup.objects.tiles.LogicTile;
 
 /**
  * Created by frasse on 2016-09-28.
- * STATES:
- * 0: INACTIVE
- * 1: ACTIVE
- * 2: ACTIVATE
- * 3: SENT
- * 4: DEACTIVATE
  */
 public class LOTnot extends LogicTile{
     //Dark Brown color
@@ -47,27 +41,12 @@ public class LOTnot extends LogicTile{
 
     @Override
     public void activate(int whichToActivate) {
-        //if active, deactivate
-        if(state == 1){
-            nextState = 4;
-        }
-        //send deactivate gate if not already
-        if(state != 3){
-            state = 3;
-            GameClient.sendMessage(serialize());
-        }
+        super.deactivate(connectionValue);
     }
 
     @Override
     public void deactivate(int whichToDeactivate) {
-        //if inactive, set to activate
-        if(state == 0){
-            nextState = 2;
-        }
-        if(state != 3){
-            state = 3;
-            GameClient.sendMessage(serialize());
-        }
+        super.activate(connectionValue);
     }
 
     @Override
@@ -89,14 +68,6 @@ public class LOTnot extends LogicTile{
     @Override
     public void update(long deltaTime) {
         super.update(deltaTime);
-        if(state == 4){
-            state = 0;
-            connection[0].deactivate(connectionValue);
-        }
-        else if(state == 2){
-            state = 1;
-            connection[0].activate(connectionValue);
-        }
     }
 
     @Override

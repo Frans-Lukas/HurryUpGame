@@ -13,13 +13,8 @@ import static com.hurryup.game.hurryupGame.camera;
 /**
  * Created by frasse on 2016-09-28.
  * STATES:
- * 0: NONE
- * 1: 1 T 2 F
- * 2: 1 F 2 T
- * 3: 1 T 2 T
- * 4: ACTIVE
- * 5: SENT
- * 6: DEACTIVATE
+ * 1 CALLED
+ * 2 CALL
  */
 public class LOTand extends LogicTile{
     private boolean firstActivate = false;
@@ -56,15 +51,6 @@ public class LOTand extends LogicTile{
     @Override
     public void update(long deltaTime) {
         super.update(deltaTime);
-        if(state == 4){
-            connection[0].activate(connectionValue);
-            state = 5;
-        }
-        else if(state == 6){
-            connection[0].deactivate(connectionValue);
-            state = 5;
-            System.out.println(state);
-        }
     }
 
     @Override
@@ -106,46 +92,26 @@ public class LOTand extends LogicTile{
     public void activate(int whichToActivate) {
 
         if(whichToActivate == 0){
-            if(state == 2)
-                nextState = 3;
-            else
-                nextState = 1;
+            firstActivate = true;
         }
         else if(whichToActivate == 1){
-            if(state == 1)
-                nextState = 3;
-            else {
-                nextState = 2;
-            }
+            secondActivate = true;
         }
 
-        if(state != 5 && state != 4){
+        if(firstActivate && secondActivate){
 
-            //Both active
-            if(nextState == 3) {
-                state = 5;
-                nextState = 4;
-            }
-            GameClient.sendMessage(serialize());
+            connection[0].activate(connectionValue);
         }
     }
 
     @Override
     public void deactivate(int whichToDeactivate) {
-        int locState = state;
 
         if(whichToDeactivate == 0){
-            if(state == 3 || state == 2) {
-                nextState = 2;
-            }
-            else
-                nextState = 0;
+
 
         } else if(whichToDeactivate == 1){
-            if(state == 3 || state == 1)
-                nextState = 1;
-            else
-                nextState = 0;
+
         }
         if(state != nextState && state != 5 && state != 6){
             state = 5;

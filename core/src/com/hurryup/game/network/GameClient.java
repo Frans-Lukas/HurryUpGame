@@ -74,6 +74,16 @@ public final class GameClient {
                     MasterLevel level = (MasterLevel)hurryupGame.peekView();
                     LogicTile tile = level.getTileById(Integer.parseInt(s[1]));
                     tile.setState(Integer.parseInt(s[4]));
+                    int cv = Integer.parseInt(s[5]);
+
+                    //2 == activate, 4 == deactivate
+                    if(cv == 2){
+                        tile.activate(cv);
+                    }
+                    else if(cv == 4){
+                        tile.deactivate(cv);
+                    }
+
                     System.out.printf("[%s] Changed state to [%s], was [%s]\n",s[1],s[4],s[3]);
                     break;
                 //Client position
