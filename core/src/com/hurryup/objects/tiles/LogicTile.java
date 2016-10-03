@@ -90,7 +90,8 @@ public class LogicTile extends Tile implements IInteractive{
     }
 
     public Vector2 getVector2(){
-        Vector2 tmpVector = new Vector2(vector.x + width / 2, vector.y + height / 2);
+        //plus one so straight lines will not turn invisible.
+        Vector2 tmpVector = new Vector2(vector.x + width / 2 + 1, vector.y + height / 2 + 1);
         return tmpVector;
     }
 

@@ -10,7 +10,7 @@
     <object id="7" type="lever"/>
 	<object id="21" type="player1position"/>
 	<object id="22" type="player2position"/>
-	<map id="19">1,0,0,0,4:4,0,0,5:5,0,6:6,0,0,0,0,0,0,0,0,0,1
+	<map id="19">1,0,0,0,4:4,0,0,5:5,0,0,0,0,0,0,0,0,0,0,0,1
 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1
@@ -18,7 +18,8 @@
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</map>
 	<logic id="0002">
 		<connection connectionvalue="1" from="1" to="4"/>
-		<connection connectionvalue="0" from="2" to="4"/>
+		<connection connectionvalue="0" from="2" to="5"/>
+		<connection connectionvalue="0" from="5" to="4"/>
 		<connection connectionvalue="0" from="4" to="3"/>
 	</logic>
 </hurryupgame>
