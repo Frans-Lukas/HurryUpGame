@@ -82,7 +82,6 @@ public class LOTxnor extends LogicTile {
                 state = 3;
                 nextState = 0;
             }
-            GameClient.sendMessage(serialize());
         }
     }
 
@@ -115,7 +114,6 @@ public class LOTxnor extends LogicTile {
                 state = 3;
                 nextState = 0;
             }
-            GameClient.sendMessage(serialize());
         }
     }
 }

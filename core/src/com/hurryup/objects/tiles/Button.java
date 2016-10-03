@@ -12,6 +12,10 @@ import static com.hurryup.game.hurryupGame.camera;
 
 /**
  * Created by frasse on 2016-09-20.
+ * 0 = inactive
+ * 1 = sent
+ * 2 = modify
+ * 3 = active
  */
 public class Button extends LogicTile {
 
@@ -38,7 +42,7 @@ public class Button extends LogicTile {
     @Override
     public void update(long deltaTime) {
         super.update(deltaTime);
-        if((state == 3 || state == 2) && height > 16){
+        if((state == 3) && height > 16){
             height -= 0.5;
         } else if(state == 0 && height < 32){
             height += 0.5;
@@ -47,10 +51,13 @@ public class Button extends LogicTile {
 
     @Override
     public void activate(int whichToActivate) {
-        if(state != 1 && state != 3) {
-            nextState = 1;
 
-            GameClient.sendMessage(serialize());
+        if(state == 0) {
+
+            state = 1;
+            nextState = 2;
+
+            GameClient.sendMessage(serialize(true));
         }
         else if(state == 2){
             connection[0].activate(connectionValue);
@@ -60,14 +67,16 @@ public class Button extends LogicTile {
 
     @Override
     public void deactivate(int whichToDeactivate) {
-        if(state != 2 && state != 1){
-            state = 1;
-            nextState = 4;
 
-            GameClient.sendMessage(serialize());
+        if(state == 3){
+            state = 1;
+            nextState = 2;
+
+            GameClient.sendMessage(serialize(false));
         }
-        else if(state == 4){
+        else if(state == 2){
             connection[0].deactivate(connectionValue);
+            state = 0;
         }
 
     }

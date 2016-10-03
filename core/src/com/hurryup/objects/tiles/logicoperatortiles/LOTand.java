@@ -84,11 +84,6 @@ public class LOTand extends LogicTile{
     }
 
     @Override
-    public String serialize() {
-        return super.serialize();
-    }
-
-    @Override
     public void activate(int whichToActivate) {
 
         if(whichToActivate == 0){
@@ -116,7 +111,6 @@ public class LOTand extends LogicTile{
         if(state != nextState && state != 5 && state != 6){
             state = 5;
             nextState = 6;
-            GameClient.sendMessage(serialize());
         }
     }
 }

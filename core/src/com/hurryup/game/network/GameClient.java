@@ -61,30 +61,29 @@ public final class GameClient {
                 return;
             /*
                         *Message Syntax*
-                [TYPE],[ID],[LogicColor],[State],[NewState]
-                [TYPE],[ID],[X],[Y]
+                1: [TYPE],[ID],[Activate],[NewState]
+                2: [TYPE],[ID],[X],[Y]
             */
 
-            /*if(!hurryupGame.isHosting()){
-                System.out.println(d);
-            }*/
             switch(Integer.parseInt(s[0])){
                 //Serialized change
                 case 1:
                     MasterLevel level = (MasterLevel)hurryupGame.peekView();
                     LogicTile tile = level.getTileById(Integer.parseInt(s[1]));
-                    tile.setState(Integer.parseInt(s[4]));
-                    int cv = Integer.parseInt(s[5]);
 
-                    //2 == activate, 4 == deactivate
-                    if(cv == 2){
-                        tile.activate(cv);
+                    int activate = Integer.parseInt(s[2]);
+                    tile.setState(Integer.parseInt(s[3]));
+                    //1 == activate, 0 == deactivate
+                    if(activate == 1){
+                        tile.activate(tile.getConnectionValue());
+                        System.out.printf("[%s] Activated!\n",s[1]);
                     }
-                    else if(cv == 4){
-                        tile.deactivate(cv);
+                    else{
+                        tile.deactivate(tile.getConnectionValue());
+                        System.out.printf("[%s] Deactivated!\n",s[1]);
                     }
 
-                    System.out.printf("[%s] Changed state to [%s], was [%s]\n",s[1],s[4],s[3]);
+
                     break;
                 //Client position
                 case 2:

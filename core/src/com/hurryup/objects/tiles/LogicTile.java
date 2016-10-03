@@ -72,8 +72,8 @@ public class LogicTile extends Tile implements IInteractive{
     public void setId(int id){ this.id = id; }
 
     //id|logicColor|state
-    public String serialize(){
-        return 1 + "," + Integer.toString(id) + "," + Integer.toString(logicColor.getId()) + "," + Integer.toString(state) + "," + Integer.toString(nextState) + "," + Integer.toString(connectionValue);
+    public String serialize(boolean activate){
+        return 1 + "," + Integer.toString(id) + "," + (activate ? "1" : "0") + "," + Integer.toString(nextState);
     }
 
     @Override

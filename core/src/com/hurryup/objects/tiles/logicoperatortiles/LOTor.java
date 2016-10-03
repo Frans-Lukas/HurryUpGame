@@ -39,7 +39,6 @@ public class LOTor extends LogicTile{
             state = 1;
             //draw that the gate is activated.
             nextState = 2;
-            GameClient.sendMessage(serialize());
         }
     }
 
