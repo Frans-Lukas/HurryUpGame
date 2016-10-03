@@ -72,7 +72,6 @@ public class LOTand extends LogicTile{
     public LogicColor getLogicColor() {
         return super.getLogicColor();
     }
-
     @Override
     public int getId() {
         return super.getId();
