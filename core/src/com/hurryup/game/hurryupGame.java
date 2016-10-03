@@ -53,14 +53,14 @@ public class hurryupGame extends ApplicationAdapter {
 		GameClient.configure("127.0.0.1", 1234);
 		GameClient.connect();
 		try {
-			Thread.sleep(50);
+			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		if(!GameClient.connected()){
 			Server.start(1234);
 			try {
-				Thread.sleep(50);
+				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

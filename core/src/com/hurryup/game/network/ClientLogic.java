@@ -43,7 +43,7 @@ class ClientLogic implements Runnable {
     public void run() {
         //Create socket hints, no connection timeout
         SocketHints socketHints = new SocketHints();
-        socketHints.connectTimeout = 0;
+        socketHints.connectTimeout = 500;
         Socket clientSocket;
 
         try {
