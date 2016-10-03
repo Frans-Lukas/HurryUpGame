@@ -145,6 +145,13 @@ public final class XMLReader {
                     map.add(index, tmpLOTor);
                     index++;
                 }
+                //add Lever to arraylist
+                else if(id[0].equals("7")){
+                    Lever tmpLever = new Lever(new Vector2(width * 64, height * 64));
+                    tmpLever.setId(Integer.parseInt(id[1]));
+                    map.add(index, tmpLever);
+                    index++;
+                }
                 //set position of player1
                 else if(id[0].equals("21")){
                     if(hurryupGame.isHosting()){

@@ -14,6 +14,7 @@ public class LOTxnor extends LogicTile {
 
     private boolean firstActivate = false;
     private boolean secondActivate = false;
+    private boolean active = false;
 
     //Dark Brown color
     private Color lotColorOff = Color.valueOf("000099FF");
@@ -29,7 +30,7 @@ public class LOTxnor extends LogicTile {
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
-        if(state != 5) {
+        if(!active) {
             renderer.setColor(lotColorOff);
         } else{
             renderer.setColor(lotColorOn);
@@ -45,14 +46,6 @@ public class LOTxnor extends LogicTile {
     @Override
     public void update(long deltaTime) {
         super.update(deltaTime);
-        if(state == 4){
-            connection[0].activate(connectionValue);
-            state = 5;
-        }
-        else if(state == 6){
-            connection[0].deactivate(connectionValue);
-            state = 5;
-        }
     }
 
     @Override
@@ -64,25 +57,17 @@ public class LOTxnor extends LogicTile {
             secondActivate = true;
         }
 
-        if(state != 3 && state != 4){
-            if((firstActivate && secondActivate)) {
-                connection[0].activate(connectionValue);
-                //gate is activated.
-                state = 3;
-                //draw that the gate is activated.
-                nextState = 4;
-            }
-            else if((!firstActivate && !secondActivate)){
-                connection[0].activate(connectionValue);
-                state = 3;
-                nextState = 4;
-            }
-            else{
-                connection[0].deactivate(connectionValue);
-                state = 3;
-                nextState = 0;
-            }
+        if((firstActivate && secondActivate)) {
+            connection[0].activate(connectionValue);
         }
+        else if((!firstActivate && !secondActivate)){
+            connection[0].activate(connectionValue);
+        }
+        else{
+            connection[0].deactivate(connectionValue);
+        }
+
+
     }
 
     @Override
@@ -95,25 +80,14 @@ public class LOTxnor extends LogicTile {
             secondActivate = false;
         }
 
-        if(state != 3 && state != 4){
-
-            if((firstActivate && secondActivate)) {
-                connection[0].activate(connectionValue);
-                //gate is activated.
-                state = 3;
-                //draw that the gate is activated.
-                nextState = 4;
-            }
-            else if((!firstActivate && !secondActivate)){
-                connection[0].activate(connectionValue);
-                state = 3;
-                nextState = 4;
-            }
-            else{
-                connection[0].deactivate(connectionValue);
-                state = 3;
-                nextState = 0;
-            }
+        if((firstActivate && secondActivate)) {
+            connection[0].activate(connectionValue);
+        }
+        else if((!firstActivate && !secondActivate)){
+            connection[0].activate(connectionValue);
+        }
+        else{
+            connection[0].deactivate(connectionValue);
         }
     }
 }

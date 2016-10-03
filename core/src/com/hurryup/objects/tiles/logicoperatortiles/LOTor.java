@@ -27,18 +27,13 @@ public class LOTor extends LogicTile{
 
     @Override
     public void activate(int whichToActivate) {
-        super.activate(whichToActivate);
         if(whichToActivate == 0){
             firstActivate = true;
         } else if(whichToActivate == 1){
             secondActivate = true;
         }
-        if(state != 1 && state != 2 && firstActivate || secondActivate){
+        if(firstActivate || secondActivate){
             connection[0].activate(connectionValue);
-            //gate is activated.
-            state = 1;
-            //draw that the gate is activated.
-            nextState = 2;
         }
     }
 
@@ -49,24 +44,15 @@ public class LOTor extends LogicTile{
         } else if(whichToDeactivate == 1){
             secondActivate = false;
         }
-        if(state != 0 && !firstActivate && !secondActivate){
+
+        if(!firstActivate && !secondActivate){
             connection[0].deactivate(connectionValue);
-            nextState = 0;
         }
-        super.deactivate(whichToDeactivate);
     }
 
     @Override
     public void update(long deltaTime) {
         super.update(deltaTime);
-        if(state == 4){
-            connection[0].activate(connectionValue);
-            state = 5;
-        }
-        else if(state == 6){
-            connection[0].deactivate(connectionValue);
-            state = 5;
-        }
     }
 
     @Override
