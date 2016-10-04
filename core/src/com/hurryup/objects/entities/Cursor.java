@@ -17,17 +17,16 @@ public class Cursor extends MasterClass {
     private int x = 0;
     private int y = 0;
 
+    private int width = 10;
+    private int height = 10;
+
     public void Cursor(){
 
     }
 
-    @Override
-    public void draw(SpriteBatch batch) {
-        super.draw(batch);
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
+    public void draw(SpriteBatch batch, ShapeRenderer renderer) {
         renderer.setColor(Color.FOREST);
-        renderer.rect(x, y, 10, 10);
-        renderer.end();
+        renderer.rect(x, y, width, height);
     }
 
 
@@ -35,4 +34,19 @@ public class Cursor extends MasterClass {
         x = Gdx.input.getX() - 10;
         y = hurryupGame.HEIGHT - Gdx.input.getY();
     }
+
+    public int getX(){
+        return x;
+    }
+    public int getY(){
+        return y;
+    }
+    public int getWidth(){
+        return width;
+    }
+    public int getHeight(){
+        return height;
+    }
+
+
 }
