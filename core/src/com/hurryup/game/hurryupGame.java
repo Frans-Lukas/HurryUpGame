@@ -2,17 +2,21 @@ package com.hurryup.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.input.RemoteInput;
 import com.badlogic.gdx.math.Vector2;
 import com.hurryup.game.network.GameClient;
 import com.hurryup.game.network.Server;
 import com.hurryup.objects.MasterClass;
 import com.hurryup.objects.tiles.LogicTile;
+import com.hurryup.views.MainMenu;
 import com.hurryup.views.MasterLevel;
 import com.hurryup.views.TestLevel;
 import com.hurryup.views.IView;
@@ -76,9 +80,12 @@ public class hurryupGame extends ApplicationAdapter {
 		font = new BitmapFont();
 		font.setColor(Color.BLACK);
 		//start with testlevel.
-		views.push(new TestLevel());
+		views.push(new MainMenu());
 
 		XMLReader.readMap("level1.xml");
+
+		//hide mouse.
+		Gdx.input.setCursorCatched(true);
 	}
 
 	@Override
