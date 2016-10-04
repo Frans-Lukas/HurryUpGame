@@ -1,14 +1,15 @@
 package com.hurryup.objects.tiles;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.hurryup.game.network.GameClient;
 import com.hurryup.objects.logic.LogicColor;
+import com.hurryup.game.hurryupGame;
+import com.hurryup.views.MasterLevel;
 
 import static com.hurryup.game.hurryupGame.camera;
+import static com.hurryup.game.hurryupGame.isHosting;
 
 /**
  * Created by frasse on 2016-09-20.
@@ -20,6 +21,8 @@ import static com.hurryup.game.hurryupGame.camera;
 public class Button extends LogicTile {
 
     Color buttonColor = Color.RED;
+    private int timeSinceReset = 0;
+    private int resetTimer = 100;
 
 
     public Button(Vector2 position) {
@@ -47,19 +50,26 @@ public class Button extends LogicTile {
         } else if(state == 0 && height < 32){
             height += 0.5;
         }
+        if(hurryupGame.isHosting() && state == 3){
+            timeSinceReset += deltaTime;
+            if(timeSinceReset > resetTimer){
+                timeSinceReset = 0;
+                deactivate(connectionValue);
+            }
+        }
     }
 
     @Override
     public void activate(int whichToActivate) {
-
+        timeSinceReset = 0;
         if(state == 0) {
 
             state = 1;
             nextState = 2;
-
             GameClient.sendMessage(serialize(true));
+
         }
-        else if(state == 2){
+        else if(state == 2 && connection[0] != null){
             connection[0].activate(connectionValue);
             state = 3;
         }
@@ -71,8 +81,8 @@ public class Button extends LogicTile {
         if(state == 3){
             state = 1;
             nextState = 2;
-
             GameClient.sendMessage(serialize(false));
+
         }
         else if(state == 2){
             connection[0].deactivate(connectionValue);

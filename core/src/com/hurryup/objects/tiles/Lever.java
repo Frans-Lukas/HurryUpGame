@@ -16,12 +16,14 @@ public class Lever extends LogicTile {
     private Vector2 leverBasePosition;
     private boolean active = false;
     private int leverAngle = 40; //40 - - 40
+    private int leverLength = 40;
+    private int leverWidth = 10;
 
     public Lever(Vector2 position) {
         super(position, LogicColor.Blue,2,0);
-        leverBasePosition = new Vector2(position.x + 25,position.y);
+        //+ 25 and + 15 for better looks.
+        leverBasePosition = new Vector2(position.x + 25,position.y + 15);
         height = 32;
-        state = 3;
     }
 
     @Override
@@ -29,11 +31,12 @@ public class Lever extends LogicTile {
         super.draw(batch);
 
 
-        renderer.setColor(Color.YELLOW);
-        renderer.rect(leverBasePosition.x,leverBasePosition.y + 15,5,0,10,35,1,1,leverAngle);
+
+        renderer.setColor(Color.BROWN);
+        renderer.rect(leverBasePosition.x,leverBasePosition.y, leverWidth / 2, 0, leverWidth, leverLength, 1, 1,leverAngle);
 
         renderer.setColor(buttonColor);
-        renderer.rect(position.x + 10, position.y, width-20, baseHeight);
+        renderer.rect(position.x, position.y, width, baseHeight);
         if(connection[0] != null) {
             Vector2 tmpVector = new Vector2(vector.x + width / 2, vector.y + height / 2);
             renderer.setColor(Color.DARK_GRAY);
@@ -68,14 +71,14 @@ public class Lever extends LogicTile {
     @Override
     public void activate(int whichToActivate) {
 
-        if(state == 0) {
+        if(state == 0 && leverAngle == 40) {
 
             state = 1;
             nextState = 2;
 
             GameClient.sendMessage(serialize(true));
         }
-        else if(state == 2){
+        else if(state == 2 && connection[connectionValue] != null){
             connection[0].activate(connectionValue);
             state = 3;
         }
@@ -84,13 +87,13 @@ public class Lever extends LogicTile {
     @Override
     public void deactivate(int whichToDeactivate) {
 
-        if(state == 3){
+        if(state == 3 && leverAngle == -40){
             state = 1;
             nextState = 2;
 
             GameClient.sendMessage(serialize(false));
         }
-        else if(state == 2){
+        else if(state == 2 && connection[connectionValue] != null){
             connection[0].deactivate(connectionValue);
             state = 0;
         }
@@ -99,22 +102,22 @@ public class Lever extends LogicTile {
 
     @Override
     public Vector2 getPosition() {
-        return new Vector2(position.x + 10,position.y);
+        return new Vector2(position.x,position.y);
     }
 
     @Override
     public float getLeft() {
-        return super.getLeft() + 10;
+        return super.getLeft();
     }
 
     @Override
     public float getRight() {
-        return super.getRight() -20;
+        return super.getRight();
     }
 
     @Override
     public float getTop() {
-        return position.y + 20;
+        return position.y;
     }
 
     @Override
@@ -129,7 +132,7 @@ public class Lever extends LogicTile {
 
     @Override
     public float getWidth() {
-        return super.getWidth()-20;
+        return super.getWidth();
     }
 
     public void setColor(Color color){

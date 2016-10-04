@@ -12,6 +12,7 @@ import com.hurryup.game.hurryupGame;
 import com.hurryup.game.network.GameClient;
 import com.hurryup.objects.MasterClass;
 import com.hurryup.objects.tiles.Button;
+import com.hurryup.objects.tiles.Lever;
 import com.hurryup.objects.tiles.Tile;
 
 import java.util.ArrayList;
@@ -84,6 +85,8 @@ public class Player extends MasterClass {
                 prevY = player.y;
                 timeCounter = 0;
             }
+        } else if(hurryupGame.isHosting()){
+            buttonCollision(tiles);
         }
 
     }
@@ -113,6 +116,7 @@ public class Player extends MasterClass {
         boolean left = Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A);
         boolean right = Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D);
         boolean up = Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W);
+        boolean activate = Gdx.input.isKeyPressed(Input.Keys.E) || Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT);
         boolean down = Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S);
 
         //move player
@@ -161,12 +165,18 @@ public class Player extends MasterClass {
                         }
                     }
                 }
+
+
                 //check vertical collision;
                 if (checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, (int) tile.getWidth(), (int) tile.getHeight())) {
                     //keep the player at 0 above ground.
-                    if (tile instanceof Button) {
+                    if (tile instanceof Button && hurryupGame.isHosting()) {
                         ((Button) tile).activate(0);
                     }
+                    if(tile instanceof Lever && activate){
+                        ((Lever) tile).toggle(0);
+                    }
+
 
                     while (checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, (int) tile.getWidth(), (int) tile.getHeight())) {
                         velocityY++;
@@ -176,9 +186,22 @@ public class Player extends MasterClass {
             }
         }
 
+
         //move player
         player.x += velocityX;
         player.y += velocityY;
+    }
+    public void buttonCollision(ArrayList<Tile> tiles){
+        for(Tile tile : tiles) {
+            //TODO: REWRITE BUTTON LOGIC LOL ( -8 because remoteplayer has no gravity. )
+            if (checkCollision(player.x, tile.getPosition().x, player.y - 8, tile.getPosition().y, (int) tile.getWidth(), (int) tile.getHeight())) {
+                //keep the player at 0 above ground.
+                if (tile instanceof Button) {
+                    ((Button) tile).activate(0);
+                }
+
+            }
+        }
     }
 
     //checks collision with blocks of the same size only.
