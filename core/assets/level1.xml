@@ -8,18 +8,19 @@
 	<object id="5" type="lotnot" />
 	<object id="6" type="lotor"/>
     <object id="7" type="lever"/>
+	<object id="8" type="lotxnor"/>
 	<object id="21" type="player1position"/>
 	<object id="22" type="player2position"/>
-	<map id="19">1,0,0,0,4:4,0,0,5:5,0,0,0,0,0,0,0,0,0,0,0,1
+	<map id="19">1,0,0,0,4:4,0,0,5:5,0,0,0,8:7,0,0,0,0,0,0,0,1
 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 1,1,21,22,1,1,1,0,7:10,0,0,2:1,0,2:2,0,0,0,0,0,3:3
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</map>
 	<logic id="0002">
-		<connection connectionvalue="1" from="1" to="4"/>
-		<connection connectionvalue="0" from="4" to="3"/>
-		<connection connectionvalue="0" from="5" to="4"/>
-		<connection connectionvalue="0" from="10" to="5"/>
+		<connection connectionvalue="0" from="1" to="5"/>
+		<connection connectionvalue="0" from="5" to="7"/>
+		<connection connectionvalue="0" from="10" to="7"/>
+		<connection connectionvalue="0" from="7" to="3"/>
 	</logic>
 </hurryupgame>

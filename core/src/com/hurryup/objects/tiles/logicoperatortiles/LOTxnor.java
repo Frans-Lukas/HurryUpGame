@@ -57,17 +57,15 @@ public class LOTxnor extends LogicTile {
             secondActivate = true;
         }
 
-        if((firstActivate && secondActivate)) {
-            connection[0].activate(connectionValue);
+        if(connection[connectionValue] != null) {
+            if ((firstActivate && secondActivate)) {
+                connection[0].activate(connectionValue);
+            } else if ((!firstActivate && !secondActivate)) {
+                connection[0].activate(connectionValue);
+            } else {
+                connection[0].deactivate(connectionValue);
+            }
         }
-        else if((!firstActivate && !secondActivate)){
-            connection[0].activate(connectionValue);
-        }
-        else{
-            connection[0].deactivate(connectionValue);
-        }
-
-
     }
 
     @Override
@@ -80,14 +78,14 @@ public class LOTxnor extends LogicTile {
             secondActivate = false;
         }
 
-        if((firstActivate && secondActivate)) {
-            connection[0].activate(connectionValue);
-        }
-        else if((!firstActivate && !secondActivate)){
-            connection[0].activate(connectionValue);
-        }
-        else{
-            connection[0].deactivate(connectionValue);
+        if(connection[connectionValue] != null) {
+            if ((firstActivate && secondActivate)) {
+                connection[0].activate(connectionValue);
+            } else if ((!firstActivate && !secondActivate)) {
+                connection[0].activate(connectionValue);
+            } else {
+                connection[0].deactivate(connectionValue);
+            }
         }
     }
 }
