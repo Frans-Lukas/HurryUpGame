@@ -84,8 +84,7 @@ public class hurryupGame extends ApplicationAdapter {
 
 		XMLReader.readMap("level1.xml");
 
-		//hide mouse.
-		Gdx.input.setCursorCatched(true);
+
 	}
 
 	@Override
@@ -105,22 +104,21 @@ public class hurryupGame extends ApplicationAdapter {
 		//update current view
 		viewToDraw.update(millis() - prevTime);
 		//draw current view.
-		batch.begin();
-		batch.setProjectionMatrix(camera.combined);
 		renderer.begin(ShapeRenderer.ShapeType.Filled);
 		renderer.setProjectionMatrix(camera.combined);
 		viewToDraw.draw(batch, millis() - prevTime);
-		renderer.end();
-		batch.end();
 
 		//keep track of current
-		// renderer.end();time.
+		renderer.end();
 		prevTime = millis();
 	}
 
 	@Override
 	public void dispose () {
 		batch.dispose();
+		for(IView view : views){
+			view.dispose();
+		}
 	}
 
 	//change view to watch
