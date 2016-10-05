@@ -49,7 +49,6 @@ public final class XMLReader {
 
             //get map tag.
             Node maps = doc.getElementsByTagName("map").item(0);
-            System.out.println();
 
             //read map
             if(maps.getNodeType() == Node.ELEMENT_NODE){
@@ -61,6 +60,7 @@ public final class XMLReader {
 
             //get connection tags
             NodeList nlConnections = doc.getElementsByTagName("connection");
+
             for(int i = 0; i < nlConnections.getLength(); i++){
                 if(nlConnections.item(i).getNodeType() == Node.ELEMENT_NODE){
                     Element eConnection = (Element) nlConnections.item(i);
@@ -72,10 +72,8 @@ public final class XMLReader {
                     //get connection value if found, else set it to 0
                     int connectionValue = 0;
                     if(eConnection.hasAttribute("connectionvalue")) {
-                        System.out.println("");
                         connectionValue = Integer.parseInt(eConnection.getAttribute("connectionvalue"));
                     }
-
                     //find tiles to connect
                     LogicTile fromTile = ((MasterLevel)hurryupGame.peekView()).getTileById(fromId);
                     LogicTile toTile = (((MasterLevel)hurryupGame.peekView()).getTileById(toId));

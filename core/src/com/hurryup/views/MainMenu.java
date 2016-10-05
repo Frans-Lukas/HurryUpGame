@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.hurryup.game.XMLReader;
 import com.hurryup.game.hurryupGame;
 import com.hurryup.objects.entities.Cursor;
 
@@ -99,6 +100,8 @@ public class MainMenu implements IView {
                 String port = ((TextField)stage.getActors().get(1)).getText();
                 System.out.println("ip: " + ipAddress + ", port: " + port);
                 hurryupGame.pushView(new TestLevel());
+                XMLReader.readMap("level1.xml");
+
             }
         });
 
@@ -114,6 +117,8 @@ public class MainMenu implements IView {
                 String port = ((TextField)stage.getActors().get(1)).getText();
                 System.out.println("ip: " + ipAddress + ", port: " + port);
                 hurryupGame.pushView(new TestLevel());
+                XMLReader.readMap("level1.xml");
+
             }
         });
 

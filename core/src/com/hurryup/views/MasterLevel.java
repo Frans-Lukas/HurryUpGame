@@ -21,8 +21,8 @@ public class MasterLevel implements IView{
 
     protected ArrayList<Tile> tiles = new ArrayList<Tile>();
 
-    public MasterLevel(String fileName){
-        loadTiles(fileName);
+    public MasterLevel(){
+        loadTiles();
     }
     protected ArrayList<MasterClass> entities = new ArrayList<MasterClass>();
 
@@ -35,7 +35,7 @@ public class MasterLevel implements IView{
     }
 
     //load map from textfile.
-    private void loadTiles(String fileName){
+    private void loadTiles(){
         tiles = XMLReader.getMap();
         localPlayer = XMLReader.getLocalPlayer();
         remotePlayer = XMLReader.getRemotePlayer();

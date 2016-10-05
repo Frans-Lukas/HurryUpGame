@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.hurryup.game.XMLReader;
 import com.hurryup.game.hurryupGame;
 import com.hurryup.objects.MasterClass;
 import com.hurryup.objects.entities.Player;
@@ -26,8 +27,9 @@ public class TestLevel extends MasterLevel{
 
 
     public TestLevel() {
-        super("map1.txt");
+        super();
         font.setColor(Color.RED);
+
     }
 
     //Draw Level

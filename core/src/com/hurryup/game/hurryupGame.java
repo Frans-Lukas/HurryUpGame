@@ -79,10 +79,10 @@ public class hurryupGame extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		font.setColor(Color.BLACK);
+
 		//start with testlevel.
 		views.push(new MainMenu());
 
-		XMLReader.readMap("level1.xml");
 
 
 	}
@@ -127,7 +127,9 @@ public class hurryupGame extends ApplicationAdapter {
 	public static IView popView(){
 		return views.pop();
 	}
-	public static IView peekView() { return views.peek(); }
+	public static IView peekView() {
+		return views.peek();
+	}
 	public static void updateRemotePostition(Vector2 newPos){
 		((MasterLevel)peekView()).getRemotePlayer().setX((int)newPos.x);
 		((MasterLevel)peekView()).getRemotePlayer().setY((int)newPos.y);
