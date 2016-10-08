@@ -14,6 +14,7 @@ import com.hurryup.objects.MasterClass;
 import com.hurryup.objects.tiles.Button;
 import com.hurryup.objects.tiles.Lever;
 import com.hurryup.objects.tiles.Tile;
+import com.hurryup.views.TutorialMenu;
 
 import java.util.ArrayList;
 
@@ -118,6 +119,13 @@ public class Player extends MasterClass {
         boolean up = Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W);
         boolean activate = Gdx.input.isKeyPressed(Input.Keys.E) || Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT);
         boolean down = Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S);
+        boolean menu = Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE);
+
+        //open tutorial menu
+        if(menu){
+            hurryupGame.pushView(new TutorialMenu());
+        }
+
 
         //move player
         if(left || right){
