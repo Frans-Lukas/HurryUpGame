@@ -59,10 +59,10 @@ public class LOTor extends LogicTile{
     public void draw(SpriteBatch batch) {
         super.draw(batch);
         renderer.setColor(Color.FOREST);
-        if(state != 5) {
-            renderer.setColor(lotColorOff);
-        } else{
+        if(firstActivate || secondActivate) {
             renderer.setColor(lotColorOn);
+        } else{
+            renderer.setColor(lotColorOff);
         }
         renderer.rect(position.x, position.y, 64, 64);
 

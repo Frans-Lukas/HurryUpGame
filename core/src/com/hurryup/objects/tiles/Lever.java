@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.hurryup.game.network.GameClient;
+import com.hurryup.objects.logic.IInteractive;
 import com.hurryup.objects.logic.LogicColor;
 
 /**
@@ -72,7 +73,6 @@ public class Lever extends LogicTile {
     public void activate(int whichToActivate) {
 
         if(state == 0 && leverAngle == 40) {
-
             state = 1;
             nextState = 2;
 
@@ -82,6 +82,7 @@ public class Lever extends LogicTile {
             connection[0].activate(connectionValue);
             state = 3;
         }
+
     }
 
     @Override
@@ -99,6 +100,13 @@ public class Lever extends LogicTile {
         }
 
     }
+
+    @Override
+    public void connect(IInteractive cn) {
+        super.connect(cn);
+        connection[0].deactivate(connectionValue);
+    }
+
 
     @Override
     public Vector2 getPosition() {

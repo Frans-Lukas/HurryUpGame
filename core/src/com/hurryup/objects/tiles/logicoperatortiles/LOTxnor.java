@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.hurryup.game.network.GameClient;
+import com.hurryup.objects.logic.IInteractive;
 import com.hurryup.objects.logic.LogicColor;
 import com.hurryup.objects.tiles.LogicTile;
 
@@ -14,12 +15,13 @@ public class LOTxnor extends LogicTile {
 
     private boolean firstActivate = false;
     private boolean secondActivate = false;
-    private boolean active = false;
 
     //Dark Brown color
     private Color lotColorOff = Color.valueOf("000099FF");
     //light brown color
-    private Color lotColorOn = Color.valueOf("0000b2FF");
+    private Color lotColorOn = Color.valueOf("0000ddFF");
+
+    //TODO:
 
     public LOTxnor(Vector2 position, LogicColor logicColor, int id, int state) {
         super(position, logicColor, id, state);
@@ -30,10 +32,10 @@ public class LOTxnor extends LogicTile {
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
-        if(!active) {
-            renderer.setColor(lotColorOff);
-        } else{
+        if((!firstActivate && !secondActivate) || (firstActivate && secondActivate)) {
             renderer.setColor(lotColorOn);
+        } else{
+            renderer.setColor(lotColorOff);
         }
         renderer.rect(position.x, position.y, 64, 64);
         if(connection[0] != null) {
@@ -58,12 +60,10 @@ public class LOTxnor extends LogicTile {
         }
 
         if(connection[connectionValue] != null) {
-            if ((firstActivate && secondActivate)) {
-                connection[0].activate(connectionValue);
-            } else if ((!firstActivate && !secondActivate)) {
-                connection[0].activate(connectionValue);
+            if (firstActivate && secondActivate) {
+                connection[connectionValue].activate(connectionValue);
             } else {
-                connection[0].deactivate(connectionValue);
+                connection[connectionValue].deactivate(connectionValue);
             }
         }
     }
@@ -78,14 +78,20 @@ public class LOTxnor extends LogicTile {
             secondActivate = false;
         }
 
-        if(connection[connectionValue] != null) {
-            if ((firstActivate && secondActivate)) {
-                connection[0].activate(connectionValue);
-            } else if ((!firstActivate && !secondActivate)) {
+        if(connection[0] != null) {
+            if (!firstActivate && !secondActivate) {
                 connection[0].activate(connectionValue);
             } else {
                 connection[0].deactivate(connectionValue);
             }
+        }
+    }
+
+    @Override
+    public void connect(IInteractive cn) {
+        super.connect(cn);
+        if((firstActivate && secondActivate) || (!firstActivate && !secondActivate)) {
+            connection[0].deactivate(connectionValue);
         }
     }
 }

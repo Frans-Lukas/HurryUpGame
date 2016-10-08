@@ -20,42 +20,48 @@ public class LOTnot extends LogicTile{
     //light brown color
     private Color lotColorOn = Color.valueOf("CD5C5CFF");
 
+    private boolean activated = false;
+
     public LOTnot(Vector2 position, LogicColor logicColor, int id, int state) {
         super(position, logicColor, id, state);
         setCollidable(false);
     }
 
     @Override
-    public void connect(IInteractive cn) {
-        if(connection[0] == null) {
-            connection[0] = new Connection();
-            connection[0].connect(cn);
-            connection[0].activate(0);
-        } else{
-            connection[1] = new Connection();
-            connection[1].connect(cn);
-            connection[1].activate(0);
-        }
-
-    }
-
-    @Override
     public void activate(int whichToActivate) {
         super.deactivate(connectionValue);
+        if(connection[0] != null){
+            connection[0].deactivate(connectionValue);
+        }
+        activated = false;
     }
 
     @Override
     public void deactivate(int whichToDeactivate) {
         super.activate(connectionValue);
+        if(connection[0] != null){
+            connection[0].activate(connectionValue);
+        }
+        activated = true;
+    }
+
+    @Override
+    public void connect(IInteractive cn) {
+        super.connect(cn);
+        if(activated = true) {
+            connection[0].activate(connectionValue);
+        } else if(!activated){
+            connection[0].deactivate(connectionValue);
+        }
     }
 
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
-        if(state == 0) {
-            renderer.setColor(lotColorOff);
-        } else{
+        if(activated) {
             renderer.setColor(lotColorOn);
+        } else{
+            renderer.setColor(lotColorOff);
         }
         renderer.rect(position.x, position.y, 64, 64);
         if(connection[0] != null) {

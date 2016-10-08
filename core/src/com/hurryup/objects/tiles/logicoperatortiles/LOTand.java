@@ -35,10 +35,10 @@ public class LOTand extends LogicTile{
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
-        if(state != 5) {
-            renderer.setColor(lotColorOff);
-        } else{
+        if(firstActivate && secondActivate) {
             renderer.setColor(lotColorOn);
+        } else{
+            renderer.setColor(lotColorOff);
         }
         renderer.rect(position.x, position.y, 64, 64);
         if(connection[0] != null) {
@@ -92,9 +92,11 @@ public class LOTand extends LogicTile{
             secondActivate = true;
         }
 
+        System.out.println(firstActivate + ":" + secondActivate);
         if(firstActivate && secondActivate){
-
-            connection[0].activate(connectionValue);
+            if(connection[0] != null) {
+                connection[0].activate(0);
+            }
         }
     }
 
@@ -107,6 +109,8 @@ public class LOTand extends LogicTile{
         } else if(whichToDeactivate == 1){
             secondActivate = false;
         }
-        connection[0].deactivate(connectionValue);
+        if(connection[0] != null) {
+            connection[0].deactivate(0);
+        }
     }
 }

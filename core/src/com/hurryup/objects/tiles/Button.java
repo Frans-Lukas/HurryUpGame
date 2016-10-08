@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.hurryup.game.network.GameClient;
+import com.hurryup.objects.logic.IInteractive;
 import com.hurryup.objects.logic.LogicColor;
 import com.hurryup.game.hurryupGame;
 import com.hurryup.views.MasterLevel;
@@ -59,15 +60,20 @@ public class Button extends LogicTile {
         }
     }
 
+
+    @Override
+    public void connect(IInteractive cn) {
+        super.connect(cn);
+        connection[0].deactivate(connectionValue);
+    }
+
     @Override
     public void activate(int whichToActivate) {
         timeSinceReset = 0;
         if(state == 0) {
-
             state = 1;
             nextState = 2;
             GameClient.sendMessage(serialize(true));
-
         }
         else if(state == 2 && connection[0] != null){
             connection[0].activate(connectionValue);
