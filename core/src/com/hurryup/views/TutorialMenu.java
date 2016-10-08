@@ -127,7 +127,6 @@ public class TutorialMenu extends MasterLevel{
 
 
 
-        //TODO: Draw all the blocks and small info about the blocks.
         and.draw(batch);
         not.draw(batch);
         or.draw(batch);
