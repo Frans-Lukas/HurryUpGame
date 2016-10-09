@@ -1,5 +1,7 @@
 package com.hurryup.views;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,7 +26,6 @@ public class TestLevel extends MasterLevel{
     //arraylist for all entites in level.
 
     BitmapFont font = new BitmapFont();
-
 
     public TestLevel() {
         super();
@@ -64,4 +65,14 @@ public class TestLevel extends MasterLevel{
         }
 
     }
+
+    public void pollInput(){
+        boolean menu = Gdx.input.isKeyPressed(Input.Keys.ESCAPE);
+
+        if(menu){
+            hurryupGame.pushView(new TutorialMenu());
+        }
+
+    }
+
 }

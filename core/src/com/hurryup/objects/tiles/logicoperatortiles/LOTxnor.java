@@ -21,7 +21,6 @@ public class LOTxnor extends LogicTile {
     //light brown color
     private Color lotColorOn = Color.valueOf("0000ddFF");
 
-    //TODO:
 
     public LOTxnor(Vector2 position, LogicColor logicColor, int id, int state) {
         super(position, logicColor, id, state);
