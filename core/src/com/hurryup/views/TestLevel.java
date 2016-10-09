@@ -10,6 +10,7 @@ import com.hurryup.game.XMLReader;
 import com.hurryup.game.hurryupGame;
 import com.hurryup.objects.MasterClass;
 import com.hurryup.objects.entities.Player;
+import com.hurryup.objects.helper.VisualConnection;
 import com.hurryup.objects.tiles.Tile;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class TestLevel extends MasterLevel{
     @Override
     public void draw(SpriteBatch batch, long deltaTime) {
         super.draw(batch,deltaTime);
+
         for(Tile tile : tiles){
             tile.draw(batch);
         }

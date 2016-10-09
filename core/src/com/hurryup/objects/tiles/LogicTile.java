@@ -60,7 +60,10 @@ public class LogicTile extends Tile implements IInteractive{
 
     public ConnectionPair getConnectionPair()
     {
-        return new ConnectionPair(this.position,connection[0].getVector2());
+        if(connection[0] != null)
+            return new ConnectionPair(this.position,connection[0].getVector2());
+        else
+            return null;
     }
 
     public void setState(int state) {
