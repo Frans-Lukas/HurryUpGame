@@ -35,6 +35,7 @@ public class TestLevel extends MasterLevel{
     //Draw Level
     @Override
     public void draw(SpriteBatch batch, long deltaTime) {
+        super.draw(batch,deltaTime);
         for(Tile tile : tiles){
             tile.draw(batch);
         }
@@ -46,6 +47,7 @@ public class TestLevel extends MasterLevel{
                 camera.position.set(getLocalPlayer().getX(), getLocalPlayer().getY(), 0);
             }
         }
+
     }
 
     @Override

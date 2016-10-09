@@ -1,6 +1,7 @@
 package com.hurryup.objects.tiles;
 
 import com.badlogic.gdx.math.Vector2;
+import com.hurryup.objects.helper.ConnectionPair;
 import com.hurryup.objects.logic.Connection;
 import com.hurryup.objects.logic.IInteractive;
 import com.hurryup.objects.logic.LogicColor;
@@ -55,6 +56,11 @@ public class LogicTile extends Tile implements IInteractive{
             connection[1] = new Connection();
             connection[1].connect(cn);
         }
+    }
+
+    public ConnectionPair getConnectionPair()
+    {
+        return new ConnectionPair(this.position,connection[0].getVector2());
     }
 
     public void setState(int state) {
