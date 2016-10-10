@@ -100,16 +100,17 @@ public class hurryupGame extends ApplicationAdapter {
 		}
 		//TODO: camera that follows seperate players
 		viewToDraw = views.peek();
-
+		batch.begin();
+		batch.setProjectionMatrix(camera.combined);
 		//update current view
 		viewToDraw.update(millis() - prevTime);
 		//draw current view.
 		renderer.begin(ShapeRenderer.ShapeType.Filled);
 		renderer.setProjectionMatrix(camera.combined);
 		viewToDraw.draw(batch, millis() - prevTime);
-
 		//keep track of current
 		renderer.end();
+		batch.end();
 		prevTime = millis();
 	}
 

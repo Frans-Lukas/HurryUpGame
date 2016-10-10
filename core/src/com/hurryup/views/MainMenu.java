@@ -116,9 +116,10 @@ public class MainMenu implements IView {
                 String ipAddress = ((TextField)stage.getActors().get(2)).getText();
                 String port = ((TextField)stage.getActors().get(1)).getText();
                 System.out.println("ip: " + ipAddress + ", port: " + port);
-                hurryupGame.pushView(new TestLevel());
+                TestLevel level = new TestLevel();
+                hurryupGame.pushView(level);
                 XMLReader.readMap("level1.xml");
-
+                level.createConnectionVisuals();
             }
         });
 
@@ -152,13 +153,13 @@ public class MainMenu implements IView {
 
         renderer.end();
 
-        batch.begin();
+        //batch.begin();
 
         font.setColor(Color.BLACK);
         font.draw(batch, "HURRY UP GAME", menuX - 50, menuY + 300);
 
 
-        batch.end();
+        //batch.end();
 
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         cursor.draw(batch, renderer);

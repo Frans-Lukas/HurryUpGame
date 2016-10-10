@@ -1,0 +1,5 @@
+<sprites>
+    <sprite name="cable" x="0" y="0" w="30" h="10"/>
+    <sprite name="cableBox" x="20" y="10" w="10" h="10"/>
+    <sprite name="cableEnd" x="0" y="10" w="10" h="10"/>
+</sprites>
