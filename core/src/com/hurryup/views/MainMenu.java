@@ -150,11 +150,10 @@ public class MainMenu implements IView {
 
         font.setColor(Color.BLACK);
         font.draw(batch, "HURRY UP GAME", menuX - 50, menuY + 300);
-
-        cursor.draw(batch);
-
+        batch.end();
         stage.draw();
-
+        batch.begin();
+        cursor.draw(batch);
     }
 
     @Override

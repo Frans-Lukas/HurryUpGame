@@ -80,9 +80,9 @@ public class hurryupGame extends ApplicationAdapter {
 		font.setColor(Color.BLACK);
 
 		//start with testlevel.
-		//views.push(new MainMenu());
-		views.push(new TestLevel());
-        XMLReader.readMap("level1.xml");
+		views.push(new MainMenu());
+		//views.push(new TestLevel());
+        //XMLReader.readMap("level1.xml");
 		//Load textures
 
 	}

@@ -68,7 +68,6 @@ public class TutorialMenu extends MasterLevel{
     @Override
     public void draw(SpriteBatch batch, long deltaTime) {
 
-        batch.begin();
 
         titleFont.setColor(Color.BLACK);
         titleFont.draw(batch, "HURRY UP GUIDE", menuX - 50 - ipMenuWidth / 2, menuY + 300);
@@ -98,10 +97,6 @@ public class TutorialMenu extends MasterLevel{
 
         //draw exit
         descriptionFont.draw(batch, "PRESS 'ESC' TO RETURN", menuX - ipMenuWidth / 2, thirdRow);
-
-        batch.end();
-
-
 
         and.draw(batch);
         not.draw(batch);
