@@ -1,9 +1,11 @@
 package com.hurryup.objects.tiles;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.hurryup.game.TextureManager;
 import com.hurryup.game.network.GameClient;
 import com.hurryup.objects.logic.LogicColor;
 
@@ -17,13 +19,19 @@ public class Door extends LogicTile {
     public Door(Vector2 position) {
         super(position, LogicColor.Blue,1,0);
         state = 0;
+
+        textureRegion = TextureManager.get("door");
+        tileSprite = new Sprite(textureRegion);
+        tileSprite.setPosition(position.x,position.y);
+
     }
 
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
-        renderer.setColor(Color.GREEN);
-        renderer.rect(position.x, position.y, width, height);
+        tileSprite.setSize(64,height);
+        tileSprite.draw(batch);
+
     }
 
     @Override

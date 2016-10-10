@@ -19,8 +19,6 @@ import com.hurryup.game.XMLReader;
 import com.hurryup.game.hurryupGame;
 import com.hurryup.objects.entities.Cursor;
 
-import static com.hurryup.objects.tiles.Tile.renderer;
-
 /**
  * Created by frasse on 2016-09-20.
  */
@@ -53,12 +51,12 @@ public class MainMenu implements IView {
     private TextField ipTextField;
     private TextField portTextField;
 
-    Cursor cursor = new Cursor();
+    Cursor cursor;
 
     public MainMenu() {
         //hide mouse.
         Gdx.input.setCursorCatched(true);
-
+        cursor = new Cursor();
         stage = new Stage();
 
         skin = new Skin(Gdx.files.internal("uiskin.json"));
@@ -119,7 +117,6 @@ public class MainMenu implements IView {
                 TestLevel level = new TestLevel();
                 hurryupGame.pushView(level);
                 XMLReader.readMap("level1.xml");
-                level.createConnectionVisuals();
             }
         });
 
@@ -151,27 +148,12 @@ public class MainMenu implements IView {
     @Override
     public void draw(SpriteBatch batch, long deltaTime) {
 
-        renderer.end();
-
-        //batch.begin();
-
         font.setColor(Color.BLACK);
         font.draw(batch, "HURRY UP GAME", menuX - 50, menuY + 300);
 
-
-        //batch.end();
-
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-        cursor.draw(batch, renderer);
+        cursor.draw(batch);
 
         stage.draw();
-
-        renderer.end();
-
-        //hurryupGame.pushView(new TestLevel());
-
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-
 
     }
 

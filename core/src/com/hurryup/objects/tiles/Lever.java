@@ -1,8 +1,10 @@
 package com.hurryup.objects.tiles;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.hurryup.game.TextureManager;
 import com.hurryup.game.network.GameClient;
 import com.hurryup.objects.logic.IInteractive;
 import com.hurryup.objects.logic.LogicColor;
@@ -20,33 +22,24 @@ public class Lever extends LogicTile {
     private int leverLength = 40;
     private int leverWidth = 10;
 
+    private Sprite leverSprite;
+
     public Lever(Vector2 position) {
         super(position, LogicColor.Blue,2,0);
-        //+ 25 and + 15 for better looks.
-        leverBasePosition = new Vector2(position.x + 25,position.y + 15);
-        height = 32;
+
+        textureRegion = TextureManager.get("button");
+        tileSprite = new Sprite(textureRegion);
+        tileSprite.setPosition(position.x,position.y);
+        leverSprite = new Sprite(TextureManager.get("lever"));
     }
 
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
 
-
-
-        renderer.setColor(Color.BROWN);
-        renderer.rect(leverBasePosition.x,leverBasePosition.y, leverWidth / 2, 0, leverWidth, leverLength, 1, 1,leverAngle);
-
-        renderer.setColor(buttonColor);
-        renderer.rect(position.x, position.y, width, baseHeight);
-        if(connection[0] != null) {
-            Vector2 tmpVector = new Vector2(vector.x + width / 2, vector.y + height / 2);
-            renderer.setColor(Color.DARK_GRAY);
-            renderer.line(tmpVector, connection[0].getVector2());
-        }
-    }
-    //*1.5 - x
-    private Vector2 getLeverPos(float x){
-        return new Vector2(20 * (float)Math.cos((Math.PI*0.75) + x),20 * (float)((Math.PI*0.75) + x));
+        tileSprite.draw(batch);
+        leverSprite.setRotation(leverAngle);
+        leverSprite.draw(batch);
     }
 
     @Override

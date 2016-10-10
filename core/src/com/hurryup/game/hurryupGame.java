@@ -25,7 +25,6 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 import static com.badlogic.gdx.utils.TimeUtils.millis;
-import static com.hurryup.objects.tiles.Tile.renderer;
 
 public class hurryupGame extends ApplicationAdapter {
 
@@ -72,7 +71,7 @@ public class hurryupGame extends ApplicationAdapter {
 			hosting = true;
 		}
 
-
+		TextureManager.Load();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, WIDTH, HEIGHT);
 
@@ -81,9 +80,10 @@ public class hurryupGame extends ApplicationAdapter {
 		font.setColor(Color.BLACK);
 
 		//start with testlevel.
-		views.push(new MainMenu());
-
-
+		//views.push(new MainMenu());
+		views.push(new TestLevel());
+        XMLReader.readMap("level1.xml");
+		//Load textures
 
 	}
 
@@ -100,16 +100,15 @@ public class hurryupGame extends ApplicationAdapter {
 		}
 		//TODO: camera that follows seperate players
 		viewToDraw = views.peek();
-		batch.begin();
 		batch.setProjectionMatrix(camera.combined);
+		batch.begin();
+
 		//update current view
 		viewToDraw.update(millis() - prevTime);
 		//draw current view.
-		renderer.begin(ShapeRenderer.ShapeType.Filled);
-		renderer.setProjectionMatrix(camera.combined);
+
 		viewToDraw.draw(batch, millis() - prevTime);
 		//keep track of current
-		renderer.end();
 		batch.end();
 		prevTime = millis();
 	}

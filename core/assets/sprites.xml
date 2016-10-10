@@ -1,5 +1,21 @@
 <sprites>
-    <sprite name="cable" x="0" y="0" w="30" h="10"/>
-    <sprite name="cableBox" x="20" y="10" w="10" h="10"/>
-    <sprite name="cableEnd" x="0" y="10" w="10" h="10"/>
+    <sprite name="cableHorizontal" x="0" y="128" w="10" h="10"/>
+    <sprite name="cableVertical" x="10" y="128" w="10" h="10"/>
+    <sprite name="cableBox" x="20" y="128" w="10" h="10"/>
+    <sprite name="cableEndLeft" x="30" y="128" w="10" h="10"/>
+    <sprite name="cableEndRight" x="40" y="128" w="10" h="10"/>
+    <sprite name="cableEndBot" x="50" y="128" w="10" h="10"/>
+    <sprite name="cableEndTop" x="60" y="128" w="10" h="10"/>
+
+    <sprite name="normalGround" x="0" y="0" w="64" h="64"/>
+    <sprite name="error" x="64" y="0" w="64" h="64"/>
+    <sprite name="LOTand" x="0" y="0" w="64" h="64"/>
+
+    <sprite name="leverBase" x="128" y="128" w="64" h="20"/>
+    <sprite name="lever" x="70" y="128" w="5" h="30"/>
+    <sprite name="button" x="192" y="128" w="64" h="32"/>
+    <sprite name="playerOne" x="192" y="0" w="64" h="64"/>
+    <sprite name="playerTwo" x="0" y="64" w="64" h="64"/>
+    <sprite name="cursor" x="0" y="138" w="10" h="10"/>
+
 </sprites>

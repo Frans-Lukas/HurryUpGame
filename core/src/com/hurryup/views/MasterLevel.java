@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hurryup.game.TextureManager;
 import com.hurryup.game.XMLReader;
 import com.hurryup.objects.MasterClass;
-import com.hurryup.objects.helper.VisualConnection;
 import com.hurryup.objects.entities.Player;
 import com.hurryup.objects.tiles.*;
 
@@ -36,22 +35,16 @@ public class MasterLevel implements IView{
         remotePlayer = XMLReader.getRemotePlayer();
         entities.add(localPlayer);
         entities.add(remotePlayer);
-        TextureManager.Load();
+
     }
 
-    public void createConnectionVisuals(){
-        for (Tile tile: tiles) {
-            if(tile instanceof LogicTile){
-                //Assume that all logic tiles are connected to something
-                VisualConnection.Create(((LogicTile) tile).getConnectionPair());
-            }
-        }
-    }
+
 
     @Override
-    public void draw(SpriteBatch batch, long deltaTime) {
-        VisualConnection.Draw(batch);
+    public void draw(SpriteBatch batch, long deltaTime){
+
     }
+
 
     @Override
     public void update(long deltaTime) {

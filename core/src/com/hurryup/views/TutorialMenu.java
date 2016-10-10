@@ -16,7 +16,7 @@ import com.hurryup.objects.tiles.logicoperatortiles.LOTnot;
 import com.hurryup.objects.tiles.logicoperatortiles.LOTor;
 import com.hurryup.objects.tiles.logicoperatortiles.LOTxnor;
 
-import static com.hurryup.objects.tiles.Tile.renderer;
+
 
 /**
  * Created by frasse on 2016-10-08.
@@ -68,8 +68,6 @@ public class TutorialMenu extends MasterLevel{
     @Override
     public void draw(SpriteBatch batch, long deltaTime) {
 
-        renderer.end();
-
         batch.begin();
 
         titleFont.setColor(Color.BLACK);
@@ -103,28 +101,6 @@ public class TutorialMenu extends MasterLevel{
 
         batch.end();
 
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-
-        //draw descripton connections
-
-        //and
-        renderer.line(and.getPosition().x - 30 + 29, secondRow - 20, and.getPosition().x, and.getPosition().y + 20);
-        renderer.line(and.getPosition().x + 30 + 29, secondRow, and.getPosition().x + normalWidth, and.getPosition().y);
-
-        //not
-        renderer.line(not.getPosition().x + 29, secondRow, not.getPosition().x + normalWidth / 2, not.getPosition().y);
-
-        //or
-        renderer.line(or.getPosition().x - 30 + 29, secondRow - 20, or.getPosition().x, or.getPosition().y + 20);
-        renderer.line(or.getPosition().x + 50 + 29, secondRow, or.getPosition().x + normalWidth, or.getPosition().y);
-
-        //xnor
-        renderer.line(xnor.getPosition().x - 17, secondRow, xnor.getPosition().x, xnor.getPosition().y);
-        renderer.line(xnor.getPosition().x, secondRow, xnor.getPosition().x + normalWidth, xnor.getPosition().y);
-
-        renderer.line(xnor.getPosition().x + 90, secondRow, xnor.getPosition().x, xnor.getPosition().y);
-        renderer.line(xnor.getPosition().x + 100, secondRow, xnor.getPosition().x + normalWidth, xnor.getPosition().y);
-
 
 
         and.draw(batch);
@@ -133,13 +109,7 @@ public class TutorialMenu extends MasterLevel{
         xnor.draw(batch);
 
 
-        renderer.end();
-
-        //hurryupGame.pushView(new TestLevel());
-
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-
-        cursor.draw(batch, renderer);
+        cursor.draw(batch);
     }
 
     @Override

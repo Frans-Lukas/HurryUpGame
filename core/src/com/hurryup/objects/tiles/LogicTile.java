@@ -1,5 +1,6 @@
 package com.hurryup.objects.tiles;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.hurryup.objects.helper.ConnectionPair;
 import com.hurryup.objects.logic.Connection;
@@ -16,7 +17,7 @@ public class LogicTile extends Tile implements IInteractive{
     protected int nextState;
     protected int connectionValue = 0;
     protected Vector2 vector;
-
+    protected Sprite tileSprite;
 
     public int getConnectionValue() {
         return connectionValue;
