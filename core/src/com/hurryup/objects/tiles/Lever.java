@@ -27,19 +27,21 @@ public class Lever extends LogicTile {
     public Lever(Vector2 position) {
         super(position, LogicColor.Blue,2,0);
 
-        textureRegion = TextureManager.get("button");
+        textureRegion = TextureManager.get("leverBase");
         tileSprite = new Sprite(textureRegion);
         tileSprite.setPosition(position.x,position.y);
         leverSprite = new Sprite(TextureManager.get("lever"));
+        leverSprite.setPosition(position.x + 30,position.y + 15);
+        leverSprite.setOrigin(2.5f,0);
     }
 
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
 
-        tileSprite.draw(batch);
         leverSprite.setRotation(leverAngle);
         leverSprite.draw(batch);
+        tileSprite.draw(batch);
     }
 
     @Override
@@ -53,6 +55,7 @@ public class Lever extends LogicTile {
         else if(state == 0 && leverAngle < 40){
             leverAngle++;
         }
+        //leverAngle = 0;
     }
 
     public void toggle(int whichToActivate){
@@ -113,7 +116,7 @@ public class Lever extends LogicTile {
 
     @Override
     public float getRight() {
-        return super.getRight();
+        return super.getRight()-10;
     }
 
     @Override
@@ -133,7 +136,7 @@ public class Lever extends LogicTile {
 
     @Override
     public float getWidth() {
-        return super.getWidth();
+        return super.getWidth()-10;
     }
 
     public void setColor(Color color){
