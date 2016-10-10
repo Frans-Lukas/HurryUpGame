@@ -4,12 +4,9 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.hurryup.objects.MasterClass;
 import com.hurryup.objects.entities.Player;
-import com.hurryup.objects.tiles.logicoperatortiles.LOTand;
+import com.hurryup.objects.tiles.logicoperatortiles.*;
 import com.hurryup.objects.logic.LogicColor;
 import com.hurryup.objects.tiles.*;
-import com.hurryup.objects.tiles.logicoperatortiles.LOTnot;
-import com.hurryup.objects.tiles.logicoperatortiles.LOTor;
-import com.hurryup.objects.tiles.logicoperatortiles.LOTxnor;
 import com.hurryup.views.MasterLevel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -77,7 +74,6 @@ public final class XMLReader {
                     //find tiles to connect
                     LogicTile fromTile = ((MasterLevel)hurryupGame.peekView()).getTileById(fromId);
                     LogicTile toTile = (((MasterLevel)hurryupGame.peekView()).getTileById(toId));
-
                     //connect tile
                     fromTile.setConnectionValue(connectionValue);
                     fromTile.connect(toTile);
@@ -157,6 +153,14 @@ public final class XMLReader {
                     LOTxnor tmpXnor = new LOTxnor(new Vector2(width * 64, height * 64), LogicColor.None, Integer.parseInt(id[1]), 0);
                     tmpXnor.setId(Integer.parseInt(id[1]));
                     map.add(index, tmpXnor);
+                    index++;
+                }
+                //add oneInTwoOut to arraylist
+                else if(id[0].equals("10")){
+                    oneInTwoOut tmpTwoOut = new oneInTwoOut(new Vector2(width * 64, height * 64), LogicColor.None, Integer.parseInt(id[1]), 0);
+                    System.out.println("twoOut");
+                    tmpTwoOut.setId(Integer.parseInt(id[1]));
+                    map.add(index, tmpTwoOut);
                     index++;
                 }
                 //set position of player1

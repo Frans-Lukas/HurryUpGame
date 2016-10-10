@@ -9,9 +9,10 @@
 	<object id="6" type="lotor"/>
     <object id="7" type="lever"/>
 	<object id="8" type="lotxnor"/>
+	<object id="9" type="oneInTwoOut"/>
 	<object id="21" type="player1position"/>
 	<object id="22" type="player2position"/>
-	<map id="19">1,0,0,0,4:4,0,0,5:5,0,0,0,8:7,0,0,0,0,0,0,0,1
+	<map id="19">1,0,0,0,4:4,0,0,5:5,0,0,0,8:7,0,0,10,10,10,0,0,1
 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1

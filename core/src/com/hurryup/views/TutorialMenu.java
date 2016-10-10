@@ -125,13 +125,10 @@ public class TutorialMenu extends MasterLevel{
         renderer.line(xnor.getPosition().x + 90, secondRow, xnor.getPosition().x, xnor.getPosition().y);
         renderer.line(xnor.getPosition().x + 100, secondRow, xnor.getPosition().x + normalWidth, xnor.getPosition().y);
 
-
-
         and.draw(batch);
         not.draw(batch);
         or.draw(batch);
         xnor.draw(batch);
-
 
         renderer.end();
 
