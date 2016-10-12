@@ -53,23 +53,7 @@ public class hurryupGame extends ApplicationAdapter {
 
 	@Override
 	public void create () {
-		GameClient.configure("127.0.0.1", 1234);
-		GameClient.connect();
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		if(!GameClient.connected()){
-			Server.start(1234);
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			GameClient.connect();
-			hosting = true;
-		}
+
 
 		TextureManager.Load();
 		camera = new OrthographicCamera();
@@ -134,4 +118,23 @@ public class hurryupGame extends ApplicationAdapter {
 		((MasterLevel)peekView()).getRemotePlayer().setX((int)newPos.x);
 		((MasterLevel)peekView()).getRemotePlayer().setY((int)newPos.y);
 	}
+
+	public static void startServer(int port){
+        Server.start(1234);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        GameClient.configure("127.0.0.1",1234);
+        GameClient.connect();
+        hosting = true;
+    }
+
+    public static void startClient(String ip, int port){
+        GameClient.configure("127.0.0.1", 1234);
+        GameClient.connect();
+    }
 }
+
+
