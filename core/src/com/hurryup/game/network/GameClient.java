@@ -19,6 +19,8 @@ public final class GameClient {
 
     private static String ip;
     private static int port;
+    private static boolean ready = false;
+
     private GameClient(){
 
     }
@@ -33,6 +35,7 @@ public final class GameClient {
         clientLogic = new ClientLogic(ip,port);
         clientThread = new Thread(clientLogic);
         clientThread.start();
+        ready = true;
     }
     //Returns a value specifying if client is connected or not
     public static boolean connected(){
@@ -51,6 +54,9 @@ public final class GameClient {
     }
 
     public static void update(){
+
+        if(!ready)
+            return;
         //While client has new messages
         String d = ClientLogic.getMessage();
         if(d != null){
