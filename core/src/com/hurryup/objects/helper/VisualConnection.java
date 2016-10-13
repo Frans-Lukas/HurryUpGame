@@ -17,22 +17,23 @@ public class VisualConnection {
     private static final int cableThickness = 10;
     private static ArrayList<Rectangle> noGoZones = new ArrayList<Rectangle>();
     private static ArrayList<Vector2> tempConnectionPoints = new ArrayList<Vector2>();
-    private static float tmpx,tmpy;
+    private static Rectangle noGoException1,noGoException2;
     public static void addPair(ConnectionPair pair){
         if (pair != null) {
             Vector2 from = pair.getFrom();
             Vector2 to = pair.getTo();
-            noGoZones.add(new Rectangle(from.x,from.y,64,64));
-            noGoZones.add(new Rectangle(to.x,to.y,64,64));
+
             connectionPairs.add(pair);
         }
     }
 
+    public static void addNoGo(Vector2 v1){
+        noGoZones.add(new Rectangle(v1.x,v1.y,64,64));
+    }
+
     public static void build(){
 
-        noGoZones.add(new Rectangle(tmpx,tmpy,64,64));
-
-        //for (ConnectionPair pair: connectionPairs) {
+       // for (ConnectionPair pair: connectionPairs) {
             ConnectionPair pair = connectionPairs.get(0);
             Vector2 from = pair.getFrom();
             Vector2 to = pair.getTo();
@@ -44,7 +45,7 @@ public class VisualConnection {
                 tempConnectionPoints.add(new Vector2(to.x,to.y));
             }
             else {
-                connect(to, from, false);
+                //connect(to, from, false);
             }
             for (Vector2 v:
                  tempConnectionPoints) {
@@ -57,7 +58,7 @@ public class VisualConnection {
                     s.setSize(10,10);
                     sprites.add(s);
             }
-       // }
+        //}
 
     }
 /*
@@ -86,11 +87,23 @@ Sprite xSprite = new Sprite(TextureManager.get("cableVertical"));
                     if(!checkValidity(tmp)){
                         tmp.add(0,32);
                         tempConnectionPoints.add(new Vector2(tmp.x,tmp.y));
-                        connect(tmp,to,false);
+                        //connect(tmp,to,false);
                         return;
                     }
                 }
                 //tempConnectionPoints.add(new Vector2(tmp.x,tmp.y));
+                connect(tmp,to,false);
+            }
+            else{
+                while(tmp.y < to.y){
+                    tmp.add(0,16);
+                    if(!checkValidity(tmp)){
+                        tmp.add(0,-32);
+                        tempConnectionPoints.add(new Vector2(tmp.x,tmp.y));
+                        connect(tmp,to,false);
+                        return;
+                    }
+                }
                 connect(tmp,to,false);
             }
 

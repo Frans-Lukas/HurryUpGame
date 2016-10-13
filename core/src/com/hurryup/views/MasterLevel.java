@@ -5,6 +5,7 @@ import com.hurryup.game.TextureManager;
 import com.hurryup.game.XMLReader;
 import com.hurryup.objects.MasterClass;
 import com.hurryup.objects.entities.Player;
+import com.hurryup.objects.helper.VisualConnection;
 import com.hurryup.objects.tiles.*;
 
 import java.util.ArrayList;
@@ -38,7 +39,16 @@ public class MasterLevel implements IView{
 
     }
 
-
+    public void buildConnections(){
+        for (Tile t: tiles) {
+            if(t instanceof LogicTile){
+                VisualConnection.addPair((((LogicTile) t).getConnectionPair(false)));
+                VisualConnection.addPair((((LogicTile) t).getConnectionPair(true)));
+                VisualConnection.addNoGo(t.getPosition());
+            }
+        }
+        VisualConnection.build();
+    }
 
     @Override
     public void draw(SpriteBatch batch, long deltaTime){

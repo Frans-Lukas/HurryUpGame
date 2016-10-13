@@ -9,4 +9,8 @@ public interface IInteractive {
     void activate(int whichToActivate);
     void deactivate(int whichToDeactivate);
     Vector2 getVector2();
+    Vector2 getConnectionInPos();
+
+    Vector2 getFirstOutPos();
+    Vector2 getSecondOutPos();
 }

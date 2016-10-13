@@ -99,6 +99,7 @@ public class MainMenu implements IView {
                 System.out.println("ip: " + ipAddress + ", port: " + port);
                 hurryupGame.pushView(new TestLevel());
                 XMLReader.readMap("level1.xml");
+                ((TestLevel)hurryupGame.peekView()).buildConnections();
                 hurryupGame.startClient(ipAddress,Integer.parseInt(port));
 
             }
@@ -118,6 +119,7 @@ public class MainMenu implements IView {
                 TestLevel level = new TestLevel();
                 hurryupGame.pushView(level);
                 XMLReader.readMap("level1.xml");
+                ((TestLevel)hurryupGame.peekView()).buildConnections();
                 hurryupGame.startServer(Integer.parseInt(port));
             }
         });

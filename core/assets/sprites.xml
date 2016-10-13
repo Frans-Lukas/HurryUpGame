@@ -1,6 +1,6 @@
 <sprites>
-    <sprite name="cableHorizontal" x="0" y="128" w="10" h="10"/>
-    <sprite name="cableVertical" x="10" y="128" w="10" h="10"/>
+    <sprite name="cableVertical" x="0" y="128" w="10" h="10"/>
+    <sprite name="cableHorizontal" x="10" y="128" w="10" h="10"/>
     <sprite name="cableBox" x="20" y="128" w="10" h="10"/>
     <sprite name="cableEndLeft" x="30" y="128" w="10" h="10"/>
     <sprite name="cableEndRight" x="40" y="128" w="10" h="10"/>

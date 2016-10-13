@@ -11,6 +11,7 @@ import com.hurryup.game.hurryupGame;
 import com.hurryup.objects.MasterClass;
 import com.hurryup.objects.entities.Player;
 
+import com.hurryup.objects.helper.VisualConnection;
 import com.hurryup.objects.tiles.Tile;
 
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public class TestLevel extends MasterLevel{
                 camera.position.set(getLocalPlayer().getX(), getLocalPlayer().getY(), 0);
             }
         }
-
+        VisualConnection.draw(batch);
     }
 
     @Override

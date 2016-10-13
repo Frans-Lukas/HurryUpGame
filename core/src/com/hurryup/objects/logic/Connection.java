@@ -23,4 +23,20 @@ public class Connection implements IInteractive{
     public Vector2 getVector2(){
         return connection.getVector2();
     }
+
+    @Override
+    public Vector2 getConnectionInPos(){
+
+        return connection.getConnectionInPos();
+    }
+
+    @Override
+    public Vector2 getFirstOutPos() {
+        return connection.getFirstOutPos();
+    }
+
+    @Override
+    public Vector2 getSecondOutPos() {
+        return connection.getSecondOutPos();
+    }
 }
