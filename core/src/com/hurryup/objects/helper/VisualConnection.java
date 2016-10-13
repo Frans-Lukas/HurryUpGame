@@ -32,14 +32,20 @@ public class VisualConnection {
 
         noGoZones.add(new Rectangle(tmpx,tmpy,64,64));
 
-        for (ConnectionPair pair: connectionPairs) {
+        //for (ConnectionPair pair: connectionPairs) {
+            ConnectionPair pair = connectionPairs.get(0);
             Vector2 from = pair.getFrom();
             Vector2 to = pair.getTo();
             tempConnectionPoints.clear();
-            if(from.x < to.x)
-                connect(from,to,false);
-            else
-                connect(to,from,false);
+            if(from.x < to.x) {
+                //Add first point
+                tempConnectionPoints.add(new Vector2(from.x,from.y));
+                connect(new Vector2(from.x + 64,from.y), to, false);
+                tempConnectionPoints.add(new Vector2(to.x,to.y));
+            }
+            else {
+                connect(to, from, false);
+            }
             for (Vector2 v:
                  tempConnectionPoints) {
                 System.out.println(v);
@@ -51,7 +57,7 @@ public class VisualConnection {
                     s.setSize(10,10);
                     sprites.add(s);
             }
-        }
+       // }
 
     }
 /*
@@ -67,51 +73,46 @@ Sprite xSprite = new Sprite(TextureManager.get("cableVertical"));
  */
     //Connects two points, works around "no go zones", from left to right, down to up (lower values to greater)
     private static void connect(Vector2 from, Vector2 to,boolean y){
-        if((new Rectangle(to.x,to.y,64,64).contains(from)))
+        if((new Rectangle(to.x,to.y,64,64).contains(from))){
             return;
+        }
+
 
         if (y) {
             Vector2 tmp = new Vector2(from.x,from.y);
-            if(from.y < to.y){
-                while (tmp.y < to.y) {
-                    tmp.add(0,16);
-                    if(!checkValidity(tmp,from,to)){
-                        tmp.add(0,-16);
-                        tempConnectionPoints.add(tmp);
-                        connect(tmp,to,false);
-                    }
-                }
-            }
-            else{
-                while (tmp.y > to.y) {
+            if(from.y > to.y){
+                while(tmp.y > to.y){
                     tmp.add(0,-16);
-                    if(!checkValidity(tmp,from,to)){
-                        tmp.add(0,16);
-                        tempConnectionPoints.add(tmp);
+                    if(!checkValidity(tmp)){
+                        tmp.add(0,32);
+                        tempConnectionPoints.add(new Vector2(tmp.x,tmp.y));
                         connect(tmp,to,false);
+                        return;
                     }
                 }
+                //tempConnectionPoints.add(new Vector2(tmp.x,tmp.y));
+                connect(tmp,to,false);
             }
-            tempConnectionPoints.add(tmp);
-            connect(tmp,to,false);
+
         } else {
             Vector2 tmp = new Vector2(from.x,from.y);
             while (tmp.x < to.x) {
                 tmp.add(16,0);
-                if(!checkValidity(tmp,from,to)){
-                    tmp.add(-16,0);
-                    tempConnectionPoints.add(tmp);
+                if(!checkValidity(tmp)){
+                    tmp.add(-32,0);
+                    tempConnectionPoints.add(new Vector2(tmp.x,tmp.y));
                     connect(tmp,to,true);
+                    return;
                 }
             }
-            tempConnectionPoints.add(tmp);
+            tempConnectionPoints.add(new Vector2(tmp.x,tmp.y));
             connect(tmp,to,true);
         }
     }
 
-    private static boolean checkValidity(Vector2 v,Vector2 except1,Vector2 except2){
+    private static boolean checkValidity(Vector2 v){
         for (Rectangle r:noGoZones){
-            if(r.x != except1.x && r.x != except2.x && r.y != except1.y && r.y != except2.y && r.contains(v)) {
+            if(r.contains(v)) {
                 return false;
             }
         }
