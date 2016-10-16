@@ -18,6 +18,8 @@ public class VisualConnection {
     private static ArrayList<Rectangle> noGoZones = new ArrayList<Rectangle>();
     private static ArrayList<Vector2> tempConnectionPoints = new ArrayList<Vector2>();
     private static Rectangle noGoException1,noGoException2;
+    private static final int connectionMod = 16;
+    private static final int connectionModReverse = 32;
     public static void addPair(ConnectionPair pair){
         if (pair != null) {
             Vector2 from = pair.getFrom();
@@ -33,11 +35,14 @@ public class VisualConnection {
 
     public static void build(){
 
-       // for (ConnectionPair pair: connectionPairs) {
-            ConnectionPair pair = connectionPairs.get(0);
+       for (ConnectionPair pair: connectionPairs) {
+            //ConnectionPair pair = connectionPairs.get(1);
             Vector2 from = pair.getFrom();
             Vector2 to = pair.getTo();
             tempConnectionPoints.clear();
+
+            completed = false;
+
             if(from.x < to.x) {
                 //Add first point
                 tempConnectionPoints.add(new Vector2(from.x,from.y));
@@ -46,19 +51,49 @@ public class VisualConnection {
             }
             else {
                 //connect(to, from, false);
+                tempConnectionPoints.add(new Vector2(to.x,to.y));
+                connect(new Vector2(to.x + 64,to.y), from, false);
+                tempConnectionPoints.add(new Vector2(from.x,from.y));
             }
             for (Vector2 v:
-                 tempConnectionPoints) {
+                tempConnectionPoints) {
                 System.out.println(v);
             }
-            for (Vector2 v:
-                    tempConnectionPoints) {
-                    Sprite s = new Sprite(TextureManager.get("error"));
-                    s.setPosition(v.x,v.y);
-                    s.setSize(10,10);
-                    sprites.add(s);
+            for (int i = 0; i < tempConnectionPoints.size()-1; i++) {
+
+                //if x
+                Vector2 p1 = tempConnectionPoints.get(i);
+                Vector2 p2 = tempConnectionPoints.get(i+1);
+                Sprite s;
+                Sprite b = new Sprite(TextureManager.get("cableBox"));
+                Sprite b2 = new Sprite(TextureManager.get("cableBox"));
+                b.setSize(10,10);
+                b2.setSize(10,10);
+                //if x
+                if(p1.y == p2.y){
+                    s = new Sprite(TextureManager.get("cableHorizontal"));
+                    s.setPosition(p1.x,p1.y);
+                    s.setSize(p2.x - p1.x,10);
+                    b.setPosition(p2.x,p2.y);
+                    b2.setPosition(p1.x,p1.y);
+                }
+                else{
+                    s = new Sprite(TextureManager.get("cableVertical"));
+                    if(p1.y > p2.y){
+                        s.setPosition(p2.x,p2.y);
+                        s.setSize(10,p1.y-p2.y);
+                    }
+                    else{
+                        s.setPosition(p1.x,p1.y);
+                        s.setSize(10,p2.y - p1.y);
+                    }
+                }
+                sprites.add(s);
+                sprites.add(b);
+                sprites.add(b2);
+
             }
-        //}
+        }
 
     }
 /*
@@ -73,8 +108,14 @@ Sprite xSprite = new Sprite(TextureManager.get("cableVertical"));
             sprites.add(xSprite);
  */
     //Connects two points, works around "no go zones", from left to right, down to up (lower values to greater)
+    private static int called = 0;
+    private static boolean completed = false;
     private static void connect(Vector2 from, Vector2 to,boolean y){
-        if((new Rectangle(to.x,to.y,64,64).contains(from))){
+        called++;
+        if(completed || called > 300 || (new Rectangle(to.x-32,to.y-32,96,96).contains(from))){
+            if(called > 300)
+                System.out.println("ERROR IN VisualConnection");
+
             return;
         }
 
@@ -83,36 +124,50 @@ Sprite xSprite = new Sprite(TextureManager.get("cableVertical"));
             Vector2 tmp = new Vector2(from.x,from.y);
             if(from.y > to.y){
                 while(tmp.y > to.y){
-                    tmp.add(0,-16);
-                    if(!checkValidity(tmp)){
-                        tmp.add(0,32);
-                        tempConnectionPoints.add(new Vector2(tmp.x,tmp.y));
-                        //connect(tmp,to,false);
+                    tmp.add(0,-connectionMod);
+                    if (new Rectangle(to.x, to.y-32, 64, 64+64).contains(tmp)) {
+                        completed = true;
                         return;
                     }
-                }
-                //tempConnectionPoints.add(new Vector2(tmp.x,tmp.y));
-                connect(tmp,to,false);
-            }
-            else{
-                while(tmp.y < to.y){
-                    tmp.add(0,16);
+
                     if(!checkValidity(tmp)){
-                        tmp.add(0,-32);
+                        tmp.add(0,connectionModReverse);
                         tempConnectionPoints.add(new Vector2(tmp.x,tmp.y));
                         connect(tmp,to,false);
                         return;
                     }
                 }
+                tempConnectionPoints.add(new Vector2(tmp.x,tmp.y));
+                connect(tmp,to,false);
+            }
+            else{
+                while(tmp.y < to.y){
+                    tmp.add(0,connectionMod);
+                    if (new Rectangle(to.x, to.y-32, 64, 64+64).contains(tmp)) {
+                        completed = true;
+                        return;
+                    }
+                    if(!checkValidity(tmp)){
+                        tmp.add(0,connectionModReverse);
+                        tempConnectionPoints.add(new Vector2(tmp.x,tmp.y));
+                        connect(tmp,to,false);
+                        return;
+                    }
+                }
+                tempConnectionPoints.add(new Vector2(tmp.x,tmp.y));
                 connect(tmp,to,false);
             }
 
         } else {
             Vector2 tmp = new Vector2(from.x,from.y);
             while (tmp.x < to.x) {
-                tmp.add(16,0);
+                tmp.add(connectionMod,0);
+                if (new Rectangle(to.x-32, to.y, 64+64, 64).contains(tmp)) {
+                    completed = true;
+                    return;
+                }
                 if(!checkValidity(tmp)){
-                    tmp.add(-32,0);
+                    tmp.add(-connectionModReverse,0);
                     tempConnectionPoints.add(new Vector2(tmp.x,tmp.y));
                     connect(tmp,to,true);
                     return;
