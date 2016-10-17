@@ -69,6 +69,8 @@ public class VisualConnection {
                 Sprite b2 = new Sprite(TextureManager.get("cableBox"));
                 b.setSize(10,10);
                 b2.setSize(10,10);
+                b.setColor(pair.getCableColor());
+                b2.setColor(pair.getCableColor());
                 //if x
                 if(p1.y == p2.y){
                     s = new Sprite(TextureManager.get("cableHorizontal"));
@@ -88,6 +90,7 @@ public class VisualConnection {
                         s.setSize(10,p2.y - p1.y);
                     }
                 }
+                s.setColor(pair.getCableColor());
                 sprites.add(s);
                 sprites.add(b);
                 sprites.add(b2);

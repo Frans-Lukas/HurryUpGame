@@ -1,5 +1,6 @@
 package com.hurryup.objects.helper;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -8,10 +9,20 @@ import com.badlogic.gdx.math.Vector2;
 public class ConnectionPair {
     private Vector2 to;
     private Vector2 from;
+    private Color cableColor;
+
+    public Color getCableColor() {
+        return cableColor;
+    }
+
+    public void setCableColor(Color cableColor) {
+        this.cableColor = cableColor;
+    }
 
     public ConnectionPair(Vector2 to, Vector2 from) {
         this.to = to;
         this.from = from;
+        cableColor = new Color(1,1,1,1);
     }
 
     public Vector2 getTo() {
