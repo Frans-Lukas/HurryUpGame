@@ -27,6 +27,7 @@ public class Lever extends LogicTile {
     public Lever(Vector2 position) {
         super(position, LogicColor.Blue,2,0);
 
+        drawLevel = 2;
         textureRegion = TextureManager.get("leverBase");
         tileSprite = new Sprite(textureRegion);
         tileSprite.setPosition(position.x,position.y);

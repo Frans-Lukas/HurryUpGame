@@ -12,6 +12,7 @@ import com.hurryup.objects.MasterClass;
 import com.hurryup.objects.entities.Player;
 
 import com.hurryup.objects.helper.VisualConnection;
+import com.hurryup.objects.tiles.LogicTile;
 import com.hurryup.objects.tiles.Tile;
 
 import java.util.ArrayList;
@@ -41,7 +42,13 @@ public class TestLevel extends MasterLevel{
         super.draw(batch,deltaTime);
 
         for(Tile tile : tiles){
-            tile.draw(batch);
+            if(tile.getDrawLevel() == 0)
+                tile.draw(batch);
+        }
+        VisualConnection.draw(batch);
+        for(Tile tile : tiles){
+            if(tile.getDrawLevel() == 1)
+                tile.draw(batch);
         }
         for(MasterClass entity : entities){
             entity.draw(batch);
@@ -51,7 +58,10 @@ public class TestLevel extends MasterLevel{
                 camera.position.set(getLocalPlayer().getX(), getLocalPlayer().getY(), 0);
             }
         }
-        VisualConnection.draw(batch);
+        for(Tile tile : tiles){
+            if(tile.getDrawLevel() == 2)
+                tile.draw(batch);
+        }
     }
 
     @Override

@@ -43,6 +43,7 @@ public class LogicTile extends Tile implements IInteractive{
         this.id = id;
         this.state = state;
         vector = position;
+        drawLevel = 1;
     }
 
     public int getState() {

@@ -17,6 +17,11 @@ public class Tile{
     private boolean collidable = true;
     private boolean drawable = true;
     protected TextureRegion textureRegion;
+    protected int drawLevel = 0;
+
+    public int getDrawLevel() {
+        return drawLevel;
+    }
 
     //get position for every tile
     public Tile(Vector2 position){
