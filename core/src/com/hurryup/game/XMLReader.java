@@ -154,11 +154,19 @@ public final class XMLReader {
                     index++;
                 }
                 //add SplitterTile to arraylist
-                else if(id[0].equals("10")){
+                else if(id[0].equals("9")){
                     SplitterTile tmpTwoOut = new SplitterTile(new Vector2(width * 64, height * 64), LogicColor.None, Integer.parseInt(id[1]), 0);
-                    System.out.println("twoOut");
+                    System.out.println("splitterTile");
                     tmpTwoOut.setId(Integer.parseInt(id[1]));
                     map.add(index, tmpTwoOut);
+                    index++;
+                }
+                //add SplitterTile to arraylist
+                else if(id[0].equals("10")){
+                    Hatch hatch = new Hatch(new Vector2(width * 64, height * 64));
+                    System.out.println("hatch");
+                    hatch.setId(Integer.parseInt(id[1]));
+                    map.add(index, hatch);
                     index++;
                 }
                 //set position of player1
