@@ -22,7 +22,7 @@ public class SplitterTile extends LogicTile{
 
     public SplitterTile(Vector2 position, LogicColor logicColor, int id, int state) {
         super(position, logicColor, id, state);
-        textureRegion = TextureManager.get("DistributionTile");
+        textureRegion = TextureManager.get("SplitterTile");
         tileSprite = new Sprite(textureRegion);
         tileSprite.setPosition(position.x,position.y);
 
