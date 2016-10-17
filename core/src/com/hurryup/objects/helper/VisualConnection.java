@@ -129,7 +129,9 @@ Sprite xSprite = new Sprite(TextureManager.get("cableVertical"));
                         completed = true;
                         return;
                     }
-
+                    else if(Math.abs(to.y - tmp.y) <= connectionMod){
+                        tmp.y = to.y;
+                    }
                     if(!checkValidity(tmp)){
                         tmp.add(0,connectionModReverse);
                         tempConnectionPoints.add(new Vector2(tmp.x,tmp.y));
@@ -146,6 +148,9 @@ Sprite xSprite = new Sprite(TextureManager.get("cableVertical"));
                     if (new Rectangle(to.x, to.y-32, 64, 64+64).contains(tmp)) {
                         completed = true;
                         return;
+                    }
+                    else if(Math.abs(to.y - tmp.y) <= connectionMod){
+                        tmp.y = to.y;
                     }
                     if(!checkValidity(tmp)){
                         tmp.add(0,connectionModReverse);
@@ -165,6 +170,9 @@ Sprite xSprite = new Sprite(TextureManager.get("cableVertical"));
                 if (new Rectangle(to.x-32, to.y, 64+64, 64).contains(tmp)) {
                     completed = true;
                     return;
+                }
+                else if(Math.abs(to.x - tmp.x) <= connectionMod){
+                    tmp.x = to.x;
                 }
                 if(!checkValidity(tmp)){
                     tmp.add(-connectionModReverse,0);
