@@ -51,6 +51,11 @@ public class Hatch extends LogicTile {
     }
 
     @Override
+    public Vector2 getConnectionInPos() {
+        return new Vector2(position.x,position.y + 27);
+    }
+
+    @Override
     public Vector2 getPosition() {
         return super.getPosition();
     }
