@@ -153,9 +153,9 @@ public final class XMLReader {
                     map.add(index, tmpXnor);
                     index++;
                 }
-                //add DistributionTile to arraylist
+                //add SplitterTile to arraylist
                 else if(id[0].equals("10")){
-                    DistributionTile tmpTwoOut = new DistributionTile(new Vector2(width * 64, height * 64), LogicColor.None, Integer.parseInt(id[1]), 0);
+                    SplitterTile tmpTwoOut = new SplitterTile(new Vector2(width * 64, height * 64), LogicColor.None, Integer.parseInt(id[1]), 0);
                     System.out.println("twoOut");
                     tmpTwoOut.setId(Integer.parseInt(id[1]));
                     map.add(index, tmpTwoOut);
