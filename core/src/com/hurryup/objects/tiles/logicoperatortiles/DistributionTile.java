@@ -1,15 +1,17 @@
 package com.hurryup.objects.tiles.logicoperatortiles;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.hurryup.game.TextureManager;
 import com.hurryup.objects.logic.LogicColor;
 import com.hurryup.objects.tiles.LogicTile;
 
 /**
  * Created by frasse on 2016-10-10.
  */
-public class oneInTwoOut extends LogicTile{
+public class DistributionTile extends LogicTile{
 
     private boolean activate = false;
     //dark purple
@@ -18,30 +20,23 @@ public class oneInTwoOut extends LogicTile{
     //light purple
     private Color lotColorOn = Color.valueOf("ff99ffFF");
 
-    public oneInTwoOut(Vector2 position, LogicColor logicColor, int id, int state) {
+    public DistributionTile(Vector2 position, LogicColor logicColor, int id, int state) {
         super(position, logicColor, id, state);
-        if(activate) {
-            renderer.setColor(lotColorOn);
-        } else{
-            renderer.setColor(lotColorOff);
-        }
-        renderer.rect(position.x, position.y, 64, 64);
-        if(connection[0] != null) {
-            Vector2 tmpVector = new Vector2(vector.x + width / 2, vector.y + height / 2);
-            renderer.setColor(Color.DARK_GRAY);
-            renderer.line(tmpVector, connection[0].getVector2());
+        textureRegion = TextureManager.get("DistributionTile");
+        tileSprite = new Sprite(textureRegion);
+        tileSprite.setPosition(position.x,position.y);
 
-            //connection 1 can only exist if connection 0 exists
-            if(connection[1] != null){
-                renderer.line(tmpVector, connection[1].getVector2());
-            }
-        }
     }
-
 
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
+        if(activate) {
+            tileSprite.setColor(lotColorOn);
+        } else{
+            tileSprite.setColor(lotColorOff);
+        }
+        tileSprite.draw(batch);
     }
 
     @Override
