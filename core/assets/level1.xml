@@ -22,7 +22,7 @@
 	<logic id="0002">
 		<connection connectionvalue="0" from="1" to="5"/>
 		<connection connectionvalue="1" from="2" to="7"/>
-		<c1onnection connectionvalue="0" from="10" to="7"/>
-		<c1onnection connectionvalue="0" from="7" to="3"/>
+		<connection connectionvalue="0" from="10" to="7"/>
+		<connection connectionvalue="0" from="7" to="3"/>
 	</logic>
 </hurryupgame>
