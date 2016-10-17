@@ -1,8 +1,6 @@
 package com.hurryup.game;
 
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
-import com.hurryup.objects.MasterClass;
 import com.hurryup.objects.entities.Player;
 import com.hurryup.objects.tiles.logicoperatortiles.*;
 import com.hurryup.objects.logic.LogicColor;
@@ -155,9 +153,9 @@ public final class XMLReader {
                     map.add(index, tmpXnor);
                     index++;
                 }
-                //add oneInTwoOut to arraylist
+                //add DistributionTile to arraylist
                 else if(id[0].equals("10")){
-                    oneInTwoOut tmpTwoOut = new oneInTwoOut(new Vector2(width * 64, height * 64), LogicColor.None, Integer.parseInt(id[1]), 0);
+                    DistributionTile tmpTwoOut = new DistributionTile(new Vector2(width * 64, height * 64), LogicColor.None, Integer.parseInt(id[1]), 0);
                     System.out.println("twoOut");
                     tmpTwoOut.setId(Integer.parseInt(id[1]));
                     map.add(index, tmpTwoOut);
