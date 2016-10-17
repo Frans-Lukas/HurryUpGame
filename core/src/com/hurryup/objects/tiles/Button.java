@@ -83,6 +83,21 @@ public class Button extends LogicTile {
     }
 
     @Override
+    public Vector2 getConnectionInPos() {
+        return super.getConnectionInPos();
+    }
+
+    @Override
+    public Vector2 getFirstOutPos() {
+        return new Vector2(position.x + 27, position.y);
+    }
+
+    @Override
+    public Vector2 getSecondOutPos() {
+        return super.getSecondOutPos();
+    }
+
+    @Override
     public void deactivate(int whichToDeactivate) {
 
         if(state == 3){
