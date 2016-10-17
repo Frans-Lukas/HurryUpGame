@@ -22,7 +22,7 @@ public class ConnectionPair {
     public ConnectionPair(Vector2 to, Vector2 from) {
         this.to = to;
         this.from = from;
-        cableColor = new Color(1,1,1,1);
+        cableColor = new Color(255,256,0,1);
     }
 
     public Vector2 getTo() {
