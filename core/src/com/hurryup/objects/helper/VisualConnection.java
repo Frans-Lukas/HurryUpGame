@@ -173,6 +173,7 @@ Sprite xSprite = new Sprite(TextureManager.get("cableVertical"));
                 tmp.add(connectionMod,0);
                 if (new Rectangle(to.x-32, to.y, 64+64, 64).contains(tmp)) {
                     completed = true;
+                    tempConnectionPoints.add(new Vector2(to.x,tmp.y));
                     return;
                 }
                 else if(Math.abs(to.x - tmp.x) <= connectionMod){
