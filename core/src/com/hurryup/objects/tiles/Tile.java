@@ -1,6 +1,7 @@
 package com.hurryup.objects.tiles;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.hurryup.objects.MasterClass;
@@ -12,10 +13,10 @@ public class Tile{
     protected Vector2 position;
     public float width = 64;
     public float height = 64;
-    public static ShapeRenderer renderer = new ShapeRenderer();
+    //public static ShapeRenderer renderer = new ShapeRenderer();
     private boolean collidable = true;
     private boolean drawable = true;
-
+    protected TextureRegion textureRegion;
 
     //get position for every tile
     public Tile(Vector2 position){

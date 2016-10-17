@@ -1,8 +1,10 @@
 package com.hurryup.objects.tiles.logicoperatortiles;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.hurryup.game.TextureManager;
 import com.hurryup.game.network.GameClient;
 import com.hurryup.objects.logic.Connection;
 import com.hurryup.objects.logic.IInteractive;
@@ -25,6 +27,9 @@ public class LOTnot extends LogicTile{
     public LOTnot(Vector2 position, LogicColor logicColor, int id, int state) {
         super(position, logicColor, id, state);
         setCollidable(false);
+        textureRegion = TextureManager.get("LOTnot");
+        tileSprite = new Sprite(textureRegion);
+        tileSprite.setPosition(position.x,position.y);
     }
 
     @Override
@@ -59,15 +64,11 @@ public class LOTnot extends LogicTile{
     public void draw(SpriteBatch batch) {
         super.draw(batch);
         if(activated) {
-            renderer.setColor(lotColorOn);
+            tileSprite.setColor(lotColorOn);
+            tileSprite.draw(batch);
         } else{
-            renderer.setColor(lotColorOff);
-        }
-        renderer.rect(position.x, position.y, 64, 64);
-        if(connection[0] != null) {
-            Vector2 tmpVector = new Vector2(vector.x + width / 2, vector.y + height / 2);
-            renderer.setColor(Color.DARK_GRAY);
-            renderer.line(tmpVector, connection[0].getVector2());
+            tileSprite.setColor(lotColorOn);
+            tileSprite.draw(batch);
         }
     }
 

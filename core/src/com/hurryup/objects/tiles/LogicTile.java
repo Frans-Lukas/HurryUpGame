@@ -1,5 +1,6 @@
 package com.hurryup.objects.tiles;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.hurryup.objects.helper.ConnectionPair;
 import com.hurryup.objects.logic.Connection;
@@ -16,7 +17,7 @@ public class LogicTile extends Tile implements IInteractive{
     protected int nextState;
     protected int connectionValue = 0;
     protected Vector2 vector;
-
+    protected Sprite tileSprite;
 
     public int getConnectionValue() {
         return connectionValue;
@@ -61,7 +62,16 @@ public class LogicTile extends Tile implements IInteractive{
     public ConnectionPair getConnectionPair()
     {
         if(connection[0] != null)
-            return new ConnectionPair(this.position,connection[0].getVector2());
+            return new ConnectionPair(getFirstOutPos(),connection[0].getConnectionInPos());
+        else
+            return null;
+    }
+
+    public ConnectionPair getConnectionPair(boolean second){
+        if(second && connection[0] != null)
+            return new ConnectionPair(getFirstOutPos(),connection[0].getConnectionInPos());
+        else if(!second && connection[1] != null)
+            return new ConnectionPair(getSecondOutPos(),connection[1].getSecondOutPos());
         else
             return null;
     }
@@ -100,8 +110,19 @@ public class LogicTile extends Tile implements IInteractive{
 
     public Vector2 getVector2(){
         //plus one so straight lines will not turn invisible.
-        Vector2 tmpVector = new Vector2(vector.x + width / 2 + 1, vector.y + height / 2 + 1);
+        Vector2 tmpVector = new Vector2(vector.x, vector.y);
         return tmpVector;
     }
-
+    @Override
+    public Vector2 getConnectionInPos(){
+        return new Vector2(vector.x + 32,vector.y+32);
+    }
+    @Override
+    public Vector2 getFirstOutPos(){
+        return new Vector2(vector.x,vector.y);
+    }
+    @Override
+    public Vector2 getSecondOutPos(){
+        return new Vector2(vector.x + 64,vector.y+64);
+    }
 }

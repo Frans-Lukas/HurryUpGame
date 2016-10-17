@@ -25,7 +25,6 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 import static com.badlogic.gdx.utils.TimeUtils.millis;
-import static com.hurryup.objects.tiles.Tile.renderer;
 
 public class hurryupGame extends ApplicationAdapter {
 
@@ -54,25 +53,9 @@ public class hurryupGame extends ApplicationAdapter {
 
 	@Override
 	public void create () {
-		GameClient.configure("127.0.0.1", 1234);
-		GameClient.connect();
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		if(!GameClient.connected()){
-			Server.start(1234);
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			GameClient.connect();
-			hosting = true;
-		}
 
 
+		TextureManager.Load();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, WIDTH, HEIGHT);
 
@@ -82,8 +65,9 @@ public class hurryupGame extends ApplicationAdapter {
 
 		//start with testlevel.
 		views.push(new MainMenu());
-
-
+		//views.push(new TestLevel());
+        //XMLReader.readMap("level1.xml");
+		//Load textures
 
 	}
 
@@ -100,16 +84,15 @@ public class hurryupGame extends ApplicationAdapter {
 		}
 		//TODO: camera that follows seperate players
 		viewToDraw = views.peek();
-		batch.begin();
 		batch.setProjectionMatrix(camera.combined);
+		batch.begin();
+
 		//update current view
 		viewToDraw.update(millis() - prevTime);
 		//draw current view.
-		renderer.begin(ShapeRenderer.ShapeType.Filled);
-		renderer.setProjectionMatrix(camera.combined);
+
 		viewToDraw.draw(batch, millis() - prevTime);
 		//keep track of current
-		renderer.end();
 		batch.end();
 		prevTime = millis();
 	}
@@ -135,4 +118,23 @@ public class hurryupGame extends ApplicationAdapter {
 		((MasterLevel)peekView()).getRemotePlayer().setX((int)newPos.x);
 		((MasterLevel)peekView()).getRemotePlayer().setY((int)newPos.y);
 	}
+
+	public static void startServer(int port){
+        Server.start(1234);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        GameClient.configure("127.0.0.1",1234);
+        GameClient.connect();
+        hosting = true;
+    }
+
+    public static void startClient(String ip, int port){
+        GameClient.configure("127.0.0.1", 1234);
+        GameClient.connect();
+    }
 }
+
+

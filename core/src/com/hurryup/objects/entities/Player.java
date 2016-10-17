@@ -5,9 +5,11 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector;
+import com.hurryup.game.TextureManager;
 import com.hurryup.game.hurryupGame;
 import com.hurryup.game.network.GameClient;
 import com.hurryup.objects.MasterClass;
@@ -20,7 +22,6 @@ import java.util.ArrayList;
 
 import static com.hurryup.game.hurryupGame.camera;
 import static com.hurryup.game.hurryupGame.isHosting;
-import static com.hurryup.objects.tiles.Tile.renderer;
 import static java.lang.Math.abs;
 
 
@@ -28,7 +29,6 @@ import static java.lang.Math.abs;
  * Created by frasse on 2016-09-20.
  */
 public class Player extends MasterClass {
-    Texture playerTexture = new Texture("badlogic.jpg");
     Rectangle player;
 
     int playerSpeed = 6;
@@ -43,7 +43,7 @@ public class Player extends MasterClass {
     float timeCounter = 0;
     public boolean player1 = false;
     public boolean cameraFollows = false;
-
+    private TextureRegion textureRegion;
 
     public Player(){
         //init player variables.
@@ -52,6 +52,9 @@ public class Player extends MasterClass {
         player.y = 200;
         player.width = width;
         player.height = height;
+
+        textureRegion = TextureManager.get("playerOne");
+
     }
     public Player(boolean noUpdate){
         this.noUpdate = noUpdate;
@@ -60,18 +63,15 @@ public class Player extends MasterClass {
         player.y = 200;
         player.width = width;
         player.height = height;
+
+        textureRegion = TextureManager.get("playerTwo");
     }
     @Override
     public void draw(SpriteBatch batch) {
         //render player.
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-        renderer.setProjectionMatrix(camera.combined);
-        if(player1)
-            renderer.setColor(Color.BLUE);
-        else
-            renderer.setColor(Color.FIREBRICK);
-        renderer.rect(player.x, player.y, width, height);
-        renderer.end();
+
+        batch.draw(textureRegion,player.x,player.y);
+
     }
 
     @Override

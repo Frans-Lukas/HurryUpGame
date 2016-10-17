@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class MasterClass {
 
-    protected static ShapeRenderer renderer = new ShapeRenderer();
+    //protected static ShapeRenderer renderer = new ShapeRenderer();
     public Vector2 position = new Vector2(0,0);
     public static final float width = 64;
     public static final float height = 64;

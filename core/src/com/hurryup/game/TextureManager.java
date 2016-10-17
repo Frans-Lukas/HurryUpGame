@@ -1,6 +1,7 @@
 package com.hurryup.game;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.hurryup.objects.tiles.LogicTile;
 import com.hurryup.views.MasterLevel;
@@ -19,10 +20,13 @@ import java.util.*;
  */
 public final class TextureManager {
 
-    private static HashMap<String,GameTexture> textures = new HashMap<String,GameTexture>();
+    private static HashMap<String,TextureRegion> textures = new HashMap<String,TextureRegion>();
     private static boolean debug = true;
+    private static boolean loaded = false;
     public static void Load()
     {
+        if(loaded)
+            return;
         //init players on map and dont update input on remoteplayer.
         try{
             //init xml reader.
@@ -35,7 +39,7 @@ public final class TextureManager {
 
             //get connection tags
             NodeList sprites = doc.getElementsByTagName("sprite");
-            Texture t = new Texture("Cable.png");
+            Texture mainTexture = new Texture("sheet.png");
 
             for(int i = 0; i < sprites.getLength(); i++){
                 if(sprites.item(i).getNodeType() == Node.ELEMENT_NODE){
@@ -52,7 +56,8 @@ public final class TextureManager {
                     String name = eSprite.getAttribute("name");
                     if(debug)
                         System.out.println("Loaded: " + name);
-                    textures.put(name,new GameTexture(t,spriteRect));
+
+                    textures.put(name,new TextureRegion(mainTexture,(int)spriteRect.x,(int)spriteRect.y,(int)spriteRect.width,(int)spriteRect.height));
                 }
             }
 
@@ -62,8 +67,11 @@ public final class TextureManager {
         }
     }
 
-    public static GameTexture get(String n){
-        return textures.get(n);
+    public static TextureRegion get(String n){
+        if(textures.containsKey(n))
+            return textures.get(n);
+        else
+            return textures.get("error");
     }
 
 }

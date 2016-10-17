@@ -135,7 +135,7 @@ class ClientMessageReader implements Runnable{
 
     private BufferedReader reader;
     private boolean exit = false;
-
+    private int failedMsgCount = 0;
     public ClientMessageReader(BufferedReader reader){
         this.reader = reader;
     }
@@ -154,7 +154,11 @@ class ClientMessageReader implements Runnable{
                 ClientLogic.addMessage(msg);
             }
             catch(Exception e){
-                System.out.println("Error reading message");
+                failedMsgCount++;
+                if(failedMsgCount > 10) {
+                    System.out.println("Client lost connection to server");
+                    exit = true;
+                }
             }
         }
     }

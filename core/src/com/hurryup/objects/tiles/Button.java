@@ -1,8 +1,10 @@
 package com.hurryup.objects.tiles;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.hurryup.game.TextureManager;
 import com.hurryup.game.network.GameClient;
 import com.hurryup.objects.logic.IInteractive;
 import com.hurryup.objects.logic.LogicColor;
@@ -29,18 +31,17 @@ public class Button extends LogicTile {
     public Button(Vector2 position) {
         super(position, LogicColor.Blue,2,0);
         height = 32;
+        textureRegion = TextureManager.get("button");
+        tileSprite = new Sprite(textureRegion);
+        tileSprite.setPosition(position.x,position.y);
     }
 
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
-        renderer.setColor(buttonColor);
-        renderer.rect(position.x, position.y, width, height);
-        if(connection[0] != null) {
-            Vector2 tmpVector = new Vector2(vector.x + width / 2, vector.y + height / 2);
-            renderer.setColor(Color.DARK_GRAY);
-            renderer.line(tmpVector, connection[0].getVector2());
-        }
+
+        tileSprite.setSize(64,height);
+        tileSprite.draw(batch);
     }
 
     @Override
