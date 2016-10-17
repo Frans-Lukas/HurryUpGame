@@ -21,4 +21,5 @@
     <sprite name="cursor" x="0" y="138" w="10" h="10"/>
     <sprite name="door" x="0" y="192" w="64" h="64"/>
     <sprite name="SplitterTile" x="64" y="192" w="64" h="64"/>
+    <sprite name="hatch" x="128" y="192" w="64" h="64"/>
 </sprites>
