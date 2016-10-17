@@ -11,7 +11,7 @@ import com.hurryup.objects.tiles.LogicTile;
 /**
  * Created by frasse on 2016-10-10.
  */
-public class DistributionTile extends LogicTile{
+public class SplitterTile extends LogicTile{
 
     private boolean activate = false;
     //dark purple
@@ -20,7 +20,7 @@ public class DistributionTile extends LogicTile{
     //light purple
     private Color lotColorOn = Color.valueOf("ff99ffFF");
 
-    public DistributionTile(Vector2 position, LogicColor logicColor, int id, int state) {
+    public SplitterTile(Vector2 position, LogicColor logicColor, int id, int state) {
         super(position, logicColor, id, state);
         textureRegion = TextureManager.get("DistributionTile");
         tileSprite = new Sprite(textureRegion);
