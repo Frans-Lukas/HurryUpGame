@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.Align;
 import com.hurryup.game.XMLReader;
 import com.hurryup.game.hurryupGame;
 import com.hurryup.objects.entities.Cursor;
+import com.sun.xml.internal.ws.api.message.ExceptionHasMessage;
 
 /**
  * Created by frasse on 2016-09-20.
@@ -97,11 +98,15 @@ public class MainMenu implements IView {
                 String ipAddress = ((TextField)stage.getActors().get(2)).getText();
                 String port = ((TextField)stage.getActors().get(1)).getText();
                 System.out.println("ip: " + ipAddress + ", port: " + port);
+                try{
+                    hurryupGame.startClient(ipAddress,Integer.parseInt(port));
+                } catch(Exception e){
+                    hurryupGame.startClient(ipAddress,1337);
+                }
+
                 hurryupGame.pushView(new TestLevel());
                 XMLReader.readMap("level1.xml");
                 ((TestLevel)hurryupGame.peekView()).buildConnections();
-                hurryupGame.startClient(ipAddress,Integer.parseInt(port));
-
             }
         });
 
@@ -112,18 +117,21 @@ public class MainMenu implements IView {
         hostGameButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
                 String ipAddress = ((TextField)stage.getActors().get(2)).getText();
                 String port = ((TextField)stage.getActors().get(1)).getText();
                 System.out.println("ip: " + ipAddress + ", port: " + port);
+                try{
+                    hurryupGame.startServer(Integer.parseInt(port));
+
+                } catch(Exception e){
+                    hurryupGame.startServer(1337);
+                }
                 TestLevel level = new TestLevel();
                 hurryupGame.pushView(level);
                 XMLReader.readMap("level1.xml");
                 ((TestLevel)hurryupGame.peekView()).buildConnections();
-                hurryupGame.startServer(Integer.parseInt(port));
             }
         });
-
 
         stage.addActor(joinGameButton);
         stage.addActor(portTextField);

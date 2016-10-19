@@ -53,8 +53,11 @@ public class Player extends MasterClass {
         player.width = width;
         player.height = height;
 
-        textureRegion = TextureManager.get("playerOne");
-
+        if(hurryupGame.isHosting()) {
+            textureRegion = TextureManager.get("playerOne");
+        }else{
+            textureRegion = TextureManager.get("playerTwo");
+        }
     }
     public Player(boolean noUpdate){
         this.noUpdate = noUpdate;
@@ -64,7 +67,11 @@ public class Player extends MasterClass {
         player.width = width;
         player.height = height;
 
-        textureRegion = TextureManager.get("playerTwo");
+        if(hurryupGame.isHosting()) {
+            textureRegion = TextureManager.get("playerTwo");
+        }else{
+            textureRegion = TextureManager.get("playerOne");
+        }
     }
     @Override
     public void draw(SpriteBatch batch) {

@@ -19,6 +19,17 @@ public class NormalGround extends Tile {
     Texture img = new Texture("badlogic.jpg");
     BitmapFont font = new BitmapFont();
     private Sprite tileSprite;
+
+    @Override
+    public float getLeft() {
+        return super.getLeft() - 5;
+    }
+
+    @Override
+    public float getRight() {
+        return super.getRight() - 5;
+    }
+
     public NormalGround(Vector2 position) {
         super(position);
         font.setColor(Color.RED);
