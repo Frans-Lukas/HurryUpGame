@@ -31,7 +31,7 @@ public final class XMLReader {
         return map;
     }
 
-    public static void readMap(String fileName){
+    public static void readMap(String fileName, MasterLevel level){
         //init players on map and dont update input on remoteplayer.
         try{
             //init xml reader.
@@ -70,8 +70,8 @@ public final class XMLReader {
                         connectionValue = Integer.parseInt(eConnection.getAttribute("connectionvalue"));
                     }
                     //find tiles to connect
-                    LogicTile fromTile = ((MasterLevel)hurryupGame.peekView()).getTileById(fromId);
-                    LogicTile toTile = (((MasterLevel)hurryupGame.peekView()).getTileById(toId));
+                    LogicTile fromTile = level.getTileById(fromId);
+                    LogicTile toTile = level.getTileById(toId);
                     //connect tile
                     fromTile.setConnectionValue(connectionValue);
                     fromTile.connect(toTile);
