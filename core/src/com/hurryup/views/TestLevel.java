@@ -33,7 +33,7 @@ public class TestLevel extends MasterLevel{
     public TestLevel(String mapName) {
         //super();
         font.setColor(Color.RED);
-        XMLReader.readMap(mapName);
+        XMLReader.readMap(mapName,this);
         loadTiles();
         buildConnections();
     }
