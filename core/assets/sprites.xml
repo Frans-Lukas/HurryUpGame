@@ -16,8 +16,8 @@
     <sprite name="leverBase" x="128" y="128" w="64" h="20"/>
     <sprite name="lever" x="70" y="128" w="5" h="30"/>
     <sprite name="button" x="192" y="128" w="64" h="32"/>
-    <sprite name="playerOne" x="192" y="0" w="64" h="64"/>
-    <sprite name="playerTwo" x="0" y="64" w="64" h="64"/>
+    <sprite name="playerOne" x="208" y="0" w="32" h="64"/>
+    <sprite name="playerTwo" x="16" y="64" w="32" h="64"/>
     <sprite name="cursor" x="0" y="138" w="10" h="10"/>
     <sprite name="door" x="0" y="192" w="64" h="64"/>
     <sprite name="SplitterTile" x="64" y="192" w="64" h="64"/>

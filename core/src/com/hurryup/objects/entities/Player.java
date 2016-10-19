@@ -33,6 +33,8 @@ public class Player extends MasterClass {
 
     int playerSpeed = 6;
     int jumpSpeed = 50;
+    int maxJumpSpeed = 20;
+    int maxVerticalSpeed = 7;
     int gravity = 1;
     int velocityX = 0;
     int velocityY = 0;
@@ -50,28 +52,28 @@ public class Player extends MasterClass {
         player = new Rectangle();
         player.x = 200;
         player.y = 200;
-        player.width = width;
-        player.height = height;
 
         if(hurryupGame.isHosting()) {
             textureRegion = TextureManager.get("playerOne");
         }else{
             textureRegion = TextureManager.get("playerTwo");
         }
+        player.width = textureRegion.getRegionWidth();
+        player.height = textureRegion.getRegionHeight();
     }
     public Player(boolean noUpdate){
         this.noUpdate = noUpdate;
         player = new Rectangle();
         player.x = 200;
         player.y = 200;
-        player.width = width;
-        player.height = height;
 
         if(hurryupGame.isHosting()) {
             textureRegion = TextureManager.get("playerTwo");
         }else{
             textureRegion = TextureManager.get("playerOne");
         }
+        player.width = textureRegion.getRegionWidth();
+        player.height = textureRegion.getRegionHeight();
     }
     @Override
     public void draw(SpriteBatch batch) {
@@ -125,7 +127,6 @@ public class Player extends MasterClass {
         boolean right = Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D);
         boolean up = Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W);
         boolean activate = Gdx.input.isKeyPressed(Input.Keys.E) || Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT);
-        boolean down = Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S);
         boolean menu = Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE);
 
         //open tutorial menu
@@ -152,13 +153,13 @@ public class Player extends MasterClass {
         }
 
         //max velocity
-        if(velocityX >= 7){
-            velocityX = 7;
-        } else if(velocityX <= -7){
-            velocityX = -7;
+        if(velocityX >= maxVerticalSpeed){
+            velocityX = maxVerticalSpeed;
+        } else if(velocityX <= -maxVerticalSpeed){
+            velocityX = -maxVerticalSpeed;
         }
-        if(velocityY >= 16){
-            velocityY = 16;
+        if(velocityY >= maxJumpSpeed){
+            velocityY = maxJumpSpeed;
         }
 
         //gravity
@@ -180,9 +181,10 @@ public class Player extends MasterClass {
                         }
                     }
                 }
+                //check vertical collision up;
 
 
-                //check vertical collision;
+                //check vertical collision down;
                 if (checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, (int) tile.getWidth(), (int) tile.getHeight())) {
                     //keep the player at 0 above ground.
                     if (tile instanceof Button && hurryupGame.isHosting()) {
@@ -192,11 +194,16 @@ public class Player extends MasterClass {
                         ((Lever) tile).toggle(0);
                     }
 
-
-                    while (checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, (int) tile.getWidth(), (int) tile.getHeight())) {
-                        velocityY++;
+                    if(velocityY < 0) {
+                        while (checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, (int) tile.getWidth(), (int) tile.getHeight())) {
+                            velocityY++;
+                            jumping = false;
+                        }
+                    } else if(velocityY > 0){
+                        while (checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, (int) tile.getWidth(), (int) tile.getHeight())) {
+                            velocityY--;
+                        }
                     }
-                    jumping = false;
                 }
             }
         }
@@ -208,7 +215,7 @@ public class Player extends MasterClass {
     }
     public void buttonCollision(ArrayList<Tile> tiles){
         for(Tile tile : tiles) {
-            //TODO: REWRITE BUTTON LOGIC LOL ( -8 because remoteplayer has no gravity. )
+            //TODO: REWRITE BUTTON LOGIC ( -8 because remoteplayer has no gravity. )
             if (checkCollision(player.x, tile.getPosition().x, player.y - 8, tile.getPosition().y, (int) tile.getWidth(), (int) tile.getHeight())) {
                 //keep the player at 0 above ground.
                 if (tile instanceof Button) {
@@ -223,9 +230,9 @@ public class Player extends MasterClass {
     boolean checkCollision(float x1, float x2, float y1, float y2, int width, int height){
         boolean collision = false;
         if(x1 < x2 + width &&
-                x1 + width > x2 &&
+                x1 + player.width > x2 &&
                 y1 < y2 + height &&
-                y1 + height > y2){
+                y1 + player.height > y2){
             collision = true;
         }
         return collision;

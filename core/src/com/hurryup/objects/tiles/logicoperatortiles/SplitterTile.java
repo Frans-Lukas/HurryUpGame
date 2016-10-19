@@ -25,6 +25,7 @@ public class SplitterTile extends LogicTile{
         textureRegion = TextureManager.get("SplitterTile");
         tileSprite = new Sprite(textureRegion);
         tileSprite.setPosition(position.x,position.y);
+        setCollidable(false);
 
     }
 
