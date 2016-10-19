@@ -16,7 +16,6 @@ import static com.hurryup.game.hurryupGame.camera;
  */
 public class NormalGround extends Tile {
 
-    Texture img = new Texture("badlogic.jpg");
     BitmapFont font = new BitmapFont();
     private Sprite tileSprite;
 
