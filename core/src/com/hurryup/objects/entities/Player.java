@@ -16,6 +16,7 @@ import com.hurryup.objects.MasterClass;
 import com.hurryup.objects.tiles.Button;
 import com.hurryup.objects.tiles.Lever;
 import com.hurryup.objects.tiles.Tile;
+import com.hurryup.objects.tiles.ZDoor;
 import com.hurryup.views.TutorialMenu;
 
 import java.util.ArrayList;
@@ -193,8 +194,11 @@ public class Player extends MasterClass {
                     if (tile instanceof Button && hurryupGame.isHosting()) {
                         ((Button) tile).activate(0);
                     }
-                    if(tile instanceof Lever && activate){
+                    if (tile instanceof Lever && activate){
                         ((Lever) tile).toggle(0);
+                    }
+                    if (tile instanceof ZDoor && activate){
+                        //((ZDoor) tile).activate(0, "level2.xml");
                     }
 
                     if(velocityY < 0) {

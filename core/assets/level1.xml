@@ -11,6 +11,7 @@
 	<object id="8" type="lotxnor"/>
 	<object id="9" type="splitterTile"/>
     <object id="10" type="hatch"/>
+	<object id="11" type="zdoor"/>
 	<object id="21" type="player1position"/>
 	<object id="22" type="player2position"/>
 

@@ -24,7 +24,6 @@ import com.sun.xml.internal.ws.api.message.ExceptionHasMessage;
  * Created by frasse on 2016-09-20.
  */
 public class MainMenu implements IView {
-    Texture img = new Texture("badlogic.jpg");
     private int ipMenuWidth = 400;
     private int ipMenuHeight = 80;
     private int sgMenuWidth = 180;
@@ -103,7 +102,6 @@ public class MainMenu implements IView {
                 } catch(Exception e){
                     hurryupGame.startClient(ipAddress,1337);
                 }
-
                 hurryupGame.pushView(new TestLevel("level1.xml"));
             }
         });

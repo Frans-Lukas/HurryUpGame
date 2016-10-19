@@ -15,12 +15,7 @@ import com.hurryup.objects.logic.LogicColor;
 public class Lever extends LogicTile {
 
     Color buttonColor = Color.RED;
-    private final int baseHeight = 20;
-    private Vector2 leverBasePosition;
-    private boolean active = false;
     private int leverAngle = 40; //40 - - 40
-    private int leverLength = 40;
-    private int leverWidth = 10;
 
     private Sprite leverSprite;
 

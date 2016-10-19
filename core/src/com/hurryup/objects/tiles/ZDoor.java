@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.hurryup.game.TextureManager;
 import com.hurryup.game.hurryupGame;
 import com.hurryup.objects.logic.LogicColor;
+import com.hurryup.views.TestLevel;
 
 /**
  * Created by frasse on 2016-10-19.
@@ -14,6 +15,7 @@ import com.hurryup.objects.logic.LogicColor;
 public class ZDoor extends LogicTile {
 
     Sprite backgroundRegion;
+
 
     public ZDoor(Vector2 position, LogicColor logicColor, int id, int state) {
         super(position, logicColor, id, state);
@@ -51,8 +53,10 @@ public class ZDoor extends LogicTile {
         state = 0;
     }
 
-    @Override
-    public void activate(int whichToActivate){
+    public void activate(int whichToActivate, String map){
         state = 1;
+        if(height < 10){
+            hurryupGame.pushView(new TestLevel(map));
+        }
     }
 }
