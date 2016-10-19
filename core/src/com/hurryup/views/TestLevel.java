@@ -30,10 +30,12 @@ public class TestLevel extends MasterLevel{
 
     BitmapFont font = new BitmapFont();
 
-    public TestLevel() {
-        super();
+    public TestLevel(String mapName) {
+        //super();
         font.setColor(Color.RED);
-
+        XMLReader.readMap(mapName);
+        loadTiles();
+        buildConnections();
     }
 
     //Draw Level

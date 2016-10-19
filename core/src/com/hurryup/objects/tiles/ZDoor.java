@@ -1,33 +1,35 @@
 package com.hurryup.objects.tiles;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.hurryup.game.TextureManager;
-import com.hurryup.game.network.GameClient;
+import com.hurryup.game.hurryupGame;
 import com.hurryup.objects.logic.LogicColor;
 
-import static com.hurryup.game.hurryupGame.camera;
-
 /**
- * Created by frasse on 2016-09-21.
+ * Created by frasse on 2016-10-19.
  */
-public class Door extends LogicTile {
+public class ZDoor extends LogicTile {
 
-    public Door(Vector2 position) {
-        super(position, LogicColor.Blue,1,0);
+    Sprite backgroundRegion;
+
+    public ZDoor(Vector2 position, LogicColor logicColor, int id, int state) {
+        super(position, logicColor, id, state);
         state = 0;
-        textureRegion = TextureManager.get("door");
+
+        textureRegion = TextureManager.get("zDoor");
+        backgroundRegion = new Sprite(TextureManager.get("zDoorBackground"));
+        backgroundRegion.setPosition(position.x, position.y);
         tileSprite = new Sprite(textureRegion);
         tileSprite.setPosition(position.x,position.y);
 
     }
-
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
+        backgroundRegion.draw(batch);
         tileSprite.draw(batch);
     }
 
@@ -53,40 +55,4 @@ public class Door extends LogicTile {
     public void activate(int whichToActivate){
         state = 1;
     }
-
-    @Override
-    public Vector2 getPosition() {
-        return super.getPosition();
-    }
-
-    @Override
-    public float getLeft() {
-        return super.getLeft();
-    }
-
-    @Override
-    public float getRight() {
-        return super.getRight();
-    }
-
-    @Override
-    public float getTop() {
-        return super.getTop();
-    }
-
-    @Override
-    public float getBot() {
-        return super.getBot();
-    }
-
-    @Override
-    public float getHeight() {
-        return super.getHeight();
-    }
-
-    @Override
-    public float getWidth() {
-        return super.getWidth();
-    }
-
 }

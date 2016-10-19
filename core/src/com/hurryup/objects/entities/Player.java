@@ -31,13 +31,13 @@ import static java.lang.Math.abs;
 public class Player extends MasterClass {
     Rectangle player;
 
-    int playerSpeed = 6;
-    int jumpSpeed = 50;
-    int maxJumpSpeed = 20;
-    int maxVerticalSpeed = 7;
-    int gravity = 1;
-    int velocityX = 0;
-    int velocityY = 0;
+    float playerSpeed = 4;
+    float jumpSpeed = 50;
+    float maxJumpSpeed = 10;
+    float maxVerticalSpeed = 3;
+    float gravity = 0.3f;
+    float velocityX = 0;
+    float velocityY = 0;
     float prevX = 0;
     float prevY = 0;
     boolean jumping = false;
@@ -87,8 +87,11 @@ public class Player extends MasterClass {
     public void update(long deltaTime, ArrayList<Tile> tiles) {
         if(!noUpdate) {
             super.update(deltaTime, tiles);
-            handleInput(tiles);
+
             timeCounter += deltaTime;
+            handleInput(tiles);
+
+
             if (timeCounter >= 10 && (abs(prevX - player.x) > 0 || abs(prevY - player.y) > 0)) {
                 GameClient.sendMessage(serializePosition());
                 prevX = player.x;
@@ -196,18 +199,17 @@ public class Player extends MasterClass {
 
                     if(velocityY < 0) {
                         while (checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, (int) tile.getWidth(), (int) tile.getHeight())) {
-                            velocityY++;
+                            velocityY += gravity;
                             jumping = false;
                         }
                     } else if(velocityY > 0){
                         while (checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, (int) tile.getWidth(), (int) tile.getHeight())) {
-                            velocityY--;
+                            velocityY -= gravity;
                         }
                     }
                 }
             }
         }
-
 
         //move player
         player.x += velocityX;

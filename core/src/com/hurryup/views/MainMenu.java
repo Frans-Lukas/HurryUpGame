@@ -104,9 +104,7 @@ public class MainMenu implements IView {
                     hurryupGame.startClient(ipAddress,1337);
                 }
 
-                hurryupGame.pushView(new TestLevel());
-                XMLReader.readMap("level1.xml");
-                ((TestLevel)hurryupGame.peekView()).buildConnections();
+                hurryupGame.pushView(new TestLevel("level1.xml"));
             }
         });
 
@@ -126,10 +124,7 @@ public class MainMenu implements IView {
                 } catch(Exception e){
                     hurryupGame.startServer(1337);
                 }
-                TestLevel level = new TestLevel();
-                hurryupGame.pushView(level);
-                XMLReader.readMap("level1.xml");
-                ((TestLevel)hurryupGame.peekView()).buildConnections();
+                hurryupGame.pushView(new TestLevel("level1.xml"));
             }
         });
 
@@ -184,48 +179,6 @@ public class MainMenu implements IView {
 
     }
 
-    private void checkMouseCollisionWithMenu(){
-
-        //check if player is clicking
-        boolean clicked = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
-        boolean getText = Gdx.input.isKeyPressed(Input.Keys.ENTER);
-
-        if(getText){
-            System.out.println(((TextField)stage.getActors().get(0)).getText());
-        }
-
-
-        //TODO: Make this an array iteration?
-
-        //check ip box collision
-        if(checkCollision(cursor.getX(), menuX, cursor.getY(), menuY, 10, 10, ipMenuWidth, ipMenuHeight)){
-            ipColor = Color.GRAY;
-        } else{
-            ipColor = Color.BLACK;
-        }
-
-        //check sg box collision
-        if(checkCollision(cursor.getX(), menuX, cursor.getY(), lowerMenuY,
-                cursor.getWidth(), cursor.getHeight(), sgMenuWidth, sgMenuHeight)){
-            jgColor = Color.GRAY;
-
-            if(clicked){
-                hurryupGame.pushView(new TestLevel());
-            }
-
-        } else{
-            jgColor = Color.BLACK;
-        }
-
-        //check hg box collision
-        if(checkCollision(cursor.getX(), rightMenuX, cursor.getY(), lowerMenuY,
-                cursor.getWidth(), cursor.getHeight(), sgMenuWidth, sgMenuHeight)){
-            hgColor = Color.GRAY;
-        } else{
-            hgColor = Color.BLACK;
-        }
-
-    }
     boolean checkCollision(float x1, float x2, float y1, float y2, int width1, int height1, int width2, int height2){
         boolean collision = false;
         if(x1 < x2 + width2 &&

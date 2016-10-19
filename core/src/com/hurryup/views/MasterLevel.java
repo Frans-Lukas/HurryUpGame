@@ -30,7 +30,7 @@ public class MasterLevel implements IView{
     }
 
     //load map from textfile.
-    private void loadTiles(){
+    protected void loadTiles(){
         tiles = XMLReader.getMap();
         localPlayer = XMLReader.getLocalPlayer();
         remotePlayer = XMLReader.getRemotePlayer();
@@ -40,6 +40,7 @@ public class MasterLevel implements IView{
     }
 
     public void buildConnections(){
+
         for (Tile t: tiles) {
             if(t instanceof LogicTile){
                 VisualConnection.addPair((((LogicTile) t).getConnectionPair(false)));

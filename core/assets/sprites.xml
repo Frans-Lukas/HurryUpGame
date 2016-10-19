@@ -6,7 +6,6 @@
     <sprite name="cableEndRight" x="40" y="128" w="10" h="10"/>
     <sprite name="cableEndBot" x="50" y="128" w="10" h="10"/>
     <sprite name="cableEndTop" x="60" y="128" w="10" h="10"/>
-
     <sprite name="normalGround" x="0" y="0" w="64" h="64"/>
     <sprite name="error" x="64" y="0" w="64" h="64"/>
     <sprite name="LOTand" x="128" y="0" w="64" h="64"/>
@@ -22,4 +21,6 @@
     <sprite name="door" x="0" y="192" w="64" h="64"/>
     <sprite name="SplitterTile" x="64" y="192" w="64" h="64"/>
     <sprite name="hatch" x="128" y="192" w="64" h="64"/>
+    <sprite name="zDoorBackground" x="192" y="192" w="64" h="64"/>
+    <sprite name="zDoor" x="0" y="192" w="64" h="64"/>
 </sprites>
