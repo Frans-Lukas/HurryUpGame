@@ -34,8 +34,8 @@ public class Player extends MasterClass {
 
     float playerSpeed = 4;
     float jumpSpeed = 50;
-    int maxJumpSpeed = 18;
-    int maxVerticalSpeed = 3;
+    int maxJumpSpeed = 19;
+    int maxVerticalSpeed = 5;
     int gravity = 1;
     int velocityX = 0;
     int velocityY = 0;
