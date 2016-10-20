@@ -40,6 +40,22 @@ class Client {
             System.out.println("Error writing " + msg + " to client");
         }
     }
+    //Returns all the inbound messages if any
+    public static ArrayList<String> getMessages(){
+        messageLock.lock();
+        if(messages.size() > 0) {
+            ArrayList<String> msgs = (ArrayList<String>)messages.clone();
+            messages.clear();
+            messageLock.unlock();
+            return msgs;
+        }
+        else{
+            messageLock.unlock();
+            return null;
+        }
+
+
+    }
 
     //Gets the latest inbound message if any
     public static String getMessage(){

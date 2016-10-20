@@ -108,7 +108,7 @@ public class Player extends MasterClass {
             handleInput(tiles);
 
 
-            if (timeCounter >= 10 && (abs(prevX - player.x) > 0 || abs(prevY - player.y) > 0)) {
+            if (timeCounter >= 3 && (abs(prevX - player.x) > 0 || abs(prevY - player.y) > 0)) {
                 GameClient.sendMessage(serializePosition());
                 prevX = player.x;
                 prevY = player.y;

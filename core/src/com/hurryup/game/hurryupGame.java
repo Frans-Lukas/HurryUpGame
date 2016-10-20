@@ -2,21 +2,15 @@ package com.hurryup.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.input.RemoteInput;
 import com.badlogic.gdx.math.Vector2;
 import com.hurryup.game.network.GameClient;
 import com.hurryup.game.network.Server;
-import com.hurryup.objects.MasterClass;
 import com.hurryup.objects.helper.VisualConnection;
-import com.hurryup.objects.tiles.LogicTile;
 import com.hurryup.views.MainMenu;
 import com.hurryup.views.MasterLevel;
 import com.hurryup.views.TestLevel;
@@ -77,6 +71,8 @@ public class hurryupGame extends ApplicationAdapter {
 
 	@Override
 	public void render(){
+		prevTime = (long)(Gdx.graphics.getDeltaTime() * 1000);
+
 		//clear screen and draw it in white
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -92,13 +88,12 @@ public class hurryupGame extends ApplicationAdapter {
 		batch.begin();
 
 		//update current view
-		viewToDraw.update(millis() - prevTime);
+		viewToDraw.update(prevTime);
 		//draw current view.
 
-		viewToDraw.draw(batch, millis() - prevTime);
+		viewToDraw.draw(batch, prevTime);
 		//keep track of current
 		batch.end();
-		prevTime = millis();
 	}
 
 	@Override
@@ -124,19 +119,19 @@ public class hurryupGame extends ApplicationAdapter {
 	}
 
 	public static void startServer(int port){
-        Server.start(1234);
+        Server.start(port);
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        GameClient.configure("127.0.0.1",1234);
+        GameClient.configure("127.0.0.1",port);
         GameClient.connect();
         hosting = true;
     }
 
     public static void startClient(String ip, int port){
-        GameClient.configure("127.0.0.1", 1234);
+        GameClient.configure(ip, port);
         GameClient.connect();
     }
     public static void changeLevel(String levelToGoTo){

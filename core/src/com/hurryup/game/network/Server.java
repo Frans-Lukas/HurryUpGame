@@ -1,5 +1,6 @@
 package com.hurryup.game.network;
 
+import java.util.ArrayList;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -11,6 +12,7 @@ public final class Server {
     public static ReentrantLock serverLock = new ReentrantLock();
     private static ServerLogic serverLogic;
     private static boolean started = false;
+    private static ArrayList<String> messages = new ArrayList<String>();
 
     private Server(){
 
@@ -25,11 +27,12 @@ public final class Server {
 
     //Updates the server, read any new messages and forwards them to all clients
     public static void update(){
-        String msg;
+        messages = Client.getMessages();
         //While the client has new unread messages
-        while((msg = Client.getMessage()) != null){
-            serverLogic.broadcast(msg);
-            //System.out.println("Got message " + msg);
+        if(messages != null) {
+            for (int i = 0; i < messages.size(); i++) {
+                serverLogic.broadcast(messages.get(i));
+            }
         }
     }
 

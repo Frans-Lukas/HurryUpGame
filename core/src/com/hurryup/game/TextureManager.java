@@ -3,8 +3,6 @@ package com.hurryup.game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import com.hurryup.objects.tiles.LogicTile;
-import com.hurryup.views.MasterLevel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
