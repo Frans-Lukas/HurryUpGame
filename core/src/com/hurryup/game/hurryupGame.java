@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.hurryup.game.network.GameClient;
 import com.hurryup.game.network.Server;
 import com.hurryup.objects.MasterClass;
+import com.hurryup.objects.helper.VisualConnection;
 import com.hurryup.objects.tiles.LogicTile;
 import com.hurryup.views.MainMenu;
 import com.hurryup.views.MasterLevel;
@@ -45,6 +46,8 @@ public class hurryupGame extends ApplicationAdapter {
 	//height and width of game screen.
 	public static final int WIDTH = 1280;
 	public static final int HEIGHT = 720;
+
+	private boolean changeView = false;
 
 	//keep track of time
 	long prevTime = millis();
@@ -135,6 +138,12 @@ public class hurryupGame extends ApplicationAdapter {
         GameClient.configure("127.0.0.1", 1234);
         GameClient.connect();
     }
+    public static void changeLevel(String levelToGoTo){
+		((MasterLevel)peekView()).clearEnteties();
+		((MasterLevel)peekView()).clearTiles();
+		VisualConnection.clearVisualConnections();
+		hurryupGame.pushView(new TestLevel(levelToGoTo));
+	}
 }
 
 

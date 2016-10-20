@@ -13,10 +13,13 @@ import com.hurryup.game.TextureManager;
 import com.hurryup.game.hurryupGame;
 import com.hurryup.game.network.GameClient;
 import com.hurryup.objects.MasterClass;
+import com.hurryup.objects.helper.VisualConnection;
 import com.hurryup.objects.tiles.Button;
 import com.hurryup.objects.tiles.Lever;
 import com.hurryup.objects.tiles.Tile;
 import com.hurryup.objects.tiles.ZDoor;
+import com.hurryup.views.MasterLevel;
+import com.hurryup.views.TestLevel;
 import com.hurryup.views.TutorialMenu;
 
 import java.util.ArrayList;
@@ -47,6 +50,9 @@ public class Player extends MasterClass {
     public boolean player1 = false;
     public boolean cameraFollows = false;
     private TextureRegion textureRegion;
+    private boolean openDoor = false;
+    private boolean changedLevel = false;
+    private String nextLevel = "";
 
     public Player(){
         //init player variables.
@@ -169,9 +175,11 @@ public class Player extends MasterClass {
         //gravity
         velocityY -= gravity;
 
+        openDoor = false;
+
         //collision check!
-        for(Tile tile : tiles){
-            if(tile.isCollidable()) {
+        for(Tile tile : tiles) {
+            if (tile.isCollidable()) {
                 if (checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y, (int) tile.getWidth(), (int) tile.getHeight())) {
                     //keep player 0 distance from wall if collision is detected.
                     if (velocityX < 0) {
@@ -189,24 +197,36 @@ public class Player extends MasterClass {
                 if (checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, (int) tile.getWidth(), (int) tile.getHeight())) {
                     //keep the player at 0 above ground.
 
-                    if (tile instanceof ZDoor && activate){
-                        ((ZDoor) tile).activate(0, "level2.xml");
+                    if (tile instanceof ZDoor && activate) {
+                        ((ZDoor) tile).nextLevel("level2.xml");
                     }
-                    if (tile instanceof Lever && activate){
+                    if (tile instanceof Lever && activate) {
                         ((Lever) tile).toggle(0);
                     }
                     if (tile instanceof Button && hurryupGame.isHosting()) {
                         ((Button) tile).activate(0);
                     }
-                    if(velocityY < 0){
+                    if (velocityY < 0) {
                         while (checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, (int) tile.getWidth(), (int) tile.getHeight())) {
                             velocityY += gravity;
                             jumping = false;
                         }
-                    } else if(velocityY > 0){
+                    } else if (velocityY > 0) {
                         while (checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, (int) tile.getWidth(), (int) tile.getHeight())) {
                             velocityY -= gravity;
                         }
+                    }
+                }
+            }
+            if (tile instanceof ZDoor) {
+                if(((ZDoor) tile).isOpen() && activate) {
+                    if (checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y-64, (int) tile.getWidth(), (int) tile.getHeight()+64)) {
+                        openDoor = true;
+                        nextLevel = ((ZDoor) tile).getNextLevel();
+                    }
+                    if (checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y-64, (int) tile.getWidth(), (int) tile.getHeight()+64)) {
+                        openDoor = true;
+                        nextLevel = ((ZDoor) tile).getNextLevel();
                     }
                 }
             }
@@ -215,6 +235,10 @@ public class Player extends MasterClass {
         //move player
         player.x += velocityX;
         player.y += velocityY;
+        if(openDoor && !changedLevel){
+            changedLevel = true;
+            GameClient.sendMessage("3," + nextLevel);
+        }
     }
     public void buttonCollision(ArrayList<Tile> tiles){
         for(Tile tile : tiles) {

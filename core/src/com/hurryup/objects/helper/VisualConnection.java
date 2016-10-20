@@ -55,9 +55,8 @@ public class VisualConnection {
                 connect(new Vector2(to.x + 64,to.y), from, false);
                 tempConnectionPoints.add(new Vector2(from.x,from.y));
             }
-            for (Vector2 v:
-                tempConnectionPoints) {
-                System.out.println(v);
+            for (Vector2 v: tempConnectionPoints) {
+                //System.out.println(v);
             }
             for (int i = 0; i < tempConnectionPoints.size()-1; i++) {
 
@@ -204,5 +203,10 @@ Sprite xSprite = new Sprite(TextureManager.get("cableVertical"));
         for (Sprite sprite: sprites) {
             sprite.draw(batch);
         }
+    }
+    public static void clearVisualConnections(){
+        sprites.clear();
+        connectionPairs.clear();
+        tempConnectionPoints.clear();
     }
 }

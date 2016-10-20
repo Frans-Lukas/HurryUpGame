@@ -36,7 +36,6 @@ public class MasterLevel implements IView{
         remotePlayer = XMLReader.getRemotePlayer();
         entities.add(localPlayer);
         entities.add(remotePlayer);
-
     }
 
     public void buildConnections(){
@@ -85,5 +84,12 @@ public class MasterLevel implements IView{
 
     public void setRemotePlayer(Player remotePlayer) {
         this.remotePlayer = remotePlayer;
+    }
+
+    public void clearEnteties(){
+        entities.clear();
+    }
+    public void clearTiles(){
+        tiles.clear();
     }
 }

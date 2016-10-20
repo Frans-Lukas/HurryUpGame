@@ -24,11 +24,16 @@ public final class XMLReader {
     static private ArrayList<Tile> map = new ArrayList<Tile>();
     static private Player localPlayer = new Player();
     static private Player remotePlayer = new Player(true);
+    private static String nextLevel = "";
 
     private XMLReader(){}
 
     public static ArrayList getMap(){
         return map;
+    }
+
+    public static void setNextLevel(String nextLevel) {
+        XMLReader.nextLevel = nextLevel;
     }
 
     public static void readMap(String fileName, MasterLevel level){
@@ -44,6 +49,9 @@ public final class XMLReader {
 
             //get map tag.
             Node maps = doc.getElementsByTagName("map").item(0);
+
+            Element mapConnection = (Element) doc.getElementsByTagName("nextLevel").item(0);
+            nextLevel = mapConnection.getAttribute("level");
 
             //read map
             if(maps.getNodeType() == Node.ELEMENT_NODE){
@@ -80,7 +88,7 @@ public final class XMLReader {
 
 
         } catch(Exception e){
-
+            throw new RuntimeException(e);
         }
     }
     private static void stringmapToListmap(String sMap){
@@ -165,6 +173,14 @@ public final class XMLReader {
                     Hatch hatch = new Hatch(new Vector2(width * 64, height * 64));
                     hatch.setId(Integer.parseInt(id[1]));
                     map.add(index, hatch);
+                    index++;
+                }
+                //add Zdoor
+                else if(id[0].equals("11")){
+                    //System.out.println("next level is: " + nextLevel);
+                    ZDoor zDoor = new ZDoor(new Vector2(width * 64, height * 64), LogicColor.None, Integer.parseInt(id[1]), 0, nextLevel);
+                    zDoor.setId(Integer.parseInt(id[1]));
+                    map.add(index, zDoor);
                     index++;
                 }
                 //set position of player1

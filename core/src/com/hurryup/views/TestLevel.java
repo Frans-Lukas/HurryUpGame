@@ -51,14 +51,16 @@ public class TestLevel extends MasterLevel{
             if(tile.getDrawLevel() == 1)
                 tile.draw(batch);
         }
-        for(MasterClass entity : entities){
+        localPlayer.draw(batch);
+        remotePlayer.draw(batch);
+        /*for(MasterClass entity : entities){
             entity.draw(batch);
 
             //if you want camera to follow player, put camerafollows to true.
             if(getLocalPlayer().cameraFollows){
                 camera.position.set(getLocalPlayer().getX(), getLocalPlayer().getY(), 0);
             }
-        }
+        }*/
         for(Tile tile : tiles){
             if(tile.getDrawLevel() == 2)
                 tile.draw(batch);

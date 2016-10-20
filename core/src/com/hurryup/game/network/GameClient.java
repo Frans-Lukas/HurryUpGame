@@ -5,6 +5,7 @@ import com.hurryup.game.hurryupGame;
 import com.hurryup.objects.tiles.LogicTile;
 import com.hurryup.views.IView;
 import com.hurryup.views.MasterLevel;
+import com.hurryup.views.TestLevel;
 import com.sun.xml.internal.ws.resources.ClientMessages;
 
 import java.util.ArrayList;
@@ -98,6 +99,10 @@ public final class GameClient {
                     if(s[1].equals("0") && hurryupGame.isHosting() || s[1].equals("1") && !hurryupGame.isHosting()) {
                         hurryupGame.updateRemotePostition(new Vector2(Integer.parseInt(s[2]),Integer.parseInt(s[3])));
                     }
+                    break;
+                case 3:
+                    System.out.println(d);
+                    hurryupGame.changeLevel(s[1]);
                     break;
             }
 

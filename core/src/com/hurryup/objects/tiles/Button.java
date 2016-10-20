@@ -72,7 +72,6 @@ public class Button extends LogicTile {
     public void activate(int whichToActivate) {
         timeSinceReset = 0;
         if(state == 0) {
-            System.out.println("not here");
             state = 1;
             nextState = 2;
             GameClient.sendMessage(serialize(true));

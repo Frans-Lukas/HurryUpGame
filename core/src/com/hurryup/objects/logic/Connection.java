@@ -26,7 +26,6 @@ public class Connection implements IInteractive{
 
     @Override
     public Vector2 getConnectionInPos(){
-
         return connection.getConnectionInPos();
     }
 

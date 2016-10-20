@@ -19,13 +19,12 @@
 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-1,1,21,22,1,1,1,0,7:10,0,0,2:1,0,2:2,0,0,0,0,0,3:3
+1,1,21,22,1,1,1,0,7:10,11:22,0,2:1,0,2:2,0,0,0,0,0,3:3
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,10:17,1,1</map>
 	<logic id="0002">
 		<connection connectionvalue="0" from="10" to="18"/>
-		<connection connectionvalue="0" from="18" to="3"/>
 		<connection connectionvalue="0" from="18" to="17"/>
-		<connection connectionvalue="0" from="1" to="4"/>
-
+		<connection connectionvalue="0" from="18" to="22"/>
+		<nextLevel level="level2.xml"/>
 	</logic>
 </hurryupgame>

@@ -13,7 +13,7 @@
     <sprite name="LOTor" x="128" y="64" w="64" h="64"/>
     <sprite name="LOTxnor" x="192" y="64" w="64" h="64"/>
     <sprite name="leverBase" x="128" y="128" w="64" h="20"/>
-    <sprite name="lever" x="70" y="128" w="5" h="30"/>
+    <sprite name="lever" x="70" y="128" w="5" h="38"/>
     <sprite name="button" x="192" y="128" w="64" h="32"/>
     <sprite name="playerOne" x="208" y="0" w="32" h="64"/>
     <sprite name="playerTwo" x="16" y="64" w="32" h="64"/>

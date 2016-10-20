@@ -15,17 +15,21 @@ import com.hurryup.views.TestLevel;
 public class ZDoor extends LogicTile {
 
     Sprite backgroundRegion;
+    boolean isOpen = false;
+    private String nextLevel;
 
 
-    public ZDoor(Vector2 position, LogicColor logicColor, int id, int state) {
+    public ZDoor(Vector2 position, LogicColor logicColor, int id, int state, String nextLevel) {
         super(position, logicColor, id, state);
-        state = 0;
 
+        this.nextLevel = nextLevel;
+        System.out.println(this.nextLevel);
         textureRegion = TextureManager.get("zDoor");
         backgroundRegion = new Sprite(TextureManager.get("zDoorBackground"));
         backgroundRegion.setPosition(position.x, position.y);
         tileSprite = new Sprite(textureRegion);
         tileSprite.setPosition(position.x,position.y);
+        setCollidable(false);
 
     }
     @Override
@@ -40,10 +44,16 @@ public class ZDoor extends LogicTile {
         super.update(deltaTime);
         if(state == 1 && height > 0){
             height--;
+            position.y++;
+            tileSprite.setPosition(position.x, position.y);
             tileSprite.setSize(64,height);
+            isOpen = true;
         } else if(state == 0 && height < 64){
             height++;
+            position.y--;
+            tileSprite.setPosition(position.x, position.y);
             tileSprite.setSize(64,height);
+            isOpen = false;
         }
     }
 
@@ -53,10 +63,20 @@ public class ZDoor extends LogicTile {
         state = 0;
     }
 
-    public void activate(int whichToActivate, String map){
-        state = 1;
-        if(height < 10){
-            hurryupGame.pushView(new TestLevel(map));
-        }
+    public void nextLevel(String mapToGoTo){
+        hurryupGame.pushView(new TestLevel(mapToGoTo));
     }
+
+    @Override
+    public void activate(int whichToActivate){
+        state = 1;
+    }
+    public boolean isOpen(){
+        return isOpen;
+    }
+
+    public String getNextLevel(){
+        return nextLevel;
+    }
+
 }

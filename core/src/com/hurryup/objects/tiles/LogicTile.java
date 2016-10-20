@@ -60,19 +60,11 @@ public class LogicTile extends Tile implements IInteractive{
         }
     }
 
-    public ConnectionPair getConnectionPair()
-    {
-        if(connection[0] != null)
-            return new ConnectionPair(getFirstOutPos(),connection[0].getConnectionInPos());
-        else
-            return null;
-    }
-
     public ConnectionPair getConnectionPair(boolean second){
         if(second && connection[0] != null)
             return new ConnectionPair(getFirstOutPos(),connection[0].getConnectionInPos());
         else if(!second && connection[1] != null)
-            return new ConnectionPair(getSecondOutPos(),connection[1].getSecondOutPos());
+            return new ConnectionPair(getSecondOutPos(),connection[1].getConnectionInPos());
         else
             return null;
     }
