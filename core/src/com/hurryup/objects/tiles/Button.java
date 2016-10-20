@@ -48,6 +48,7 @@ public class Button extends LogicTile {
     public void update(long deltaTime) {
         super.update(deltaTime);
         if((state == 3) && height > 16){
+            System.out.println("lol");
             height -= 0.5;
         } else if(state == 0 && height < 32){
             height += 0.5;
@@ -72,6 +73,7 @@ public class Button extends LogicTile {
     public void activate(int whichToActivate) {
         timeSinceReset = 0;
         if(state == 0) {
+            System.out.println("not here");
             state = 1;
             nextState = 2;
             GameClient.sendMessage(serialize(true));

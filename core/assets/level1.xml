@@ -25,5 +25,7 @@
 		<connection connectionvalue="0" from="10" to="18"/>
 		<connection connectionvalue="0" from="18" to="3"/>
 		<connection connectionvalue="0" from="18" to="17"/>
+		<connection connectionvalue="0" from="1" to="4"/>
+
 	</logic>
 </hurryupgame>

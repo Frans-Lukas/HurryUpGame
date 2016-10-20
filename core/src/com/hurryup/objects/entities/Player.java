@@ -34,11 +34,11 @@ public class Player extends MasterClass {
 
     float playerSpeed = 4;
     float jumpSpeed = 50;
-    float maxJumpSpeed = 10;
-    float maxVerticalSpeed = 3;
-    float gravity = 0.3f;
-    float velocityX = 0;
-    float velocityY = 0;
+    int maxJumpSpeed = 18;
+    int maxVerticalSpeed = 3;
+    int gravity = 1;
+    int velocityX = 0;
+    int velocityY = 0;
     float prevX = 0;
     float prevY = 0;
     boolean jumping = false;
@@ -174,7 +174,6 @@ public class Player extends MasterClass {
             if(tile.isCollidable()) {
                 if (checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y, (int) tile.getWidth(), (int) tile.getHeight())) {
                     //keep player 0 distance from wall if collision is detected.
-
                     if (velocityX < 0) {
                         while (checkCollision(player.x + velocityX, tile.getPosition().x, player.y, tile.getPosition().y, (int) tile.getWidth(), (int) tile.getHeight())) {
                             velocityX++;
@@ -185,23 +184,21 @@ public class Player extends MasterClass {
                         }
                     }
                 }
-                //check vertical collision up;
-
 
                 //check vertical collision down;
                 if (checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, (int) tile.getWidth(), (int) tile.getHeight())) {
                     //keep the player at 0 above ground.
-                    if (tile instanceof Button && hurryupGame.isHosting()) {
-                        ((Button) tile).activate(0);
+
+                    if (tile instanceof ZDoor && activate){
+                        ((ZDoor) tile).activate(0, "level2.xml");
                     }
                     if (tile instanceof Lever && activate){
                         ((Lever) tile).toggle(0);
                     }
-                    if (tile instanceof ZDoor && activate){
-                        //((ZDoor) tile).activate(0, "level2.xml");
+                    if (tile instanceof Button && hurryupGame.isHosting()) {
+                        ((Button) tile).activate(0);
                     }
-
-                    if(velocityY < 0) {
+                    if(velocityY < 0){
                         while (checkCollision(player.x, tile.getPosition().x, player.y + velocityY, tile.getPosition().y, (int) tile.getWidth(), (int) tile.getHeight())) {
                             velocityY += gravity;
                             jumping = false;

@@ -78,7 +78,6 @@ public class TestLevel extends MasterLevel{
         for(MasterClass entity : entities){
             entity.update(deltaTime, tiles);
         }
-
     }
 
     public void pollInput(){
