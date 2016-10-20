@@ -26,6 +26,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 import static com.badlogic.gdx.utils.TimeUtils.millis;
+import static com.hurryup.game.XMLReader.getLocalPlayer;
 
 public class hurryupGame extends ApplicationAdapter {
 
@@ -143,6 +144,7 @@ public class hurryupGame extends ApplicationAdapter {
 		((MasterLevel)peekView()).clearTiles();
 		VisualConnection.clearVisualConnections();
 		hurryupGame.pushView(new TestLevel(levelToGoTo));
+		camera.position.set(getLocalPlayer().getX(), HEIGHT / 2, 0);
 	}
 }
 

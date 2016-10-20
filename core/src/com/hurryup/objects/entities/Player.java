@@ -48,7 +48,16 @@ public class Player extends MasterClass {
     boolean noUpdate = false;
     float timeCounter = 0;
     public boolean player1 = false;
-    public boolean cameraFollows = false;
+
+    public void setCameraFollows(boolean cameraFollows) {
+        this.cameraFollows = cameraFollows;
+    }
+
+    public boolean isCameraFollows() {
+        return cameraFollows;
+    }
+
+    private boolean cameraFollows = false;
     private TextureRegion textureRegion;
     private boolean openDoor = false;
     private boolean changedLevel = false;

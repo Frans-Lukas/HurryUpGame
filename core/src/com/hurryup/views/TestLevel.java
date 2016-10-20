@@ -53,13 +53,16 @@ public class TestLevel extends MasterLevel{
         }
         localPlayer.draw(batch);
         remotePlayer.draw(batch);
+
+        if(getLocalPlayer().isCameraFollows() && getLocalPlayer().getX() > WIDTH / 2 && getLocalPlayer().getX() < XMLReader.getMapWidth() - WIDTH / 2){
+            camera.position.set(getLocalPlayer().getX(), HEIGHT / 2, 0);
+        }
+
         /*for(MasterClass entity : entities){
             entity.draw(batch);
 
             //if you want camera to follow player, put camerafollows to true.
-            if(getLocalPlayer().cameraFollows){
-                camera.position.set(getLocalPlayer().getX(), getLocalPlayer().getY(), 0);
-            }
+
         }*/
         for(Tile tile : tiles){
             if(tile.getDrawLevel() == 2)

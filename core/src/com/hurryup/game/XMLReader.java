@@ -25,6 +25,24 @@ public final class XMLReader {
     static private Player localPlayer = new Player();
     static private Player remotePlayer = new Player(true);
     private static String nextLevel = "";
+    private static int mapWidth = 0;
+    private static int mapHeight = 0;
+
+    public static int getMapWidth() {
+        return mapWidth;
+    }
+
+    public static void setMapWidth(int mapWidth) {
+        XMLReader.mapWidth = mapWidth;
+    }
+
+    public static void setMapHeight(int mapHeight) {
+        XMLReader.mapHeight = mapHeight;
+    }
+
+    public static int getMapHeight() {
+        return mapHeight;
+    }
 
     private XMLReader(){}
 
@@ -100,12 +118,15 @@ public final class XMLReader {
         Collections.reverse(lineArray2);
         lineArray = lineArray2.toArray(new String[lineArray2.size()]);
 
+        setMapHeight(0);
+        setMapHeight(0);
         int height = 0;
         int index = 0;
+        int width = 0;
 
         //read map and insert objects equal to map into tile arraylist.
         for(String line : lineArray){
-            int width = 0;
+            width = 0;
             for(String part : line.split(",")){
 
                 String id[] = part.split(":");
@@ -209,6 +230,8 @@ public final class XMLReader {
             }
             height++;
         }
+        mapWidth = width * 64;
+        mapHeight = height * 64;
     }
     public static Player getLocalPlayer(){
         return localPlayer;

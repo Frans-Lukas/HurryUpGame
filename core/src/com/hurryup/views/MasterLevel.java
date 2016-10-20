@@ -34,6 +34,7 @@ public class MasterLevel implements IView{
         tiles = XMLReader.getMap();
         localPlayer = XMLReader.getLocalPlayer();
         remotePlayer = XMLReader.getRemotePlayer();
+        localPlayer.setCameraFollows(true);
         entities.add(localPlayer);
         entities.add(remotePlayer);
     }
