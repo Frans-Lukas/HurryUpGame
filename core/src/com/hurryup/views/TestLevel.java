@@ -30,6 +30,7 @@ public class TestLevel extends MasterLevel{
 
     BitmapFont font = new BitmapFont();
     private static int cameraY = HEIGHT / 2;
+    private static int cameraX = WIDTH / 2;
 
     public TestLevel(String mapName) {
         super();
@@ -55,14 +56,7 @@ public class TestLevel extends MasterLevel{
         localPlayer.draw(batch);
         remotePlayer.draw(batch);
 
-        if(getLocalPlayer().getY() > HEIGHT / 2 && getLocalPlayer().getY() < XMLReader.getMapHeight() - HEIGHT / 2){
-            cameraY = (int) getLocalPlayer().getY();
-        }
-
-        if(getLocalPlayer().isCameraFollows() && getLocalPlayer().getX() > WIDTH / 2 &&
-                getLocalPlayer().getX() < XMLReader.getMapWidth() - WIDTH / 2){
-            camera.position.set(getLocalPlayer().getX(), cameraY, 0);
-        }
+        moveCamera();
 
         /*for(MasterClass entity : entities){
             entity.draw(batch);
@@ -75,6 +69,25 @@ public class TestLevel extends MasterLevel{
                 tile.draw(batch);
         }
     }
+    public void moveCamera(){
+        if(getLocalPlayer().getY() > HEIGHT / 2 && getLocalPlayer().getY() < XMLReader.getMapHeight() - HEIGHT / 2){
+            cameraY = (int) getLocalPlayer().getY();
+        } else if(getLocalPlayer().getY() < HEIGHT / 2){
+            cameraY = HEIGHT / 2;
+        }
+
+        if(getLocalPlayer().isCameraFollows() && getLocalPlayer().getX() > WIDTH / 2 &&
+                getLocalPlayer().getX() < XMLReader.getMapWidth() - WIDTH / 2){
+            cameraX = (int)getLocalPlayer().getX();
+
+        } else if(getLocalPlayer().getX() < WIDTH / 2){
+            cameraX = WIDTH / 2;
+        } else{
+            cameraX = XMLReader.getMapWidth() - WIDTH / 2;
+        }
+        camera.position.set(cameraX, cameraY, 0);
+    }
+
 
     @Override
     public void dispose() {
