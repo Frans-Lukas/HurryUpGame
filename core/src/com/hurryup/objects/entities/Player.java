@@ -88,6 +88,7 @@ public class Player extends MasterClass {
         }else{
             textureRegion = TextureManager.get("playerOne");
         }
+
         player.width = textureRegion.getRegionWidth();
         player.height = textureRegion.getRegionHeight();
     }
@@ -107,8 +108,7 @@ public class Player extends MasterClass {
             timeCounter += deltaTime;
             handleInput(tiles);
 
-
-            if (timeCounter >= 3 && (abs(prevX - player.x) > 0 || abs(prevY - player.y) > 0)) {
+            if (timeCounter >= 3) {
                 GameClient.sendMessage(serializePosition());
                 prevX = player.x;
                 prevY = player.y;
