@@ -116,6 +116,6 @@ public class LogicTile extends Tile implements IInteractive{
     }
     @Override
     public Vector2 getSecondOutPos(){
-        return new Vector2(vector.x + 64,vector.y+64);
+        return new Vector2(vector.x + 54,vector.y+54);
     }
 }

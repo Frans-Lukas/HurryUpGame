@@ -56,7 +56,7 @@ public class VisualConnection {
                 tempConnectionPoints.add(new Vector2(from.x,from.y));
             }
             for (Vector2 v: tempConnectionPoints) {
-                //System.out.println(v);
+                System.out.println(v);
             }
             for (int i = 0; i < tempConnectionPoints.size()-1; i++) {
 
@@ -115,13 +115,23 @@ Sprite xSprite = new Sprite(TextureManager.get("cableVertical"));
     private static boolean completed = false;
     private static void connect(Vector2 from, Vector2 to,boolean y){
         called++;
-        if(completed || called > 300 || (new Rectangle(to.x-32,to.y-32,96,96).contains(from))){
-            if(called > 300)
+        if(completed || called > 40 || (new Rectangle(to.x-32,to.y-32,96,96).contains(from))){
+            if(called > 40)
                 System.out.println("ERROR IN VisualConnection");
 
             return;
         }
-
+        if(called == 1 && !checkValidity(from)){
+            connect(new Vector2(from.x-64,from.y + 64),to,true);
+            return;
+        }
+        if(tempConnectionPoints.size() > 3 && from.x == tempConnectionPoints.get(tempConnectionPoints.size()-2).x && from.y == tempConnectionPoints.get(tempConnectionPoints.size()-2).y){
+            tempConnectionPoints.remove(tempConnectionPoints.size()-1);
+            //tempConnectionPoints.remove(tempConnectionPoints.size()-1);
+            tempConnectionPoints.add(new Vector2(from.x,from.y + 128));
+            connect(new Vector2(from.x,from.y + 128),to,false);
+            return;
+        }
 
         if (y) {
             Vector2 tmp = new Vector2(from.x,from.y);
