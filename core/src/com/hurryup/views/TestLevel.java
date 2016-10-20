@@ -29,6 +29,7 @@ public class TestLevel extends MasterLevel{
     //arraylist for all entites in level.
 
     BitmapFont font = new BitmapFont();
+    private static int cameraY = HEIGHT / 2;
 
     public TestLevel(String mapName) {
         super();
@@ -54,8 +55,13 @@ public class TestLevel extends MasterLevel{
         localPlayer.draw(batch);
         remotePlayer.draw(batch);
 
-        if(getLocalPlayer().isCameraFollows() && getLocalPlayer().getX() > WIDTH / 2 && getLocalPlayer().getX() < XMLReader.getMapWidth() - WIDTH / 2){
-            camera.position.set(getLocalPlayer().getX(), HEIGHT / 2, 0);
+        if(getLocalPlayer().getY() > HEIGHT / 2 && getLocalPlayer().getY() < XMLReader.getMapHeight() - HEIGHT / 2){
+            cameraY = (int) getLocalPlayer().getY();
+        }
+
+        if(getLocalPlayer().isCameraFollows() && getLocalPlayer().getX() > WIDTH / 2 &&
+                getLocalPlayer().getX() < XMLReader.getMapWidth() - WIDTH / 2){
+            camera.position.set(getLocalPlayer().getX(), cameraY, 0);
         }
 
         /*for(MasterClass entity : entities){

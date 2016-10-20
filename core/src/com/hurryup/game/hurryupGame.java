@@ -21,6 +21,7 @@ import java.util.Deque;
 
 import static com.badlogic.gdx.utils.TimeUtils.millis;
 import static com.hurryup.game.XMLReader.getLocalPlayer;
+import static com.hurryup.game.XMLReader.getMapWidth;
 
 public class hurryupGame extends ApplicationAdapter {
 
@@ -139,7 +140,13 @@ public class hurryupGame extends ApplicationAdapter {
 		((MasterLevel)peekView()).clearTiles();
 		VisualConnection.clearVisualConnections();
 		hurryupGame.pushView(new TestLevel(levelToGoTo));
-		camera.position.set(getLocalPlayer().getX(), HEIGHT / 2, 0);
+		if(getLocalPlayer().getX() - WIDTH / 2 > 0 && getLocalPlayer().getX() + WIDTH / 2 < getMapWidth()) {
+			camera.position.set(getLocalPlayer().getX(), HEIGHT / 2, 0);
+		} else if(getLocalPlayer().getX() - WIDTH / 2 < 0){
+			camera.position.set(WIDTH / 2, HEIGHT / 2, 0);
+		} else{
+			camera.position.set(getMapWidth() - WIDTH / 2, HEIGHT / 2, 0);
+		}
 	}
 }
 
