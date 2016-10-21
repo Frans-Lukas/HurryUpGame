@@ -17,6 +17,7 @@ public class VisualConnection {
     private static final int cableThickness = 10;
     private static ArrayList<Rectangle> noGoZones = new ArrayList<Rectangle>();
     private static ArrayList<Vector2> tempConnectionPoints = new ArrayList<Vector2>();
+    private static boolean upDown = false;
     private static Rectangle noGoException1,noGoException2;
     private static final int connectionMod = 16;
     private static final int connectionModReverse = 32;
@@ -40,7 +41,6 @@ public class VisualConnection {
             Vector2 from = pair.getFrom();
             Vector2 to = pair.getTo();
             tempConnectionPoints.clear();
-
             completed = false;
 
             if(from.x < to.x) {
@@ -48,12 +48,14 @@ public class VisualConnection {
                 tempConnectionPoints.add(new Vector2(from.x,from.y));
                 connect(new Vector2(from.x + 64,from.y), to, false);
                 tempConnectionPoints.add(new Vector2(to.x,to.y));
+                upDown = true;
             }
             else {
                 //connect(to, from, false);
                 tempConnectionPoints.add(new Vector2(to.x,to.y));
                 connect(new Vector2(to.x + 64,to.y), from, false);
                 tempConnectionPoints.add(new Vector2(from.x,from.y));
+                upDown = false;
             }
             for (Vector2 v: tempConnectionPoints) {
                 System.out.println(v);
@@ -75,12 +77,16 @@ public class VisualConnection {
 
                 //if x
                 if(p1.y == p2.y){
+
                     s = new Sprite(TextureManager.get("cableHorizontal"));
                     s.setPosition(p1.x,p1.y);
                     s.setSize(p2.x - p1.x,10);
                     b.setPosition(p2.x,p2.y);
                     b2.setPosition(p1.x,p1.y);
-                    cr  = new Sprite(TextureManager.get("cableEndRight"));
+                    if(!upDown)
+                        cr  = new Sprite(TextureManager.get("cableEndRight"));
+                    else
+                        cr = new Sprite(TextureManager.get("cableEndLeft"));
                     cr.setPosition(p1.x+40,p1.y);
                 }
                 else{
@@ -88,14 +94,19 @@ public class VisualConnection {
                     if(p1.y > p2.y){
                         s.setPosition(p2.x,p2.y);
                         s.setSize(10,p1.y-p2.y);
-
-                        cr  = new Sprite(TextureManager.get("cableEndBot"));
+                        if(!upDown)
+                            cr  = new Sprite(TextureManager.get("cableEndBot"));
+                        else
+                            cr = new Sprite(TextureManager.get("cableEndTop"));
                         cr.setPosition(p1.x,p1.y);
                     }
                     else{
                         s.setPosition(p1.x,p1.y);
                         s.setSize(10,p2.y - p1.y);
-                        cr  = new Sprite(TextureManager.get("cableEndTop"));
+                        if(!upDown)
+                            cr  = new Sprite(TextureManager.get("cableEndTop"));
+                        else
+                            cr  = new Sprite(TextureManager.get("cableEndBot"));
                         cr.setPosition(p1.x,p1.y);
                     }
                 }
