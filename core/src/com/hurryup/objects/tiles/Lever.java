@@ -70,7 +70,7 @@ public class Lever extends LogicTile {
 
             GameClient.sendMessage(serialize(true));
         }
-        else if(state == 2 && connection[connectionValue] != null){
+        else if(state == 2 && connection[0] != null){
             connection[0].activate(connectionValue);
             state = 3;
         }
@@ -86,7 +86,7 @@ public class Lever extends LogicTile {
 
             GameClient.sendMessage(serialize(false));
         }
-        else if(state == 2 && connection[connectionValue] != null){
+        else if(state == 2 && connection[0] != null){
             connection[0].deactivate(connectionValue);
             state = 0;
         }

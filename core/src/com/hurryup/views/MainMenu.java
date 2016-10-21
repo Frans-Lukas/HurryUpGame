@@ -96,7 +96,7 @@ public class MainMenu implements IView {
                 } catch(Exception e){
                     hurryupGame.startClient(ipAddress,1337);
                 }
-                hurryupGame.pushView(new TestLevel("level1.xml"));
+                hurryupGame.pushView(new TestLevel("lobbyLevel.xml"));
             }
         });
 
@@ -116,7 +116,7 @@ public class MainMenu implements IView {
                 } catch(Exception e){
                     hurryupGame.startServer(1337);
                 }
-                hurryupGame.pushView(new TestLevel("level1.xml"));
+                hurryupGame.pushView(new TestLevel("lobbyLevel.xml"));
             }
         });
 
