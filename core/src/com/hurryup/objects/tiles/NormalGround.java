@@ -16,7 +16,6 @@ import static com.hurryup.game.hurryupGame.camera;
  */
 public class NormalGround extends Tile {
 
-    BitmapFont font = new BitmapFont();
     private Sprite tileSprite;
 
     @Override
@@ -31,8 +30,6 @@ public class NormalGround extends Tile {
 
     public NormalGround(Vector2 position) {
         super(position);
-        font.setColor(Color.RED);
-
         textureRegion = TextureManager.get("normalGround");
         tileSprite = new Sprite(textureRegion);
         tileSprite.setPosition(position.x,position.y);
