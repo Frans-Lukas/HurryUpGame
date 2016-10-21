@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hurryupgame>
+  <map>1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+1,21,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,22,1
+1,0,0,1,0,0,0,0,0,4:3,0,0,0,0,0,0,1,0,0,1
+1,7:2,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,7:1,1
+1,1,10:4,1,0,0,0,0,0,9:5,0,0,0,0,0,0,1,10:3,1,1
+1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+1,0,0,0,0,0,0,0,0,11:3,0,0,0,0,0,0,0,0,0,1
+1,0,0,0,0,0,0,1,1,5:2,1,1,0,0,0,0,0,0,0,1
+1,0,0,0,0,0,1,1,1,2:1,1,1,1,0,0,0,0,0,0,1
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+</map>
+  <logic>
+    <connection connectionvalue="0" from="2" to="3" />
+    <connection connectionvalue="0" from="1" to="3" />
+    <connection connectionvalue="0" from="3" to="5" />
+    <connection connectionvalue="0" from="5" to="4" />
+    <connection connectionvalue="0" from="5" to="3" />
+    <connection connectionvalue="0" from="1" to="2" />
+    <connection connectionvalue="0" from="2" to="3" />
+    <nextLevel level="level2.xml" />
+  </logic>
+</hurryupgame>
