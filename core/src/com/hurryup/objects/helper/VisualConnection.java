@@ -70,6 +70,8 @@ public class VisualConnection {
                 b2.setSize(10,10);
                 b.setColor(pair.getCableColor());
                 b2.setColor(pair.getCableColor());
+                Sprite cr;
+
 
                 //if x
                 if(p1.y == p2.y){
@@ -78,22 +80,34 @@ public class VisualConnection {
                     s.setSize(p2.x - p1.x,10);
                     b.setPosition(p2.x,p2.y);
                     b2.setPosition(p1.x,p1.y);
+                    cr  = new Sprite(TextureManager.get("cableEndRight"));
+                    cr.setPosition(p1.x+40,p1.y);
                 }
                 else{
                     s = new Sprite(TextureManager.get("cableVertical"));
                     if(p1.y > p2.y){
                         s.setPosition(p2.x,p2.y);
                         s.setSize(10,p1.y-p2.y);
+
+                        cr  = new Sprite(TextureManager.get("cableEndBot"));
+                        cr.setPosition(p1.x,p1.y);
                     }
                     else{
                         s.setPosition(p1.x,p1.y);
                         s.setSize(10,p2.y - p1.y);
+                        cr  = new Sprite(TextureManager.get("cableEndTop"));
+                        cr.setPosition(p1.x,p1.y);
                     }
                 }
                 s.setColor(pair.getCableColor().r,pair.getCableColor().g,pair.getCableColor().b,0.9f);
+
+                cr.setSize(10,10);
+                cr.setColor(pair.getCableColor());
+
                 sprites.add(s);
                 sprites.add(b);
                 sprites.add(b2);
+                sprites.add(cr);
 
             }
         }
@@ -128,8 +142,8 @@ Sprite xSprite = new Sprite(TextureManager.get("cableVertical"));
         if(tempConnectionPoints.size() > 3 && from.x == tempConnectionPoints.get(tempConnectionPoints.size()-2).x && from.y == tempConnectionPoints.get(tempConnectionPoints.size()-2).y){
             tempConnectionPoints.remove(tempConnectionPoints.size()-1);
             //tempConnectionPoints.remove(tempConnectionPoints.size()-1);
-            tempConnectionPoints.add(new Vector2(from.x,from.y + 128));
-            connect(new Vector2(from.x,from.y + 128),to,false);
+            tempConnectionPoints.add(new Vector2(from.x,from.y + 64));
+            connect(new Vector2(from.x,from.y + 64),to,false);
             return;
         }
 
