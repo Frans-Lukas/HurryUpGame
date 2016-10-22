@@ -54,7 +54,7 @@ public class VisualConnection {
                 //connect(to, from, false);
                 tempConnectionPoints.add(new Vector2(to.x,to.y));
                 if(Math.abs(to.x - from.x) >= 64)
-                    connect(new Vector2(to.x + 64,to.y), from, false);
+                    connect(new Vector2(to.x + 96,to.y), from, false);
                 else if(to.y < from.y)
                     connect(new Vector2(to.x,to.y + 64), from, true);
                 else
